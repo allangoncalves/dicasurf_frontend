@@ -4,7 +4,10 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
-Vue.use(Buefy);
+Vue.use(Buefy, {
+  defaultIconPack: 'fas',
+  defaultContainerElement: '#content',
+});
 
 Vue.config.productionTip = false;
 

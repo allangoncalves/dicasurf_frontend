@@ -1,5 +1,41 @@
 <template>
-  <nav class="navbar has-background-black has-text-light">
+  <div class="has-background-black navbar">
+    <b-navbar type="is-black" class="container has-background-black">
+      <template slot="brand">
+        <b-navbar-item href="/">
+          <img
+            src=""
+            alt="DicaSurf"
+          />
+        </b-navbar-item>
+      </template>
+      <template slot="end">
+        <b-navbar-item class="is-tab" href="#">PREVISÃO</b-navbar-item>
+        <b-navbar-item class="is-tab" href="#">PICOS</b-navbar-item>
+        <b-navbar-item class="is-tab" href="#">NEWS</b-navbar-item>
+        <b-navbar-item tag="div">
+          <div class="buttons">
+            <a class="button is-primary">
+              <strong>Sign up</strong>
+            </a>
+            <a class="button is-light">Log in</a>
+          </div>
+        </b-navbar-item>
+      </template>
+
+      <!-- <template slot="end">
+        <b-navbar-item tag="div">
+          <div class="buttons">
+            <a class="button is-primary">
+              <strong>Sign up</strong>
+            </a>
+            <a class="button is-light">Log in</a>
+          </div>
+        </b-navbar-item>
+      </template> -->
+    </b-navbar>
+  </div>
+  <!-- <nav class="navbar has-background-black has-text-light">
     <div class="container">
       <div class="navbar-brand">
         <a class="navbar-item">
@@ -27,7 +63,7 @@
         </div>
       </div>
     </div>
-  </nav>
+  </nav>-->
 </template>
 
 <script>
