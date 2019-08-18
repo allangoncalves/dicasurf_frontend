@@ -35,81 +35,85 @@
         </div>
       </div>
     </section>
-    <section class="container">
-      <div class="tile is-ancestor">
-        <div class="tile is-vertical is-parent">
-          <div class="tile is-child">
-            <div
-              class="columns is-vcentered is-centered is-mobile has-background-primary box is-paddingless"
-            >
-              <div class="column is-7 has-text-secondary has-text-weight-bold">
-                <p class>NOSSOS PICOS</p>
-              </div>
-              <div class="column is-5">
-                <b-field>
-                  <b-select
-                    class="is-pulled-right select"
-                    placeholder="Selecione um pico"
-                    icon="search"
-                  ></b-select>
-                </b-field>
-              </div>
-            </div>
-          </div>
-          <div class="tile is-child">
-            <div class="columns">
-              <div class="column is-half">
-                <div class="columns is-vcentered">
-                  <div class="column has-text-centered-mobile is-2">
-                    <b-icon type="is-danger" icon="map-marker-alt" size="is-large"></b-icon>
-                  </div>
-                  <div
-                    class="column has-text-centered-mobile is-1 has-text-primary has-text-weight-bold"
-                  >
-                    <p>Como Chegar</p>
-                  </div>
-                </div>
-              </div>
-              <div class="column is-half">
-                <div class="columns is-vcentered">
-                  <div class="column has-text-centered-mobile is-2">
-                    <b-icon type="is-success" icon="globe" size="is-large"></b-icon>
-                  </div>
-                  <div
-                    class="column is-1 has-text-primary has-text-centered-mobile has-text-weight-bold"
-                  >
-                    <p>Passeio 360º</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="tile is-child">
-            <p class="title">MADEIRO</p>
-            <p class="subtitle">Tibau do Sul - RN</p>
-          </div>
 
-          <div class="tile is-child is-vcentered">
-            <div class="has-background-secondary" style="max-height:0.7em;height:0.2em"></div>
+    <section class="section">
+      <div class="container">
+        <div class="tile is-ancestor">
+          <div class="tile is-vertical is-parent">
+            <div class="tile is-child">
+              <div
+                class="columns is-vcentered is-centered is-mobile has-background-primary box is-paddingless"
+              >
+                <div class="column is-7 has-text-secondary has-text-weight-bold">
+                  <p class>NOSSOS PICOS</p>
+                </div>
+                <div class="column is-5">
+                  <b-field>
+                    <b-select
+                      class="is-pulled-right select"
+                      placeholder="Selecione um pico"
+                      icon="search"
+                    ></b-select>
+                  </b-field>
+                </div>
+              </div>
+            </div>
+            <div class="tile is-child">
+              <div class="columns">
+                <div class="column is-half">
+                  <div class="columns is-vcentered">
+                    <div class="column has-text-centered-mobile is-2">
+                      <b-icon type="is-danger" icon="map-marker-alt" size="is-large"></b-icon>
+                    </div>
+                    <div
+                      class="column has-text-centered-mobile is-1 has-text-primary has-text-weight-bold"
+                    >
+                      <p>Como Chegar</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="column is-half">
+                  <div class="columns is-vcentered">
+                    <div class="column has-text-centered-mobile is-2">
+                      <b-icon type="is-success" icon="globe" size="is-large"></b-icon>
+                    </div>
+                    <div
+                      class="column is-1 has-text-primary has-text-centered-mobile has-text-weight-bold"
+                    >
+                      <p>Passeio 360º</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tile is-child">
+              <p class="title">MADEIRO</p>
+              <p class="subtitle">Tibau do Sul - RN</p>
+            </div>
+
+            <div class="tile is-child is-vcentered">
+              <div class="has-background-secondary" style="max-height:0.7em;height:0.2em"></div>
+            </div>
           </div>
-        </div>
-        <div class="tile is-parent">
-          <div class="tile is-child">
-            <div class="columns is-paddingless is-vcentered is-centered is-mobile box">
-              <!-- <figure class="image">
+          <div class="tile is-parent">
+            <div class="tile is-child">
+              <div class="columns is-paddingless is-vcentered is-centered is-mobile box">
+                <!-- <figure class="image">
                 
-              </figure>-->
+                </figure>-->
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
-    <section class="hero">
+
+    <section class="section">
       <div class="container">
-        <div class="tile is-ancestor">
+        <div class="tile is-ancestor section-bottom">
           <div class="tile is-5 is-vertical is-parent">
             <div class="tile is-child">
-              <div class="data-category">
+              <div>
                 <h5 class="title is-4 is-marginless has-text-primary">Acesso</h5>
                 <p>
                   Acesso de carro:
@@ -192,7 +196,7 @@
               </div>
               <div class="data-category">
                 <h5 class="title is-4 is-marginless has-text-danger">Perigos</h5>
-                <p> lorem ipsum </p>
+                <p>lorem ipsum</p>
               </div>
             </div>
           </div>
@@ -207,77 +211,68 @@
         </div>
       </div>
     </section>
-    <section class="hero has-background-tertiary is-small">
-      <div class="hero-body">
-        <div class="container">
-          <div class="columns">
-            <div class="column"></div>
-            <div class="column">
-              <p class="title is-5 has-text-primary">Sobre</p>
-              <div
-                class="subtitle is-5 has-background-primary is-paddingless"
-                style="max-height:0.2em;height:0.2em"
+
+    <section class="section has-background-tertiary">
+      <div class="container">
+        <div class="columns section-bottom section-top">
+          <div class="column"></div>
+          <div class="column">
+            <p class="title is-5 has-text-primary">Sobre</p>
+            <div
+              class="subtitle is-5 has-background-primary is-paddingless"
+              style="max-height:0.2em;height:0.2em"
+            />
+            <p class="has-text-white">A Dica SURF</p>
+            <p class="has-text-white">Dicas</p>
+            <p class="has-text-white">Picos</p>
+            <p class="has-text-white">Life Style</p>
+          </div>
+          <div class="column">
+            <p class="title is-5 has-text-primary">Mídia</p>
+            <div
+              class="subtitle is-5 has-background-primary is-paddingless"
+              style="max-height:0.2em;height:0.2em"
+            />
+            <p class="has-text-white">Eventos</p>
+            <p class="has-text-white">Vídeos</p>
+            <p class="has-text-white">Download</p>
+            <p class="has-text-white">Life Style</p>
+          </div>
+          <div class="column">
+            <p class="title is-5 has-text-primary">Contato</p>
+            <div
+              class="subtitle is-5 has-background-primary is-paddingless"
+              style="max-height:0.2em;height:0.2em"
+            />
+            <p class="has-text-white">Fale conosco</p>
+            <p class="has-text-white">Trabalhe conosco</p>
+          </div>
+          <div class="column">
+            <p class="title is-5 has-text-primary">Redes Sociais</p>
+            <div
+              class="subtitle is-5 has-background-primary is-paddingless"
+              style="max-height:0.2em;height:0.2em"
+            />
+            <div>
+              <b-button
+                style="margin-right:0.6rem;"
+                type="is-white has-text-secondary"
+                icon-right="instagram"
+                icon-pack="fab"
               />
-              <p class="has-text-white">A Dica SURF</p>
-              <p class="has-text-white">Dicas</p>
-              <p class="has-text-white">Picos</p>
-              <p class="has-text-white">Life Style</p>
-            </div>
-            <div class="column">
-              <p class="title is-5 has-text-primary">Mídia</p>
-              <div
-                class="subtitle is-5 has-background-primary is-paddingless"
-                style="max-height:0.2em;height:0.2em"
+              <b-button
+                style="margin-right:0.6rem;"
+                type="is-white has-text-secondary"
+                icon-right="facebook"
+                icon-pack="fab"
               />
-              <p class="has-text-white">Eventos</p>
-              <p class="has-text-white">Vídeos</p>
-              <p class="has-text-white">Download</p>
-              <p class="has-text-white">Life Style</p>
-            </div>
-            <div class="column">
-              <p class="title is-5 has-text-primary">Contato</p>
-              <div
-                class="subtitle is-5 has-background-primary is-paddingless"
-                style="max-height:0.2em;height:0.2em"
-              />
-              <p class="has-text-white">Fale conosco</p>
-              <p class="has-text-white">Trabalhe conosco</p>
-            </div>
-            <div class="column">
-              <p class="title is-5 has-text-primary">Redes Sociais</p>
-              <div
-                class="subtitle is-5 has-background-primary is-paddingless"
-                style="max-height:0.2em;height:0.2em"
-              />
-              <div class="columns">
-                <div class="column is-2">
-                  <b-button
-                    type="is-white has-text-secondary"
-                    icon-right="instagram"
-                    icon-pack="fab"
-                  />
-                </div>
-                <div class="column is-2">
-                  <b-button
-                    type="is-white has-text-secondary"
-                    icon-right="facebook"
-                    icon-pack="fab"
-                  />
-                </div>
-                <div class="column is-2">
-                  <b-button
-                    type="is-white has-text-secondary"
-                    icon-right="whatsapp"
-                    icon-pack="fab"
-                  />
-                </div>
-              </div>
+              <b-button type="is-white has-text-secondary" icon-right="whatsapp" icon-pack="fab" />
             </div>
           </div>
         </div>
       </div>
     </section>
-
+    
     <Footer />
   </div>
 </template>
@@ -286,6 +281,7 @@
 <script>
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
+
 export default {
   components: {
     Footer,
@@ -362,6 +358,8 @@ $tertiary: #343434;
 $tertiary-invert: findColorInvert($tertiary);
 $footer-background-color: $secondary;
 
+$section-padding: 0rem 1.5rem 0rem 1.5rem;
+
 // Setup $colors to use as bulma classes (e.g. 'is-twitter')
 $colors: (
   "white": (
@@ -422,7 +420,15 @@ $footer-padding: 1.5rem;
   font-weight: bolder;
 }
 
-.data-category{
+.section-top {
+  padding-top: 3rem;
+}
+
+.section-bottom {
+  padding-bottom: 3rem;
+}
+
+.data-category {
   margin-top: 1.2rem;
 }
 
