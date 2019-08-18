@@ -1,6 +1,6 @@
 <template>
   <div class="has-background-black navbar">
-    <b-navbar type="is-black" class="container has-background-black">
+    <b-navbar type="is-black" class="container">
       <template slot="brand">
         <b-navbar-item href="/">
           <img
