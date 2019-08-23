@@ -44,16 +44,18 @@
               <div
                 class="columns is-vcentered is-centered is-mobile has-background-primary box is-paddingless"
               >
-                <div class="column is-7 has-text-secondary has-text-weight-bold">
+                <div class="column is-4 has-text-secondary has-text-weight-bold">
                   <p class>NOSSOS PICOS</p>
                 </div>
-                <div class="column is-5">
+                <div class="column is-8">
                   <b-field>
                     <b-select
                       class="is-pulled-right select"
                       placeholder="Selecione um pico"
                       icon="search"
-                    ></b-select>
+                    >
+                      <option v-for="option in data" :value="option" :key="option">{{ option }}</option>
+                    </b-select>
                   </b-field>
                 </div>
               </div>
@@ -62,11 +64,11 @@
               <div class="columns">
                 <div class="column is-half">
                   <div class="columns is-vcentered">
-                    <div class="column has-text-centered-mobile is-2">
+                    <div class="column has-text-centered-mobile is-3">
                       <b-icon type="is-danger" icon="map-marker-alt" size="is-large"></b-icon>
                     </div>
                     <div
-                      class="column has-text-centered-mobile is-1 has-text-primary has-text-weight-bold"
+                      class="column is-paddingless has-text-centered-mobile is-1 has-text-primary has-text-weight-bold"
                     >
                       <p>Como Chegar</p>
                     </div>
@@ -74,11 +76,11 @@
                 </div>
                 <div class="column is-half">
                   <div class="columns is-vcentered">
-                    <div class="column has-text-centered-mobile is-2">
+                    <div class="column has-text-centered-mobile is-3">
                       <b-icon type="is-success" icon="globe" size="is-large"></b-icon>
                     </div>
                     <div
-                      class="column is-1 has-text-primary has-text-centered-mobile has-text-weight-bold"
+                      class="column is-paddingless is-1 has-text-primary has-text-centered-mobile has-text-weight-bold"
                     >
                       <p>Passeio 360º</p>
                     </div>
@@ -97,10 +99,8 @@
           </div>
           <div class="tile is-parent">
             <div class="tile is-child">
-              <div class="columns is-paddingless is-vcentered is-centered is-mobile box">
-                <!-- <figure class="image">
-                
-                </figure>-->
+              <div class="is-paddingless box">
+                <forecast-hud/>
               </div>
             </div>
           </div>
@@ -215,7 +215,9 @@
     <section class="section has-background-tertiary">
       <div class="container">
         <div class="columns section-bottom section-top">
-          <div class="column"></div>
+          <div class="column is-2 has-text-centered-mobile">
+            <img class="vertical-logo" :src="verticalLogo" alt="Dica Surf" />
+          </div>
           <div class="column">
             <p class="title is-5 has-text-primary">Sobre</p>
             <div
@@ -272,7 +274,7 @@
         </div>
       </div>
     </section>
-    
+
     <Footer />
   </div>
 </template>
@@ -281,11 +283,13 @@
 <script>
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
+import ForecastHud from "./components/ForecastHud";
 
 export default {
   components: {
     Footer,
-    Navbar
+    Navbar,
+    ForecastHud
   },
   data() {
     return {
@@ -293,6 +297,7 @@ export default {
       isSpecial: true,
       isPublic: true,
       waveQuality: 3,
+      verticalLogo: require("@/assets/images/logo_vertical_with_name.png"),
       data: [
         "Angular",
         "Angular 2",
@@ -416,6 +421,15 @@ $footer-padding: 1.5rem;
 </style>
 
 <style lang="scss" scoped>
+.vertical-logo {
+  width: 130px;
+  height: 174.5px;
+}
+
+.info-icons{
+  padding-right:0;
+}
+
 .search {
   font-weight: bolder;
 }
