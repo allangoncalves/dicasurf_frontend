@@ -47,16 +47,16 @@
               <b-button
                 style="margin-right:0.6rem;"
                 type="is-white has-text-secondary"
-                icon-right="instagram"
+                icon-right="fa-instagram"
                 icon-pack="fab"
               />
               <b-button
                 style="margin-right:0.6rem;"
                 type="is-white has-text-secondary"
-                icon-right="facebook"
+                icon-right="fa-facebook-f"
                 icon-pack="fab"
               />
-              <b-button type="is-white has-text-secondary" icon-right="whatsapp" icon-pack="fab" />
+              <b-button type="is-white has-text-secondary" icon-right="fa-whatsapp" icon-pack="fab" />
             </div>
           </div>
         </div>
