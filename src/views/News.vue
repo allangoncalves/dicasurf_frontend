@@ -55,11 +55,46 @@
               </div>
             </div>
           </div>
+          <div class="tile is-ancestor">
+            <div class="tile is-parent">
+              <div class="tile is-child is-3">
+                <figure class="image is-128x128">
+                  <img src alt />
+                </figure>
+              </div>
+              <div class="tile is-child">
+                <div class="tile is-parent is-paddingless">
+                  <div class="tile is-child is-4">
+                    <p class="title is-4">Ele apredeu o valor da amizade no surf</p>
+                  </div>
+                  <div class="tile is-child">
+                    <p class="subtitle is-pulled-right" style="vertical-align:bottom">18 de Março de 2019</p>
+                  </div>
+                </div>
+                <div class="tile is-parent is-paddingless">
+                  <div
+                    class="tile is-child has-background-primary is-12"
+                    style="max-height:0.2em;height:0.2em"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      posts: [{}]
+    };
+  }
+};
+</script>
 
 <style lang="scss" scoped>
 .hero-img {
