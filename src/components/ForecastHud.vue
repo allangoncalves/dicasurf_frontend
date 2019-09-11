@@ -3,7 +3,7 @@
     <div class="column is-full indicator">
       <indicator/>
     </div>
-    <div class="column">
+    <div class="column is-paddingless">
       <div class="columns is-gapless is-mobile is-multiline has-text-centered">
         <div class="column is-full is-horizontal-center is-flex">
         <figure class="image is-24x24 ">
@@ -16,7 +16,7 @@
         <!-- <div class="column is-full">DFF</div> -->
       </div>
     </div>
-    <div class="column">
+    <div class="column is-paddingless">
       <div class="columns is-gapless is-mobile is-multiline has-text-centered">
         <div class="column is-full is-horizontal-center is-flex">
           <figure class="image is-24x24">
@@ -28,7 +28,7 @@
         <!-- <div class="column is-full">DFF</div> -->
       </div>
     </div>
-    <div class="column">
+    <div class="column is-paddingless">
       <div class="columns is-gapless is-mobile is-multiline has-text-centered">
         <div class="column is-full is-horizontal-center is-flex">
           <figure class="image is-24x24">
@@ -40,7 +40,7 @@
         <!-- <div class="column is-full">DFF</div> -->
       </div>
     </div>
-    <div class="column">
+    <div class="column is-paddingless">
       <div class="columns is-gapless is-mobile is-multiline has-text-centered">
         <div class="column is-full is-horizontal-center is-flex">
           <figure class="image is-24x24">
@@ -52,7 +52,7 @@
         <!-- <div class="column is-full">DFF</div> -->
       </div>
     </div>
-    <div class="column">
+    <div class="column is-paddingless">
       <div class="columns is-gapless is-mobile is-multiline has-text-centered">
         <div class="column is-full is-horizontal-center is-flex">
           <figure class="image is-24x24">
