@@ -3,6 +3,7 @@ import Router from "vue-router";
 import Spot from "@/views/Spot";
 import Home from "@/views/Home";
 import News from "@/views/News";
+import FullForecast from "@/views/FullForecast";
 
 Vue.use(Router);
 
@@ -29,6 +30,11 @@ export default new Router({
       path: "/news",
       name: "News",
       component: News
-    }
+    },
+    {
+      path: "/previsao",
+      name: "Full Forecast",
+      component: FullForecast
+    },
   ]
 });

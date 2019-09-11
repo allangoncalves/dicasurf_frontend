@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar wrapper-class="container navbar has-background-tertiary" type="is-tertiary">
+    <b-navbar wrapper-class="container transparent" type="is-tertiary">
       <template slot="brand">
         <b-navbar-item tag="router-link" to="/">
           <img :src="mainLogo" alt="DicaSurf" />
@@ -14,22 +14,35 @@
           :to="route.name"
         >{{ route.text }}</b-navbar-item>
         <b-navbar-item tag="div">
-          <div class="columns is-multiline has-text-centered has-background-black box is-paddingless">
+          <div
+            class="columns is-multiline has-text-centered has-background-black box is-paddingless"
+          >
             <div class="column is-full">
               <b-icon icon="user-circle" type="is-primary" size="is-medium" pack="fas"></b-icon>
             </div>
             <div class="column is-full" style="padding-top:0rem">
-              <b-button size="is-small" tag="router-link" icon-right="lock" to="/login" type="is-primary" outlined>Login</b-button>
+              <b-button
+                size="is-small"
+                icon-right="lock"
+                type="is-primary"
+                outlined
+                @click="openModal"
+              >Login</b-button>
             </div>
           </div>
         </b-navbar-item>
       </template>
     </b-navbar>
+    <login-modal :isOpen.sync="modalOpen" @close="modalOpen = false"/>
   </div>
 </template>
 
 <script>
+import LoginModal from "@/components/LoginModal";
 export default {
+  components: {
+    LoginModal
+  },
   data() {
     return {
       mainLogo: require("@/assets/images/logo_nome_horizontal.png"),
@@ -37,14 +50,21 @@ export default {
         { text: "Previsão", name: "/previsao" },
         { text: "Picos", name: "/picos" },
         { text: "News", name: "/news" }
-      ]
+      ],
+      modalOpen: false
     };
+  },
+  methods: {
+    openModal(){
+      console.log('aaa');
+      this.modalOpen = true;      
+    }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.navbar {
-  opacity: 0.9;
+.transparent {
+  opacity: 0.5;
 }
 </style>

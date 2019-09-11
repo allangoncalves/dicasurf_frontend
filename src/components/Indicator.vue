@@ -24,7 +24,7 @@
 }
 .base{
     width: auto;
-    height: 300px;
+    height: 350px;
     border-radius: 3% 3% 20% 20%;
 }
 </style>

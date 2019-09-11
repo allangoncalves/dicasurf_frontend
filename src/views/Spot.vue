@@ -33,7 +33,7 @@
     <section class="section">
       <div class="container">
         <div class="tile is-ancestor">
-          <div class="tile is-vertical is-parent is-8">
+          <div class="tile is-vertical is-parent is-7" style="padding-bottom:0px">
             <div class="tile is-child">
               <div
                 class="columns is-vcentered is-centered is-mobile has-background-primary box is-paddingless"
@@ -86,12 +86,12 @@
               <p class="title">MADEIRO</p>
               <p class="subtitle">Tibau do Sul - RN</p>
               <div
-                class="has-background-secondary is-marginless"
+                class="has-background-secondary"
                 style="max-height:0.7em;height:0.2em"
               ></div>
             </div>
           </div>
-          <div class="tile is-parent is-4">
+          <div class="tile is-parent is-5 is-horizontal-center is-flex">
             <div class="tile is-child">
               <div class="is-paddingless">
                 <forecast-hud />
@@ -102,126 +102,177 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" style="margin-top:1rem">
       <div class="container">
-        <div class="tile is-ancestor section-bottom">
-          <div class="tile is-vertical is-parent">
-            <div class="tile is-child">
-              <div>
-                <h5 class="title is-4 is-marginless has-text-primary">Acesso</h5>
-                <p>
-                  Acesso de carro:
-                  <span
-                    :class="{'is-success': isCar, 'is-danger':!isCar}"
-                  >{{ access }}</span>
-                </p>
-                <p>
-                  Acesso especial:
-                  <span
-                    :class="{'is-success': isSpecial, 'is-danger':!isSpecial}"
-                  >{{ specialAccess }}</span>
-                </p>
-                <p>
-                  Tipo de praia:
-                  <span
-                    :class="{'is-success': isPublic, 'is-danger':!isPublic}"
-                  >{{ beachType }}</span>
-                </p>
-                <p>
-                  Tipo de acesso:
-                  <span class="has-text-weight-bold">{{ accessType }}</span>
-                </p>
-              </div>
-              <div class="data-category">
-                <h5 class="title is-4 is-marginless has-text-primary">Características</h5>
-                <p>
-                  Fundo:
-                  <span>{{ }}</span>
-                </p>
-                <p>
-                  Melhor época do ano:
-                  <span>{{ }}</span>
-                </p>
-                <p>
-                  Melhor Movimento da Maré:
-                  <span>{{ }}</span>
-                </p>
-                <p>
-                  Crowd da semana:
-                  <span>{{ }}</span>
-                </p>
-                <p>
-                  Crowd do final de semana:
-                  <span>{{ }}</span>
-                </p>
-              </div>
-              <div class="data-category">
-                <h5 class="title is-4 is-marginless has-text-primary">Ondas</h5>
-                <p>
-                  Qualidade das ondas:
-                  <span>
-                    <b-icon type="is-secondary" :pack="fullStar(1)" icon="star" size="is-small" />
-                    <b-icon type="is-secondary" :pack="fullStar(2)" icon="star" size="is-small" />
-                    <b-icon type="is-secondary" :pack="fullStar(3)" icon="star" size="is-small" />
-                    <b-icon type="is-secondary" :pack="fullStar(4)" icon="star" size="is-small" />
-                    <b-icon type="is-secondary" :pack="fullStar(5)" icon="star" size="is-small" />
-                  </span>
-                </p>
-                <p>
-                  Direção:
-                  <span>{{ }}</span>
-                </p>
-                <p>
-                  Nivel do surf:
-                  <span>{{ }}</span>
-                </p>
-                <p>
-                  Comprimento das ondas:
-                  <span>{{ }}</span>
-                </p>
-                <p>
-                  Força:
-                  <span>{{ }}</span>
-                </p>
-                <p>
-                  Frequência das ondas:
-                  <span>{{ }}</span>
-                </p>
-              </div>
-              <div class="data-category">
-                <h5 class="title is-4 is-marginless has-text-danger">Perigos</h5>
-                <p>lorem ipsum</p>
-              </div>
-            </div>
-          </div>
-          <div class="tile is-parent">
-            <div class="tile is-child">
-              <img class="main-img" src="https://bulma.io/images/placeholders/128x128.png" alt />
-            </div>
-          </div>
-        </div>
-        <div class="tile is-parent">
+        <div class="tile is-parent is-vertical section-bottom">
           <div class="tile is-child">
-            <carousel :per-page="3" :navigationEnabled="true" :paginationEnabled="false">
-              <slide>
-                <div class="has-text-centered">
-                  <img src="https://bulma.io/images/placeholders/128x128.png" />
+            <div class="tile is-ancestor ">
+              <div class="tile is-vertical is-parent">
+                <div class="tile is-child">
+                  <div>
+                    <h5 class="title is-4 is-marginless has-text-primary">Acesso</h5>
+                    <p>
+                      Acesso de carro:
+                      <span
+                        :class="{'is-success': isCar, 'is-danger':!isCar}"
+                      >{{ access }}</span>
+                    </p>
+                    <p>
+                      Acesso especial:
+                      <span
+                        :class="{'is-success': isSpecial, 'is-danger':!isSpecial}"
+                      >{{ specialAccess }}</span>
+                    </p>
+                    <p>
+                      Tipo de praia:
+                      <span
+                        :class="{'is-success': isPublic, 'is-danger':!isPublic}"
+                      >{{ beachType }}</span>
+                    </p>
+                    <p>
+                      Tipo de acesso:
+                      <span class="has-text-weight-bold">{{ accessType }}</span>
+                    </p>
+                  </div>
+                  <div class="data-category">
+                    <h5 class="title is-4 is-marginless has-text-primary">Características</h5>
+                    <p>
+                      Fundo:
+                      <span>{{ }}</span>
+                    </p>
+                    <p>
+                      Melhor época do ano:
+                      <span>{{ }}</span>
+                    </p>
+                    <p>
+                      Melhor Movimento da Maré:
+                      <span>{{ }}</span>
+                    </p>
+                    <p>
+                      Crowd da semana:
+                      <span>{{ }}</span>
+                    </p>
+                    <p>
+                      Crowd do final de semana:
+                      <span>{{ }}</span>
+                    </p>
+                  </div>
+                  <div class="data-category">
+                    <h5 class="title is-4 is-marginless has-text-primary">Ondas</h5>
+                    <p>
+                      Qualidade das ondas:
+                      <span>
+                        <b-icon
+                          type="is-secondary"
+                          :pack="fullStar(1)"
+                          icon="star"
+                          size="is-small"
+                        />
+                        <b-icon
+                          type="is-secondary"
+                          :pack="fullStar(2)"
+                          icon="star"
+                          size="is-small"
+                        />
+                        <b-icon
+                          type="is-secondary"
+                          :pack="fullStar(3)"
+                          icon="star"
+                          size="is-small"
+                        />
+                        <b-icon
+                          type="is-secondary"
+                          :pack="fullStar(4)"
+                          icon="star"
+                          size="is-small"
+                        />
+                        <b-icon
+                          type="is-secondary"
+                          :pack="fullStar(5)"
+                          icon="star"
+                          size="is-small"
+                        />
+                      </span>
+                    </p>
+                    <p>
+                      Direção:
+                      <span>{{ }}</span>
+                    </p>
+                    <p>
+                      Nivel do surf:
+                      <span>{{ }}</span>
+                    </p>
+                    <p>
+                      Comprimento das ondas:
+                      <span>{{ }}</span>
+                    </p>
+                    <p>
+                      Força:
+                      <span>{{ }}</span>
+                    </p>
+                    <p>
+                      Frequência das ondas:
+                      <span>{{ }}</span>
+                    </p>
+                  </div>
+                  <div class="data-category">
+                    <h5 class="title is-4 is-marginless has-text-danger">Perigos</h5>
+                    <p>lorem ipsum</p>
+                  </div>
                 </div>
-              </slide>
-              <slide>
-                <div class="has-text-centered">
+              </div>
+              <div class="tile is-parent">
+                <div class="tile is-child">
+                  <figure class="image is-square">
                   <img src="https://bulma.io/images/placeholders/128x128.png" />
+                  </figure>
                 </div>
-              </slide>
-              <slide>
-                <div class="has-text-centered">
-                  <img src="https://bulma.io/images/placeholders/128x128.png" />
-                </div>
-              </slide>
-              <slide>d</slide>
-              <slide>e</slide>
-              <slide>f</slide>
-            </carousel>
+              </div>
+            </div>
+          </div>
+          <div class="tile is-child">
+            <div class="tile is-parent">
+              <div class="tile is-child">
+                <carousel :per-page="3" :navigationEnabled="true" :paginationEnabled="false">
+                  <slide>
+                    <div class="has-text-centered">
+                      <img src="https://bulma.io/images/placeholders/128x128.png" />
+                      <p class="title is-4">MADEIRO</p>
+                    </div>
+                  </slide>
+                  <slide>
+                    <div class="has-text-centered">
+                      <img src="https://bulma.io/images/placeholders/128x128.png" />
+                      <p class="title is-4">MADEIRO</p>
+                    </div>
+                  </slide>
+                  <slide>
+                    <div class="has-text-centered">
+                      <img src="https://bulma.io/images/placeholders/128x128.png" />
+                      <p class="title is-4">MADEIRO</p>
+                    </div>
+                  </slide>
+<slide>
+                    <div class="has-text-centered">
+                      <img src="https://bulma.io/images/placeholders/128x128.png" />
+                      <p class="title is-4">CACIMBINHAS</p>
+                    </div>
+                  </slide>
+                  <slide>
+                    <div class="has-text-centered">
+                      <img src="https://bulma.io/images/placeholders/128x128.png" />
+                      <p class="title is-4">CACIMBINHAS</p>
+                    </div>
+                  </slide>
+                  <slide>
+                    <div class="has-text-centered">
+                      <img src="https://bulma.io/images/placeholders/128x128.png" />
+                      <p class="title is-4">CACIMBINHAS</p>
+                    </div>
+                  </slide>
+                </carousel>
+              </div>
+            </div>
           </div>
         </div>
       </div>
