@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navbar />
-    <router-view></router-view>
+      <router-view></router-view>
     <Footer />
   </div>
 </template>
@@ -15,12 +15,24 @@ export default {
   components: {
     Footer,
     Navbar
-  },
+  }
 };
 </script>
 
+<style lang="scss" scoped>
+.teste {
+  margin-top: -90px;
+}
+</style>
+
 <style lang="scss">
 @import "~bulma/sass/utilities/_all";
+
+// Disable the widescreen breakpoint
+$widescreen-enabled: false;
+
+// Disable the fullhd breakpoint
+$fullhd-enabled: false;
 
 $primary: #0075bb;
 $primary-invert: #222221;
