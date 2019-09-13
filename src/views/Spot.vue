@@ -94,7 +94,13 @@
           <div class="tile is-parent is-5 is-horizontal-center is-flex">
             <div class="tile is-child">
               <div class="is-paddingless">
-                <forecast-hud />
+                <forecast-hud
+                :waveHeight="waveHeight"
+                :WindGustKmph="WindGustKmph"
+                :waterTemp="waterTemp"
+                :ultraViolet="ultraViolet"
+                :wavePeriods="wavePeriods"
+              />
               </div>
             </div>
           </div>
@@ -237,37 +243,37 @@
                   <slide>
                     <div class="has-text-centered">
                       <img src="https://bulma.io/images/placeholders/128x128.png" />
-                      <p class="title is-4">MADEIRO</p>
+                      <p class="title is-5">MADEIRO</p>
                     </div>
                   </slide>
                   <slide>
                     <div class="has-text-centered">
                       <img src="https://bulma.io/images/placeholders/128x128.png" />
-                      <p class="title is-4">MADEIRO</p>
+                      <p class="title is-5">MADEIRO</p>
                     </div>
                   </slide>
                   <slide>
                     <div class="has-text-centered">
                       <img src="https://bulma.io/images/placeholders/128x128.png" />
-                      <p class="title is-4">MADEIRO</p>
+                      <p class="title is-5">MADEIRO</p>
                     </div>
                   </slide>
 <slide>
                     <div class="has-text-centered">
                       <img src="https://bulma.io/images/placeholders/128x128.png" />
-                      <p class="title is-4">CACIMBINHAS</p>
+                      <p class="title is-5">CACIMBINHAS</p>
                     </div>
                   </slide>
                   <slide>
                     <div class="has-text-centered">
                       <img src="https://bulma.io/images/placeholders/128x128.png" />
-                      <p class="title is-4">CACIMBINHAS</p>
+                      <p class="title is-5">CACIMBINHAS</p>
                     </div>
                   </slide>
                   <slide>
                     <div class="has-text-centered">
                       <img src="https://bulma.io/images/placeholders/128x128.png" />
-                      <p class="title is-4">CACIMBINHAS</p>
+                      <p class="title is-5">CACIMBINHAS</p>
                     </div>
                   </slide>
                 </carousel>
@@ -283,7 +289,9 @@
 <script>
 import { Carousel, Slide } from "vue-carousel";
 import ForecastHud from "@/components/ForecastHud";
+import core from "../mixins/core";
 export default {
+  mixins: [core],
   components: {
     ForecastHud,
     Carousel,
