@@ -1,26 +1,29 @@
 <template>
   <div class="container">
-    <div class="tile is-ancestor is-vertical">
+    <div class="tile is-ancestor is-vertical" v-if="days.length !== 0">
       <div class="tile is-parent">
         <div class="tile is-child is-5">
           <div class="tile is-parent is-vertical">
             <div class="tile is-child has-text-centered">
-              <p class="title">Rio de Janeiro</p>
+              <p class="title">Praia do Madeiro</p>
             </div>
             <div class="tile is-child">
-              <forecast-hud />
+              <forecast-hud
+                :waveHeight="waveHeight"
+                :WindGustKmph="WindGustKmph"
+                :waterTemp="waterTemp"
+              />
             </div>
           </div>
         </div>
         <div class="tile is-child">
           <div class="tile is-parent is-vertical">
-
             <div class="tile is-child">
-                <!-- Day selector -->
+              <!-- Day selector -->
               <div class="columns is-mobile">
                 <div
                   class="column"
-                  v-for="(day, index) in days"
+                  v-for="(day, index) in week"
                   :key="index"
                   @click="changeDay(index)"
                 >
@@ -35,13 +38,13 @@
                       <p
                         class="title is-5"
                         :class="{'has-text-secondary': selectedDay == index, 'has-text-primary': selectedDay != index }"
-                      >{{day.day}}</p>
+                      >{{day.date}}</p>
                     </div>
                     <div class="column is-full">
                       <p
                         class="subtitle"
                         :class="{'has-text-secondary': selectedDay == index, 'has-text-primary': selectedDay != index }"
-                      >{{day.label}}</p>
+                      >{{day.weekDay}}</p>
                     </div>
                   </div>
                 </div>
@@ -49,95 +52,159 @@
             </div>
 
             <div class="tile is-child">
-                <!-- Chart -->
-              <apexchart width="100%" type="bar" :options="options" :series="series"></apexchart>
+              <!-- Chart -->
+              <apexchart width="100%" type="bar" :options="options" :series="heightSeries"></apexchart>
             </div>
           </div>
         </div>
       </div>
-      
-      <div class="tile is-parent">
 
+      <div class="tile is-parent">
         <div class="tile is-child is-5">
-            <!-- Tide -->
-          <div class="columns is-multiline has-text-centered">
-            <div class="column is-full">
+          <!-- Tide -->
+          <div class="tile is-parent is-vertical" style="padding-top:0.32rem">
+            <div class="tile-is-child">
               <div class="columns is-gapless is-mobile">
                 <div class="column">
                   <img src="@/assets/icons/new_wave.svg" alt />
                 </div>
-                <div class="column is-5">
-                  <p class="title is-6">TÁBUA DE MARÉ</p>
+                <div class="column is-6">
+                  <p class="title is-5 has-text-centered">TÁBUA DE MARÉ</p>
                 </div>
                 <div class="column">
                   <img src="@/assets/icons/new_wave.svg" alt />
                 </div>
               </div>
             </div>
-
-            <div class="column is-full">
-                <!-- Chart -->
-              <apexchart width="100%" height="100" type="line" :options="options" :series="series"></apexchart>
+            <div class="tile-is-child">
+              <apexchart
+                width="100%"
+                height="100"
+                type="area"
+                :options="chartOptions"
+                :series="tideSeries"
+              ></apexchart>
             </div>
           </div>
         </div>
 
         <div class="tile is-child">
-          <div class="tile is-parent is-vertical">
-            <div class="tile is-child">
-              <div class="columns is-vcentered">
-                <div class="column is-gapless is-2">
-                  <figure class="image is-24x24">
-                    <img src="@/assets/icons/star.svg" alt />
-                  </figure>
+          <div class="columns">
+            <div class="column is-8">
+              <div class="columns is-multiline">
+                <div class="column is-full">
+                  <div class="columns is-vcentered is-centered is-mobile">
+                    <div class="column is-1 is-flex is-horizontal-end" style="padding-right:0px">
+                      <figure class="image is-24x24">
+                        <img src="@/assets/icons/star.svg" alt />
+                      </figure>
+                    </div>
+                    <div
+                      class="column is-9 has-text-centered"
+                      style="padding-left:0px;padding-right:0px"
+                    >
+                      <p class="title is-5">MELHORES DO DIA</p>
+                    </div>
+                    <div class="column is-1 is-flex is-horizontal-start" style="padding-left:0px">
+                      <figure class="image is-24x24">
+                        <img src="@/assets/icons/star.svg" alt />
+                      </figure>
+                    </div>
+                  </div>
                 </div>
-                <div class="column is-gapless has-text-centered">
-                  <p class="title is-6">MELHORES DO DIA</p>
-                </div>
-                <div class="column is-gapless is-2">
-                  <figure class="image is-24x24">
-                    <img src="@/assets/icons/star.svg" alt />
-                  </figure>
+                <div class="column is-full">
+                  <div class="columns is-mobile">
+                    <div class="column is-flex is-horizontal-center">
+                      <div class="has-text-centered is-flex is-horizontal-center best-secondary">
+                        <div>
+                          <p class>10h30</p>
+                          <p class="subtitle is-4">1.7m</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="column is-flex is-horizontal-center">
+                      <div class="has-text-centered is-flex is-horizontal-center best-primary">
+                        <div>
+                          <p class>10h30</p>
+                          <p class="subtitle is-4">1.7m</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="column is-flex is-horizontal-center">
+                      <div class="has-text-centered is-flex is-horizontal-center best-primary">
+                        <div>
+                          <p class>10h30</p>
+                          <p class="subtitle is-4">1.7m</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="tile is-child"><p>b</p></div>
-          </div>
-          <div class="tile is-child">
-              <p>a</p>
-          </div>
-          <div class="tile is-child">
-            <div class="columns is-multiline">
-              <div
-                class="column is-full is-gapless is-horizontal-center is-flex"
-                style="padding-bottom:0px;"
-              >
-                <figure class="image is-32x32">
-                  <img src="@/assets/icons/dawn.svg" alt />
-                </figure>
-              </div>
-              <div class="column is-full is-gapless is-paddingless has-text-centered">
-                <p class="subtitle">04h52</p>
+
+            <div class="column">
+              <div class="columns is-mobile has-text-centered-mobile">
+                <div class="column">
+                  <div class="tile is-parent is-vertical">
+                    <div class="tile is-child">
+                      <div class="columns is-multiline">
+                        <div
+                          class="column is-full is-gapless is-horizontal-center is-flex"
+                          style="padding-top:0px;padding-bottom:0px;"
+                        >
+                          <figure class="image is-32x32">
+                            <img src="@/assets/icons/dawn.svg" alt />
+                          </figure>
+                        </div>
+                        <div
+                          class="column is-full is-gapless has-text-centered"
+                          style="padding-top:0px;"
+                        >
+                          <p class="subtitle is-6">{{sunrise}}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="tile is-child">
+                      <div class="columns is-multiline">
+                        <div
+                          class="column is-full is-horizontal-center is-flex"
+                          style="padding-bottom:0px;"
+                        >
+                          <figure class="image is-32x32">
+                            <img src="@/assets/icons/twilight.svg" alt />
+                          </figure>
+                        </div>
+                        <div class="column is-full has-text-centered" style="padding-top:0px;">
+                          <p class="subtitle is-6" style="padding-bottom:0px">{{sunset}}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="tile is-parent is-vertical" style="padding-top:0px">
+                    <div class="tile is-child">
+                      <div class="columns is-multiline is-gapless">
+                        <div class="column is-full is-horizontal-center is-flex">
+                          <figure class="image is-32x32">
+                            <img src="@/assets/icons/humidity.svg" alt />
+                          </figure>
+                        </div>
+                        <div class="column is-full has-text-centered">
+                          <p class="subtitle is-6" style="padding-top:0.5rem;">{{humidity}}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="tile is-child is-horizontal-center is-flex">
+                      <div class="comment has-text-centered">
+                        <p style="padding:0.22rem">8</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="tile is-child">
-            <div class="columns is-multiline">
-              <div
-                class="column is-full is-gapless is-horizontal-center is-flex"
-                style="padding-bottom:0px;"
-              >
-                <figure class="image is-32x32">
-                  <img src="@/assets/icons/twilight.svg" alt />
-                </figure>
-              </div>
-              <div class="column is-full is-gapless is-paddingless has-text-centered">
-                <p class="subtitle">17h50</p>
-              </div>
-            </div>
-          </div>
-          <div class="tile is-child">
-            <p>c</p>
           </div>
         </div>
       </div>
@@ -147,21 +214,76 @@
 
 <script>
 import ForecastHud from "../components/ForecastHud";
+import { mapState } from "vuex";
+var moment = require("moment");
+const WEEK_DAYS = ["dom", "seg", "ter", "qua", "qui", "sex", "sab"];
 export default {
   components: {
     ForecastHud
   },
+  computed: {
+    ...mapState(["days", "currentTime"]),
+    tides() {
+      return this.days[this.selectedDay].tides[0].tide_data;
+    },
+    sunrise() {
+      return moment(
+        this.days[this.selectedDay].astronomy[0].sunrise,
+        "hh:mm A"
+      ).format("HH[h]mm");
+    },
+    sunset() {
+      return moment(
+        this.days[this.selectedDay].astronomy[0].sunset,
+        "hh:mm A"
+      ).format("HH[h]mm");
+    },
+    currentData() {
+      return this.findCurrentElementIndex(this.days[this.selectedDay].hourly);
+    },
+    tideHours() {
+      return this.tides.map(tide => {
+        return [new Date(tide.tideDateTime).getTime(), tide.tideHeight_mt];
+      });
+    },
+    waveHeight() {
+      return this.currentData.sigHeight_m;
+    },
+    WindGustKmph() {
+      return this.currentData.WindGustKmph;
+    },
+    waterTemp() {
+      return this.currentData.waterTemp_C;
+    },
+    tideSeries() {
+      return [{ name: "Altura da maré (metros)", data: this.tideHours }];
+    },
+    heightSeries() {
+      return [{ name: "Altura das ondas (metros)", data: this.waveHeights }];
+    },
+    waveHeights() {
+      const date = this.days[this.selectedDay].date;
+      return this.days[this.selectedDay].hourly.map(day => {
+        return [
+          new Date(date).setUTCHours(this.parseHour(day.time, 0, 0, 0)),
+          day.sigHeight_m
+        ];
+      });
+    },
+    humidity() {
+      return `${this.currentData.humidity}%`;
+    },
+    week() {
+      return this.days.map(day => {
+        return {
+          date: moment(day.date).date(),
+          weekDay: WEEK_DAYS[moment(day.date).day()]
+        };
+      });
+    }
+  },
   data() {
     return {
-      days: [
-        { day: 25, label: "dom" },
-        { day: 26, label: "seg" },
-        { day: 27, label: "ter" },
-        { day: 28, label: "qua" },
-        { day: 29, label: "qui" },
-        { day: 30, label: "sex" },
-        { day: 31, label: "sab" }
-      ],
       selectedDay: 1,
       options: {
         grid: {
@@ -174,21 +296,70 @@ export default {
           }
         },
         xaxis: {
-          show: false,
-          categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
+          type: "datetime"
+        },
+        tooltip: {
+          x: {
+            show: false,
+            format: "HH:mm"
+          }
         }
       },
-      series: [
-        {
-          name: "Hour",
-          data: [30, 40, 45, 50, 49, 60, 70, 91]
+      chartOptions: {
+        grid: {
+          show: false
+        },
+        chart: {
+          id: "vuechart-example",
+          toolbar: {
+            show: false
+          },
+          selection: {
+            enabled: false
+          }
+        },
+
+        dataLabels: {
+          enabled: true
+        },
+
+        markers: {
+          size: 0,
+          style: "hollow"
+        },
+        xaxis: {
+          type: "datetime"
+        },
+        tooltip: {
+          x: {
+            show: false,
+            format: "HH:mm"
+          }
+        },
+        fill: {
+          type: "gradient",
+          gradient: {
+            shadeIntensity: 1,
+            opacityFrom: 0.7,
+            opacityTo: 0.9,
+            stops: [0, 100]
+          }
         }
-      ]
+      }
     };
   },
   methods: {
     changeDay(day) {
       this.selectedDay = day;
+    },
+    findCurrentElementIndex(hourly_forecast) {
+      const index = hourly_forecast.findIndex(period => {
+        return this.currentTime.hours() <= this.parseHour(period.time);
+      });
+      return index === -1 ? hourly_forecast[7] : hourly_forecast[index];
+    },
+    parseHour(hour) {
+      return parseInt(hour / 100);
     }
   }
 };
@@ -198,5 +369,34 @@ export default {
 <style lang="scss" scoped>
 .is-horizontal-center {
   justify-content: center;
+}
+.is-horizontal-end {
+  justify-content: flex-end;
+}
+.is-horizontal-start {
+  justify-content: flex-start;
+}
+.comment {
+  background-image: url("..//assets/icons/comments.svg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: inherit;
+  background-size: cover;
+  width: 50px;
+  height: 35px;
+}
+.best-secondary {
+  border: 4px solid #222221;
+  border-radius: 50%;
+  height: 80px;
+  width: 80px;
+  align-items: center;
+}
+.best-primary {
+  border: 4px solid #0075bb;
+  border-radius: 50%;
+  height: 80px;
+  width: 80px;
+  align-items: center;
 }
 </style>
