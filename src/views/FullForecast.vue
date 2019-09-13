@@ -12,6 +12,8 @@
                 :waveHeight="waveHeight"
                 :WindGustKmph="WindGustKmph"
                 :waterTemp="waterTemp"
+                :ultraViolet="ultraViolet"
+                :wavePeriods="wavePeriods"
               />
             </div>
           </div>
@@ -53,7 +55,7 @@
 
             <div class="tile is-child">
               <!-- Chart -->
-              <apexchart width="100%" type="bar" :options="options" :series="heightSeries"></apexchart>
+              <apexchart width="100%" type="bar" :options="barChart.options" :series="waveHeightSeries"></apexchart>
             </div>
           </div>
         </div>
@@ -81,7 +83,7 @@
                 width="100%"
                 height="100"
                 type="area"
-                :options="chartOptions"
+                :options="areaChart.chartOptions"
                 :series="tideSeries"
               ></apexchart>
             </div>
@@ -114,27 +116,18 @@
                 </div>
                 <div class="column is-full">
                   <div class="columns is-mobile">
-                    <div class="column is-flex is-horizontal-center">
-                      <div class="has-text-centered is-flex is-horizontal-center best-secondary">
+                    <div
+                      class="column is-flex is-horizontal-center"
+                      v-for="time in topThree"
+                      :key="time.time"
+                    >
+                      <div
+                        class="has-text-centered is-flex is-horizontal-center"
+                        :class="time.highest ?  'best-secondary':  'best-primary'"
+                      >
                         <div>
-                          <p class>10h30</p>
-                          <p class="subtitle is-4">1.7m</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="column is-flex is-horizontal-center">
-                      <div class="has-text-centered is-flex is-horizontal-center best-primary">
-                        <div>
-                          <p class>10h30</p>
-                          <p class="subtitle is-4">1.7m</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="column is-flex is-horizontal-center">
-                      <div class="has-text-centered is-flex is-horizontal-center best-primary">
-                        <div>
-                          <p class>10h30</p>
-                          <p class="subtitle is-4">1.7m</p>
+                          <p class="title is-5">{{time.time}}</p>
+                          <p class="subtitle is-6">{{`${time.waveHeight}m`}}</p>
                         </div>
                       </div>
                     </div>
@@ -198,7 +191,7 @@
                     </div>
                     <div class="tile is-child is-horizontal-center is-flex">
                       <div class="comment has-text-centered">
-                        <p style="padding:0.22rem">8</p>
+                        <p style="padding:0.22rem"></p>
                       </div>
                     </div>
                   </div>
@@ -214,154 +207,84 @@
 
 <script>
 import ForecastHud from "../components/ForecastHud";
-import { mapState } from "vuex";
-var moment = require("moment");
-const WEEK_DAYS = ["dom", "seg", "ter", "qua", "qui", "sex", "sab"];
+
+import core from "../mixins/core";
+
 export default {
   components: {
     ForecastHud
   },
-  computed: {
-    ...mapState(["days", "currentTime"]),
-    tides() {
-      return this.days[this.selectedDay].tides[0].tide_data;
-    },
-    sunrise() {
-      return moment(
-        this.days[this.selectedDay].astronomy[0].sunrise,
-        "hh:mm A"
-      ).format("HH[h]mm");
-    },
-    sunset() {
-      return moment(
-        this.days[this.selectedDay].astronomy[0].sunset,
-        "hh:mm A"
-      ).format("HH[h]mm");
-    },
-    currentData() {
-      return this.findCurrentElementIndex(this.days[this.selectedDay].hourly);
-    },
-    tideHours() {
-      return this.tides.map(tide => {
-        return [new Date(tide.tideDateTime).getTime(), tide.tideHeight_mt];
-      });
-    },
-    waveHeight() {
-      return this.currentData.sigHeight_m;
-    },
-    WindGustKmph() {
-      return this.currentData.WindGustKmph;
-    },
-    waterTemp() {
-      return this.currentData.waterTemp_C;
-    },
-    tideSeries() {
-      return [{ name: "Altura da maré (metros)", data: this.tideHours }];
-    },
-    heightSeries() {
-      return [{ name: "Altura das ondas (metros)", data: this.waveHeights }];
-    },
-    waveHeights() {
-      const date = this.days[this.selectedDay].date;
-      return this.days[this.selectedDay].hourly.map(day => {
-        return [
-          new Date(date).setUTCHours(this.parseHour(day.time, 0, 0, 0)),
-          day.sigHeight_m
-        ];
-      });
-    },
-    humidity() {
-      return `${this.currentData.humidity}%`;
-    },
-    week() {
-      return this.days.map(day => {
-        return {
-          date: moment(day.date).date(),
-          weekDay: WEEK_DAYS[moment(day.date).day()]
-        };
-      });
-    }
-  },
+  mixins: [core],
+
   data() {
     return {
-      selectedDay: 1,
-      options: {
-        grid: {
-          show: false
-        },
-        chart: {
-          id: "vuechart-example",
-          toolbar: {
+      barChart: {
+        options: {
+          grid: {
             show: false
-          }
-        },
-        xaxis: {
-          type: "datetime"
-        },
-        tooltip: {
-          x: {
-            show: false,
-            format: "HH:mm"
+          },
+          chart: {
+            id: "vuechart-example",
+            toolbar: {
+              show: false
+            }
+          },
+          xaxis: {
+            type: "datetime"
+          },
+          tooltip: {
+            x: {
+              show: true,
+              format: "HH:mm"
+            }
           }
         }
       },
-      chartOptions: {
-        grid: {
-          show: false
-        },
-        chart: {
-          id: "vuechart-example",
-          toolbar: {
+      areaChart: {
+        chartOptions: {
+          grid: {
             show: false
           },
-          selection: {
-            enabled: false
-          }
-        },
+          chart: {
+            id: "vuechart-example",
+            toolbar: {
+              show: false
+            },
+            selection: {
+              enabled: false
+            }
+          },
 
-        dataLabels: {
-          enabled: true
-        },
+          dataLabels: {
+            enabled: true
+          },
 
-        markers: {
-          size: 0,
-          style: "hollow"
-        },
-        xaxis: {
-          type: "datetime"
-        },
-        tooltip: {
-          x: {
-            show: false,
-            format: "HH:mm"
-          }
-        },
-        fill: {
-          type: "gradient",
-          gradient: {
-            shadeIntensity: 1,
-            opacityFrom: 0.7,
-            opacityTo: 0.9,
-            stops: [0, 100]
+          markers: {
+            size: 0,
+            style: "hollow"
+          },
+          xaxis: {
+            type: "datetime"
+          },
+          tooltip: {
+            x: {
+              show: false,
+              format: "HH:mm"
+            }
+          },
+          fill: {
+            type: "gradient",
+            gradient: {
+              shadeIntensity: 1,
+              opacityFrom: 0.7,
+              opacityTo: 0.9,
+              stops: [0, 100]
+            }
           }
         }
       }
     };
   },
-  methods: {
-    changeDay(day) {
-      this.selectedDay = day;
-    },
-    findCurrentElementIndex(hourly_forecast) {
-      const index = hourly_forecast.findIndex(period => {
-        return this.currentTime.hours() <= this.parseHour(period.time);
-      });
-      return index === -1 ? hourly_forecast[7] : hourly_forecast[index];
-    },
-    parseHour(hour) {
-      return parseInt(hour / 100);
-    }
-  }
 };
 </script>
 
@@ -377,7 +300,7 @@ export default {
   justify-content: flex-start;
 }
 .comment {
-  background-image: url("..//assets/icons/comments.svg");
+  background-image: url("../assets/icons/comments.svg");
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: inherit;
@@ -386,14 +309,14 @@ export default {
   height: 35px;
 }
 .best-secondary {
-  border: 4px solid #222221;
+  border: 6px solid #222221;
   border-radius: 50%;
   height: 80px;
   width: 80px;
   align-items: center;
 }
 .best-primary {
-  border: 4px solid #0075bb;
+  border: 6px solid #0075bb;
   border-radius: 50%;
   height: 80px;
   width: 80px;
