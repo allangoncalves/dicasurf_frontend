@@ -3,7 +3,7 @@
     <section class="section has-background-tertiary">
       <div class="container">
         <div class="columns section-bottom section-top">
-          <div class="column is-2 has-text-centered-mobile">
+          <div class="column has-text-centered-mobile">
             <img class="vertical-logo" :src="verticalLogo" alt="Dica Surf" />
           </div>
           <div class="column">
