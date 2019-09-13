@@ -1,7 +1,12 @@
 <template>
   <div class="container">
-    <div class="tile is-ancestor is-vertical" v-if="days.length !== 0">
-      <div class="tile is-parent">
+    <div class="tile is-ancestor is-vertical" >
+      <div class="tile is-parent" style="padding-top:3rem">
+        <div class="tile is-child">
+          <search-bar />
+        </div>
+      </div>
+      <div class="tile is-parent" v-if="days.length !== 0">
         <div class="tile is-child is-5">
           <div class="tile is-parent is-vertical">
             <div class="tile is-child has-text-centered">
@@ -55,7 +60,12 @@
 
             <div class="tile is-child">
               <!-- Chart -->
-              <apexchart width="100%" type="bar" :options="barChart.options" :series="waveHeightSeries"></apexchart>
+              <apexchart
+                width="100%"
+                type="bar"
+                :options="barChart.options"
+                :series="waveHeightSeries"
+              ></apexchart>
             </div>
           </div>
         </div>
@@ -126,7 +136,7 @@
                         :class="time.highest ?  'best-secondary':  'best-primary'"
                       >
                         <div>
-                          <p class="title is-5">{{time.time}}</p>
+                          <p class="title is-6">{{time.time}}</p>
                           <p class="subtitle is-6">{{`${time.waveHeight}m`}}</p>
                         </div>
                       </div>
@@ -207,12 +217,14 @@
 
 <script>
 import ForecastHud from "../components/ForecastHud";
+import SearchBar from "../components/SearchBar";
 
 import core from "../mixins/core";
 
 export default {
   components: {
-    ForecastHud
+    ForecastHud,
+    SearchBar
   },
   mixins: [core],
 
@@ -284,7 +296,7 @@ export default {
         }
       }
     };
-  },
+  }
 };
 </script>
 

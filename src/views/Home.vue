@@ -12,39 +12,16 @@
       <div class="container">
         <div class="columns is-multiline">
           <div class="column is-12">
-            <div
-              class="columns is-vcentered has-background-primary is-marginless box is-paddingless"
-            >
-              <div class="column is-2 has-text-secondary has-text-weight-bold">
-                <p class="title is-4 has-text-centered-mobile">PREVISÃO</p>
-              </div>
-              <div class="column has-text-centered-mobile">
-                <b-field>
-                  <b-select class="select" placeholder="Selecione uma praia" icon="search">
-                    <option v-for="option in data" :value="option" :key="option">{{ option }}</option>
-                  </b-select>
-                </b-field>
-              </div>
-              <div class="column has-text-centered-mobile">
-                <b-field>
-                  <b-select class="select" placeholder="Selecione um pico" icon>
-                    <option v-for="option in data" :value="option" :key="option">{{ option }}</option>
-                  </b-select>
-                </b-field>
-              </div>
-              <div class="column is-4">
-                <p class="has-text-white has-text-centered">Nossa vibe é surf, o resto é onda.</p>
-              </div>
-            </div>
+            <SearchBar/>
           </div>
           <div class="column" style="padding-top:2rem">
             <div class="columns is-vcentered is-centered">
               <div class="column">
-                <router-link to="/picos" tag="div">
+                <router-link to="/previsao" tag="div">
                   <div class="columns is-multiline">
                     <div class="column is-full is-flex is-horizontal-center">
                       <div class="home-icon">
-                        <img src="@/assets/icons/picos.svg" alt />
+                        <img src="@/assets/icons/previsao.svg" alt />
                       </div>
                     </div>
                     <div class="column is-full">
@@ -69,15 +46,15 @@
                 </router-link>
               </div>
               <div class="column">
-                <router-link to="/picos" tag="div">
+                <router-link to="/news" tag="div">
                   <div class="columns is-multiline">
                     <div class="column is-full is-flex is-horizontal-center">
                       <div class="home-icon">
-                        <img src="@/assets/icons/picos.svg" alt />
+                        <img src="@/assets/icons/news.svg" alt />
                       </div>
                     </div>
                     <div class="column is-full">
-                      <p class="title is-4 has-text-centered">Picos</p>
+                      <p class="title is-4 has-text-centered">News</p>
                     </div>
                   </div>
                 </router-link>
@@ -91,8 +68,10 @@
 </template>
 
 <script>
+import SearchBar from "../components/SearchBar";
 export default {
   name: "home",
+  components: {SearchBar},
   data() {
     return {
       slides: [
@@ -171,20 +150,6 @@ export default {
             </div>
           </div>
         </div></section>`
-      ],
-      data: [
-        "Angular",
-        "Angular 2",
-        "Aurelia",
-        "Backbone",
-        "Ember",
-        "jQuery",
-        "Meteor",
-        "Node.js",
-        "Polymer",
-        "React",
-        "RxJS",
-        "Vue.js"
       ]
     };
   }
