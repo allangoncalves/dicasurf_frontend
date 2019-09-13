@@ -10,11 +10,20 @@
 <script>
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import { mapMutations, mapActions } from 'vuex';
 
 export default {
+  mounted(){
+    this.setCurrentTime();
+    this.getForecast({ lat: -6.222, lng: -35.07 });
+  },
   components: {
     Footer,
     Navbar
+  },
+  methods: {
+    ...mapMutations(['setCurrentTime']),
+    ...mapActions(["getForecast"])
   }
 };
 </script>
