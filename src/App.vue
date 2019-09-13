@@ -105,6 +105,9 @@ $colors: (
 // Footer size needs to be set before bulma import
 $footer-padding: 1.5rem;
 
+// 
+$family-primary: 'Montserrat';
+
 @import "~bulma";
 @import "~buefy/src/scss/buefy";
 </style>
