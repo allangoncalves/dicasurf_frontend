@@ -5,8 +5,8 @@ var moment = require("moment");
 
 Vue.use(Vuex);
 
-const weather_api = axios.create({
-  baseURL: "https://api.worldweatheronline.com/premium/v1/",
+const EXTERNAL_API = axios.create({
+  baseURL: process.env.VUE_APP_EXTERNAL_API,
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json"
@@ -16,6 +16,7 @@ const weather_api = axios.create({
 export default new Vuex.Store({
   state: {
     days: [],
+    weatherDays: [],
     currentData: {},
     currentTime: null
   },
@@ -23,8 +24,8 @@ export default new Vuex.Store({
     setDays(state, days) {
       state.days = days;
     },
-    setCurrentData(state, data){
-      state.currentData = data;
+    setWeatherDays(state, days){
+      state.weatherDays = days;
     },
     setCurrentTime(state){
       state.currentTime = moment();
@@ -32,20 +33,32 @@ export default new Vuex.Store({
   },
   actions: {
     getForecast({ commit }, payload) {
-      weather_api
+      EXTERNAL_API
         .get("/marine.ashx", {
           params: {
             key: process.env.VUE_APP_SECRET,
             q: `${payload.lat},${payload.lng}`,
+            tp: payload.hourTick,
             tide: "yes",
             format: "json"
           }
         })
         .then(res => {
           commit("setDays", res.data.data.weather);
-
-          commit("setCurrentData", )
-
+        });
+    },
+    getWeather({ commit }, payload) {
+      EXTERNAL_API
+        .get("/weather.ashx", {
+          params: {
+            key: process.env.VUE_APP_SECRET,
+            q: `${payload.lat},${payload.lng}`,
+            num_of_days: 7, 
+            format: "json"
+          }
+        })
+        .then(res => {
+          commit("setWeatherDays", res.data.data.weather);
         });
     }
   }

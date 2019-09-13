@@ -15,7 +15,8 @@ import { mapMutations, mapActions } from 'vuex';
 export default {
   mounted(){
     this.setCurrentTime();
-    this.getForecast({ lat: -6.222, lng: -35.07 });
+    this.getForecast({ lat: -6.222, lng: -35.07, hourTick:3 });
+    this.getWeather({ lat: -6.222, lng: -35.07 });
   },
   components: {
     Footer,
@@ -23,7 +24,7 @@ export default {
   },
   methods: {
     ...mapMutations(['setCurrentTime']),
-    ...mapActions(["getForecast"])
+    ...mapActions(["getForecast", "getWeather"])
   }
 };
 </script>
