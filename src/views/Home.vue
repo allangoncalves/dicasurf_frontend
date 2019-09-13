@@ -8,11 +8,11 @@
       :interval="10000"
       indicator-type="disc"
     ></carousel>
-    <section class="section">
+    <section class="section hero is-medium" style="padding-top:1rem;padding-bottom:4rem;">
       <div class="container">
-        <div class="tile is-parent is-vertical">
-          <div class="tile is-child is-12">
-            <div class="columns is-vcentered has-background-primary box is-paddingless">
+        <div class="columns is-multiline">
+          <div class="column is-12">
+            <div class="columns is-vcentered has-background-primary is-marginless box is-paddingless">
               <div class="column is-2 has-text-secondary has-text-weight-bold">
                 <p class="title is-4 has-text-centered-mobile">PREVISÃO</p>
               </div>
@@ -21,6 +21,7 @@
                   <b-select class="select" placeholder="Selecione uma praia" icon="search">
                     <option v-for="option in data" :value="option" :key="option">{{ option }}</option>
                   </b-select>
+                  
                 </b-field>
               </div>
               <div class="column has-text-centered-mobile">
@@ -35,14 +36,51 @@
               </div>
             </div>
           </div>
-          <div class="tile-is-child">
-            <div class="columns">
+          <div class="column" style="padding-top:2rem">
+            <div class="columns is-vcentered is-centered">
               <div class="column">
-                <b-icon pack="fas" icon="globe" size="is-large"></b-icon>
-                <p></p>
+                <div class="columns is-multiline">
+                  <div class="column is-full is-flex is-horizontal-center">
+                    <router-link to="/picos" tag="div">
+                      <div class="home-icon">
+                        <img src="@/assets/icons/picos.svg" alt />
+                      </div>
+                    </router-link>
+                  </div>
+                  <div class="column is-full">
+                    <p class="title is-4 has-text-centered">Previsão</p>
+                  </div>
+                </div>
               </div>
-              <div class="column">a</div>
-              <div class="column">a</div>
+
+              <div class="column">
+                <div class="columns is-multiline">
+                  <div class="column is-full is-flex is-horizontal-center">
+                    <router-link to="/picos" tag="div">
+                      <div class="home-icon">
+                        <img src="@/assets/icons/picos.svg" alt />
+                      </div>
+                    </router-link>
+                  </div>
+                  <div class="column is-full">
+                    <p class="title is-4 has-text-centered">Picos</p>
+                  </div>
+                </div>
+              </div>
+              <div class="column">
+                <div class="columns is-multiline">
+                  <div class="column is-full is-flex is-horizontal-center">
+                    <router-link to="/picos" tag="div">
+                      <div class="home-icon">
+                        <img src="@/assets/icons/picos.svg" alt />
+                      </div>
+                    </router-link>
+                  </div>
+                  <div class="column is-full">
+                    <p class="title is-4 has-text-centered">Picos</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -153,11 +191,23 @@ export default {
 </script>
 
 <style lang="scss">
+.is-horizontal-center {
+  justify-content: center;
+}
 .home-carousel-item {
   background-image: url("../assets/images/surf-em-Ubatuba.jpg");
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: inherit;
   background-size: cover;
+}
+.home-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-image: radial-gradient(#0075bb 100%, blue 30%);
+  width: 160px;
+  height: 160px;
 }
 </style>
