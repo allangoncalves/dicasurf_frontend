@@ -31,7 +31,7 @@
           <p>Segundos</p>
         </div>
         <div class="column is-full">
-          <p class="subtitle has-text-weight-bold">0.9</p>
+          <p class="subtitle has-text-weight-bold">{{wavePeriods}}</p>
         </div>
         <!-- <div class="column is-full">DFF</div> -->
       </div>
@@ -79,7 +79,7 @@
           <p class>UV</p>
         </div>
         <div class="column is-full">
-          <p class="subtitle has-text-weight-bold">0.9</p>
+          <p class="subtitle has-text-weight-bold">{{ultraViolet}}</p>
         </div>
         <!-- <div class="column is-full">DFF</div> -->
       </div>
@@ -103,6 +103,14 @@ export default {
       type: String
     },
     waterTemp: {
+      required: true,
+      type: String
+    },
+    ultraViolet: {
+      required: true,
+      type: String
+    },
+    wavePeriods: {
       required: true,
       type: String
     }
