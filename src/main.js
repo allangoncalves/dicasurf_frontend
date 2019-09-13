@@ -5,6 +5,9 @@ import router from "./router";
 import store from "./store";
 
 import VueApexCharts from 'vue-apexcharts';
+import VueCarousel from '@chenfengyuan/vue-carousel';
+
+Vue.component(VueCarousel.name, VueCarousel);
 
 Vue.component('apexchart', VueApexCharts)
 
