@@ -12,7 +12,9 @@
       <div class="container">
         <div class="columns is-multiline">
           <div class="column is-12">
-            <div class="columns is-vcentered has-background-primary is-marginless box is-paddingless">
+            <div
+              class="columns is-vcentered has-background-primary is-marginless box is-paddingless"
+            >
               <div class="column is-2 has-text-secondary has-text-weight-bold">
                 <p class="title is-4 has-text-centered-mobile">PREVISÃO</p>
               </div>
@@ -21,7 +23,6 @@
                   <b-select class="select" placeholder="Selecione uma praia" icon="search">
                     <option v-for="option in data" :value="option" :key="option">{{ option }}</option>
                   </b-select>
-                  
                 </b-field>
               </div>
               <div class="column has-text-centered-mobile">
@@ -39,47 +40,47 @@
           <div class="column" style="padding-top:2rem">
             <div class="columns is-vcentered is-centered">
               <div class="column">
-                <div class="columns is-multiline">
-                  <div class="column is-full is-flex is-horizontal-center">
-                    <router-link to="/picos" tag="div">
+                <router-link to="/picos" tag="div">
+                  <div class="columns is-multiline">
+                    <div class="column is-full is-flex is-horizontal-center">
                       <div class="home-icon">
                         <img src="@/assets/icons/picos.svg" alt />
                       </div>
-                    </router-link>
+                    </div>
+                    <div class="column is-full">
+                      <p class="title is-4 has-text-centered">Previsão</p>
+                    </div>
                   </div>
-                  <div class="column is-full">
-                    <p class="title is-4 has-text-centered">Previsão</p>
-                  </div>
-                </div>
+                </router-link>
               </div>
 
               <div class="column">
-                <div class="columns is-multiline">
-                  <div class="column is-full is-flex is-horizontal-center">
-                    <router-link to="/picos" tag="div">
+                <router-link to="/picos" tag="div">
+                  <div class="columns is-multiline">
+                    <div class="column is-full is-flex is-horizontal-center">
                       <div class="home-icon">
                         <img src="@/assets/icons/picos.svg" alt />
                       </div>
-                    </router-link>
+                    </div>
+                    <div class="column is-full">
+                      <p class="title is-4 has-text-centered">Picos</p>
+                    </div>
                   </div>
-                  <div class="column is-full">
-                    <p class="title is-4 has-text-centered">Picos</p>
-                  </div>
-                </div>
+                </router-link>
               </div>
               <div class="column">
-                <div class="columns is-multiline">
-                  <div class="column is-full is-flex is-horizontal-center">
-                    <router-link to="/picos" tag="div">
+                <router-link to="/picos" tag="div">
+                  <div class="columns is-multiline">
+                    <div class="column is-full is-flex is-horizontal-center">
                       <div class="home-icon">
                         <img src="@/assets/icons/picos.svg" alt />
                       </div>
-                    </router-link>
+                    </div>
+                    <div class="column is-full">
+                      <p class="title is-4 has-text-centered">Picos</p>
+                    </div>
                   </div>
-                  <div class="column is-full">
-                    <p class="title is-4 has-text-centered">Picos</p>
-                  </div>
-                </div>
+                </router-link>
               </div>
             </div>
           </div>
