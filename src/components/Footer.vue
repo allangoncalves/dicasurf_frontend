@@ -3,7 +3,7 @@
     <section class="section has-background-tertiary">
       <div class="container">
         <div class="columns section-bottom section-top">
-          <div class="column has-text-centered-mobile">
+          <div class="column has-text-centered-mobile is-horizontal-center">
             <img class="vertical-logo" :src="verticalLogo" alt="Dica Surf" />
           </div>
           <div class="column">
@@ -56,7 +56,11 @@
                 icon-right="fa-facebook-f"
                 icon-pack="fab"
               />
-              <b-button type="is-white has-text-secondary" icon-right="fa-whatsapp" icon-pack="fab" />
+              <b-button
+                type="is-white has-text-secondary"
+                icon-right="fa-whatsapp"
+                icon-pack="fab"
+              />
             </div>
           </div>
         </div>
@@ -72,16 +76,19 @@
 
 <script>
 export default {
-  
   data() {
     return {
       verticalLogo: require("@/assets/images/logo_vertical_with_name.png")
     };
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
+.is-horizontal-center {
+  display: flex;
+  justify-content: center
+}
 .vertical-logo {
   width: 130px;
   height: 174.5px;
@@ -94,5 +101,4 @@ export default {
 .section-bottom {
   padding-bottom: 3rem;
 }
-
 </style>
