@@ -1,6 +1,6 @@
 <template>
-  <div style="width:90%">
-    <div class="columns is-mobile">
+  <div >
+    <div class="columns is-mobile is-gapless">
       <div
         class="column is-flex is-paddingless tab"
         style="align-items:center"
@@ -9,7 +9,7 @@
         @click="changeSelection(index)"
         :style="{backgroundImage: `url('${require(`@/assets/icons/tab_${ selectedTab === index ? 'black': 'blue'}.svg`)}')`}"
       >
-        <p class="title is-5">{{ tab }}</p>
+        <p class="title is-5 is-size-6-mobile">{{ tab }}</p>
       </div>
     </div>
   </div>
@@ -35,7 +35,7 @@ export default {
 
 <style lang="scss" scoped>
 .tab {
-  background-position: top left;
+  background-position: center left;
   background-repeat: no-repeat;
   background-attachment: center;
   background-size: contain;
