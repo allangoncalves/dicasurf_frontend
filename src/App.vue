@@ -1,7 +1,9 @@
 <template>
   <div>
     <Navbar />
+    <transition name="fade" mode="out-in">
       <router-view></router-view>
+    </transition>
     <Footer />
   </div>
 </template>
@@ -10,12 +12,11 @@
 <script>
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import { mapMutations, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
   mounted(){
-    this.setCurrentTime();
-    this.getForecast({ lat: -6.222, lng: -35.07, hourTick:3 });
+    this.getForecast({ lat: -6.222, lng: -35.07, hourTick:1 });
     this.getWeather({ lat: -6.222, lng: -35.07 });
   },
   components: {
@@ -23,7 +24,6 @@ export default {
     Navbar
   },
   methods: {
-    ...mapMutations(['setCurrentTime']),
     ...mapActions(["getForecast", "getWeather"])
   }
 };
@@ -39,10 +39,10 @@ export default {
 @import "~bulma/sass/utilities/_all";
 
 // Disable the widescreen breakpoint
-$widescreen-enabled: false;
+// $widescreen-enabled: false;
 
 // Disable the fullhd breakpoint
-$fullhd-enabled: false;
+// $fullhd-enabled: false;
 
 $primary: #0075bb;
 $primary-invert: #222221;
@@ -111,4 +111,3 @@ $family-primary: 'Montserrat';
 @import "~bulma";
 @import "~buefy/src/scss/buefy";
 </style>
-
