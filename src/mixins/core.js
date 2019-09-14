@@ -1,11 +1,11 @@
 import { mapState } from "vuex";
 var moment = require("moment");
-const WEEK_DAYS = ["dom", "seg", "ter", "qua", "qui", "sex", "sab"];
 export default {
-  data(){
+  data() {
     return {
       selectedDay: 0,
-    }
+      currentTime: moment()
+    };
   },
   methods: {
     findCurrentElementIndex(hourly_forecast) {
@@ -22,17 +22,9 @@ export default {
     }
   },
   computed: {
-    ...mapState(["days", "weatherDays", "currentTime"]),
+    ...mapState(["days", "weatherDays"]),
     tides() {
       return this.days[this.selectedDay].tides[0].tide_data;
-    },
-    tideSeries() {
-      return [{ name: "Altura da maré (metros)", data: this.tideHours }];
-    },
-    tideHours() {
-      return this.tides.map(tide => {
-        return [new Date(tide.tideDateTime).getTime(), tide.tideHeight_mt];
-      });
     },
     sunrise() {
       return moment(
@@ -79,54 +71,6 @@ export default {
       );
       return this.weatherDays[this.selectedDay].hourly[index];
     },
-    topThree() {
-      // )
-      const waveSeries = this.waveHeightSeries[0].data.map(element => {
-        console.log(element);
-        console.log(typeof element[0]);
-        return {
-          time: element[0],
-          waveHeight: element[1]
-        };
-      });
-
-      let topThree = waveSeries
-        .sort((first, second) => first.waveHeight < second.waveHeight)
-        .slice(0, 3);
-
-      topThree = topThree.map((point, index) =>
-        Object.assign(point, { highest: index === 0 })
-      );
-
-      topThree.sort((first, second) => {
-        first.time > second.time;
-      });
-
-      topThree = topThree.map(point =>
-        Object.assign(point, { time: moment(point.time).format("HH[h]mm") })
-      );
-
-      return topThree;
-    },
-    week() {
-      return this.days.map(day => {
-        return {
-          date: moment(day.date).date(),
-          weekDay: WEEK_DAYS[moment(day.date).day()]
-        };
-      });
-    },
-    waveHeightSeries() {
-      return [{ name: "Altura das ondas (metros)", data: this.waveHeights }];
-    },
-    waveHeights() {
-      const date = this.days[this.selectedDay].date;
-      return this.days[this.selectedDay].hourly.map(day => {
-        return [
-          new Date(date).setHours(this.parseHour(day.time), 0, 0, 0),
-          Number(day.sigHeight_m)
-        ];
-      });
-    }
+    
   }
 };
