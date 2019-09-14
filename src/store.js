@@ -18,7 +18,6 @@ export default new Vuex.Store({
     days: [],
     weatherDays: [],
     currentData: {},
-    currentTime: null
   },
   mutations: {
     setDays(state, days) {
@@ -26,9 +25,6 @@ export default new Vuex.Store({
     },
     setWeatherDays(state, days){
       state.weatherDays = days;
-    },
-    setCurrentTime(state){
-      state.currentTime = moment();
     }
   },
   actions: {
