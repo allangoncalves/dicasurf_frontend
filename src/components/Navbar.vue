@@ -13,7 +13,7 @@
           tag="router-link"
           :to="route.name"
         >{{ route.text }}</b-navbar-item>
-        <b-navbar-item tag="div">
+        <b-navbar-item tag="div" v-if="false">
           <div
             class="columns is-multiline has-text-centered has-background-black box is-paddingless"
           >
@@ -56,7 +56,6 @@ export default {
   },
   methods: {
     openModal(){
-      console.log('aaa');
       this.modalOpen = true;      
     }
   }
