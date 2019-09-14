@@ -1,5 +1,6 @@
 <template>
   <div>
+    
     <div class="base has-text-centered" >
         <!-- Wind -->
       <img class="abs-position base" src="@/assets/indicators/wind_med.svg" alt />
@@ -22,9 +23,14 @@
 .abs-position {
   position: absolute;
 }
+.hour{
+  position: absolute;
+  left: 320px;
+  top: 350px
+}
 .base{
     width: auto;
-    height: 350px;
+    height: 345px;
     border-radius: 3% 3% 20% 20%;
 }
 </style>
