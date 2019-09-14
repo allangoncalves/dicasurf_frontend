@@ -44,13 +44,13 @@
                       </div>
                       <div class="column is-full">
                         <p
-                          class="title is-5"
+                          class="title is-5 is-size-6-mobile"
                           :class="{'has-text-secondary': selectedDay == index, 'has-text-primary': selectedDay != index }"
-                        >{{day.date}}</p>
+                        >{{index === 0 ? 'HOJE' : day.date}}</p>
                       </div>
                       <div class="column is-full">
                         <p
-                          class="subtitle"
+                          class="subtitle is-size-7-mobile"
                           :class="{'has-text-secondary': selectedDay == index, 'has-text-primary': selectedDay != index }"
                         >{{day.weekDay}}</p>
                       </div>
@@ -61,10 +61,10 @@
 
               <div class="tile is-child">
                 <div class="columns is-multiline">
-                  <div class="column is-full" style="display:flex;justify-content:center">
+                  <div class="column is-full" style="padding-bottom:0px">
                     <tabs @selectionChanged="selectedChartChange($event)" />
                   </div>
-                  <div class="column is-full">
+                  <div class="column is-full" style="padding-top:0px">
                     <apexchart width="100%" type="bar" :options="barOptions" :series="selectedData"></apexchart>
                   </div>
                 </div>
