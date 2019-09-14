@@ -1,207 +1,211 @@
 <template>
   <div class="container">
-    <div class="tile is-ancestor is-vertical" >
-      <div class="tile is-parent" style="padding-top:3rem">
+    <div class="tile is-ancestor is-vertical">
+      <div class="tile is-parent" style="padding-top:3rem;padding-bottom:3rem">
         <div class="tile is-child">
-          <search-bar />
+          <search-bar title="PREVISÃO" @spot-selected="spotSelected" />
         </div>
       </div>
-      <div class="tile is-parent" v-if="days.length !== 0">
-        <div class="tile is-child is-5">
-          <div class="tile is-parent is-vertical">
-            <div class="tile is-child has-text-centered">
-              <p class="title">Praia do Madeiro</p>
-            </div>
-            <div class="tile is-child">
-              <forecast-hud
-                :waveHeight="waveHeight"
-                :WindGustKmph="WindGustKmph"
-                :waterTemp="waterTemp"
-                :ultraViolet="ultraViolet"
-                :wavePeriods="wavePeriods"
-              />
+      <div v-if="days.length !== 0">
+        <div class="tile is-parent">
+          <div class="tile is-child is-5">
+            <div class="tile is-parent is-vertical">
+              <div class="tile is-child has-text-centered">
+                <p class="title">Praia do Madeiro</p>
+              </div>
+              <div class="tile is-child">
+                <forecast-hud
+                  :waveHeight="waveHeight"
+                  :WindGustKmph="WindGustKmph"
+                  :waterTemp="waterTemp"
+                  :ultraViolet="ultraViolet"
+                  :wavePeriods="wavePeriods"
+                />
+              </div>
             </div>
           </div>
-        </div>
-        <div class="tile is-child">
-          <div class="tile is-parent is-vertical">
-            <div class="tile is-child">
-              <!-- Day selector -->
-              <div class="columns is-mobile">
-                <div
-                  class="column"
-                  v-for="(day, index) in week"
-                  :key="index"
-                  @click="changeDay(index)"
-                >
-                  <div class="columns is-gapless has-text-centered is-multiline">
-                    <div class="column is-full">
-                      <div
-                        :class="{'has-background-secondary': selectedDay == index, 'has-background-primary': selectedDay != index}"
-                        style="max-height:0.7em;height:0.5em;border-radius:15%"
-                      ></div>
-                    </div>
-                    <div class="column is-full">
-                      <p
-                        class="title is-5"
-                        :class="{'has-text-secondary': selectedDay == index, 'has-text-primary': selectedDay != index }"
-                      >{{day.date}}</p>
-                    </div>
-                    <div class="column is-full">
-                      <p
-                        class="subtitle"
-                        :class="{'has-text-secondary': selectedDay == index, 'has-text-primary': selectedDay != index }"
-                      >{{day.weekDay}}</p>
+          <div class="tile is-child">
+            <div class="tile is-parent is-vertical">
+              <div class="tile is-child">
+                <!-- Day selector -->
+                <div class="columns is-mobile">
+                  <div
+                    class="column"
+                    v-for="(day, index) in week"
+                    :key="index"
+                    @click="changeDay(index)"
+                  >
+                    <div class="columns is-gapless has-text-centered is-multiline">
+                      <div class="column is-full">
+                        <div
+                          :class="{'has-background-secondary': selectedDay == index, 'has-background-primary': selectedDay != index}"
+                          style="max-height:0.7em;height:0.5em;border-radius:15%"
+                        ></div>
+                      </div>
+                      <div class="column is-full">
+                        <p
+                          class="title is-5"
+                          :class="{'has-text-secondary': selectedDay == index, 'has-text-primary': selectedDay != index }"
+                        >{{day.date}}</p>
+                      </div>
+                      <div class="column is-full">
+                        <p
+                          class="subtitle"
+                          :class="{'has-text-secondary': selectedDay == index, 'has-text-primary': selectedDay != index }"
+                        >{{day.weekDay}}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div class="tile is-child">
-              <!-- Chart -->
-              <apexchart
-                width="100%"
-                type="bar"
-                :options="barChart.options"
-                :series="waveHeightSeries"
-              ></apexchart>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="tile is-parent">
-        <div class="tile is-child is-5">
-          <!-- Tide -->
-          <div class="tile is-parent is-vertical" style="padding-top:0.32rem">
-            <div class="tile-is-child">
-              <div class="columns is-gapless is-mobile">
-                <div class="column">
-                  <img src="@/assets/icons/new_wave.svg" alt />
-                </div>
-                <div class="column is-6">
-                  <p class="title is-5 has-text-centered">TÁBUA DE MARÉ</p>
-                </div>
-                <div class="column">
-                  <img src="@/assets/icons/new_wave.svg" alt />
-                </div>
-              </div>
-            </div>
-            <div class="tile-is-child">
-              <apexchart
-                width="100%"
-                height="100"
-                type="area"
-                :options="areaChart.chartOptions"
-                :series="tideSeries"
-              ></apexchart>
-            </div>
-          </div>
-        </div>
-
-        <div class="tile is-child">
-          <div class="columns">
-            <div class="column is-8">
-              <div class="columns is-multiline">
-                <div class="column is-full">
-                  <div class="columns is-vcentered is-centered is-mobile">
-                    <div class="column is-1 is-flex is-horizontal-end" style="padding-right:0px">
-                      <figure class="image is-24x24">
-                        <img src="@/assets/icons/star.svg" alt />
-                      </figure>
-                    </div>
-                    <div
-                      class="column is-9 has-text-centered"
-                      style="padding-left:0px;padding-right:0px"
-                    >
-                      <p class="title is-5">MELHORES DO DIA</p>
-                    </div>
-                    <div class="column is-1 is-flex is-horizontal-start" style="padding-left:0px">
-                      <figure class="image is-24x24">
-                        <img src="@/assets/icons/star.svg" alt />
-                      </figure>
-                    </div>
+              <div class="tile is-child">
+                <div class="columns is-multiline">
+                  <div class="column is-full" style="display:flex;justify-content:center">
+                    <tabs @selectionChanged="selectedChartChange($event)" />
+                  </div>
+                  <div class="column is-full">
+                    <apexchart width="100%" type="bar" :options="barOptions" :series="selectedData"></apexchart>
                   </div>
                 </div>
-                <div class="column is-full">
-                  <div class="columns is-mobile">
-                    <div
-                      class="column is-flex is-horizontal-center"
-                      v-for="time in topThree"
-                      :key="time.time"
-                    >
+                <!-- Chart -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tile is-parent">
+          <div class="tile is-child is-5">
+            <!-- Tide -->
+            <div class="tile is-parent is-vertical" style="padding-top:0.32rem">
+              <div class="tile-is-child">
+                <div class="columns is-gapless is-mobile">
+                  <div class="column">
+                    <img src="@/assets/icons/new_wave.svg" alt />
+                  </div>
+                  <div class="column is-6">
+                    <p class="title is-5 has-text-centered">TÁBUA DE MARÉ</p>
+                  </div>
+                  <div class="column">
+                    <img src="@/assets/icons/new_wave.svg" alt />
+                  </div>
+                </div>
+              </div>
+              <div class="tile-is-child">
+                <apexchart
+                  width="100%"
+                  height="100"
+                  type="area"
+                  :options="areaOptions"
+                  :series="tideData"
+                ></apexchart>
+              </div>
+            </div>
+          </div>
+
+          <div class="tile is-child">
+            <div class="columns">
+              <div class="column is-8">
+                <div class="columns is-multiline">
+                  <div class="column is-full">
+                    <div class="columns is-vcentered is-centered is-mobile">
+                      <div class="column is-1 is-flex is-horizontal-end" style="padding-right:0px">
+                        <figure class="image is-24x24">
+                          <img src="@/assets/icons/star.svg" alt />
+                        </figure>
+                      </div>
                       <div
-                        class="has-text-centered is-flex is-horizontal-center"
-                        :class="time.highest ?  'best-secondary':  'best-primary'"
+                        class="column is-9 has-text-centered"
+                        style="padding-left:0px;padding-right:0px"
                       >
-                        <div>
-                          <p class="title is-6">{{time.time}}</p>
-                          <p class="subtitle is-6">{{`${time.waveHeight}m`}}</p>
+                        <p class="title is-5">MELHORES DO DIA</p>
+                      </div>
+                      <div class="column is-1 is-flex is-horizontal-start" style="padding-left:0px">
+                        <figure class="image is-24x24">
+                          <img src="@/assets/icons/star.svg" alt />
+                        </figure>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="column is-full">
+                    <div class="columns is-mobile">
+                      <div
+                        class="column is-flex is-horizontal-center"
+                        v-for="time in topThree"
+                        :key="time.time"
+                      >
+                        <div
+                          class="has-text-centered is-flex is-horizontal-center"
+                          :class="time.highest ?  'best-secondary':  'best-primary'"
+                        >
+                          <div>
+                            <p class="title is-6">{{time.time}}</p>
+                            <p class="subtitle is-6">{{`${time.waveHeight}m`}}</p>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div class="column">
-              <div class="columns is-mobile has-text-centered-mobile">
-                <div class="column">
-                  <div class="tile is-parent is-vertical">
-                    <div class="tile is-child">
-                      <div class="columns is-multiline">
-                        <div
-                          class="column is-full is-gapless is-horizontal-center is-flex"
-                          style="padding-top:0px;padding-bottom:0px;"
-                        >
-                          <figure class="image is-32x32">
-                            <img src="@/assets/icons/dawn.svg" alt />
-                          </figure>
-                        </div>
-                        <div
-                          class="column is-full is-gapless has-text-centered"
-                          style="padding-top:0px;"
-                        >
-                          <p class="subtitle is-6">{{sunrise}}</p>
+              <div class="column">
+                <div class="columns is-mobile has-text-centered-mobile">
+                  <div class="column">
+                    <div class="tile is-parent is-vertical">
+                      <div class="tile is-child">
+                        <div class="columns is-multiline">
+                          <div
+                            class="column is-full is-gapless is-horizontal-center is-flex"
+                            style="padding-top:0px;padding-bottom:0px;"
+                          >
+                            <figure class="image is-32x32">
+                              <img src="@/assets/icons/dawn.svg" alt />
+                            </figure>
+                          </div>
+                          <div
+                            class="column is-full is-gapless has-text-centered"
+                            style="padding-top:0px;"
+                          >
+                            <p class="subtitle is-6">{{sunrise}}</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="tile is-child">
-                      <div class="columns is-multiline">
-                        <div
-                          class="column is-full is-horizontal-center is-flex"
-                          style="padding-bottom:0px;"
-                        >
-                          <figure class="image is-32x32">
-                            <img src="@/assets/icons/twilight.svg" alt />
-                          </figure>
-                        </div>
-                        <div class="column is-full has-text-centered" style="padding-top:0px;">
-                          <p class="subtitle is-6" style="padding-bottom:0px">{{sunset}}</p>
+                      <div class="tile is-child">
+                        <div class="columns is-multiline">
+                          <div
+                            class="column is-full is-horizontal-center is-flex"
+                            style="padding-bottom:0px;"
+                          >
+                            <figure class="image is-32x32">
+                              <img src="@/assets/icons/twilight.svg" alt />
+                            </figure>
+                          </div>
+                          <div class="column is-full has-text-centered" style="padding-top:0px;">
+                            <p class="subtitle is-6" style="padding-bottom:0px">{{sunset}}</p>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="column">
-                  <div class="tile is-parent is-vertical" style="padding-top:0px">
-                    <div class="tile is-child">
-                      <div class="columns is-multiline is-gapless">
-                        <div class="column is-full is-horizontal-center is-flex">
-                          <figure class="image is-32x32">
-                            <img src="@/assets/icons/humidity.svg" alt />
-                          </figure>
-                        </div>
-                        <div class="column is-full has-text-centered">
-                          <p class="subtitle is-6" style="padding-top:0.5rem;">{{humidity}}</p>
+                  <div class="column">
+                    <div class="tile is-parent is-vertical" style="padding-top:0px">
+                      <div class="tile is-child">
+                        <div class="columns is-multiline is-gapless">
+                          <div class="column is-full is-horizontal-center is-flex">
+                            <figure class="image is-32x32">
+                              <img src="@/assets/icons/humidity.svg" alt />
+                            </figure>
+                          </div>
+                          <div class="column is-full has-text-centered">
+                            <p class="subtitle is-6" style="padding-top:0.5rem;">{{humidity}}</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="tile is-child is-horizontal-center is-flex">
-                      <div class="comment has-text-centered">
-                        <p style="padding:0.22rem"></p>
+                      <div class="tile is-child is-horizontal-center is-flex">
+                        <div class="comment has-text-centered">
+                          <p style="padding:0.22rem"></p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -218,83 +222,228 @@
 <script>
 import ForecastHud from "../components/ForecastHud";
 import SearchBar from "../components/SearchBar";
+import Tabs from "../components/Tabs";
 
 import core from "../mixins/core";
+
+var moment = require("moment");
+const WEEK_DAYS = ["dom", "seg", "ter", "qua", "qui", "sex", "sab"];
 
 export default {
   components: {
     ForecastHud,
-    SearchBar
+    SearchBar,
+    Tabs
   },
   mixins: [core],
+  methods: {
+    selectedChartChange(index) {
+      console.log(index);
+
+      this.selectedChart = index;
+    },
+    spotSelected() {}
+  },
+  computed: {
+    waveHeightData() {
+      return [
+        { name: "Altura das ondas (metros)", data: this.waveHeightSeries }
+      ];
+    },
+    wavePeriodData() {
+      return [
+        {
+          name: "Período entre uma onda e outra (segundos)",
+          data: this.wavePeriodSeries
+        }
+      ];
+    },
+    windSpeedData() {
+      return [
+        { name: "Velocidade dos ventos (km/h)", data: this.windSpeedSeries }
+      ];
+    },
+    swellHeightData() {
+      return [
+        { name: "Altura dos swell (metros)", data: this.swellHeightSeries }
+      ];
+    },
+    tideData() {
+      return [{ name: "Altura da maré (metros)", data: this.tideHourSeries }];
+    },
+    topThree() {
+      const waveSeries = this.waveHeightData[0].data.map(element => {
+        return {
+          time: element[0],
+          waveHeight: element[1]
+        };
+      });
+
+      let topThree = waveSeries
+        .sort((first, second) => first.waveHeight < second.waveHeight)
+        .slice(0, 3);
+
+      topThree = topThree.map((point, index) =>
+        Object.assign(point, { highest: index === 0 })
+      );
+
+      topThree.sort((first, second) => first.time > second.time);
+
+      topThree = topThree.map(point =>
+        Object.assign(point, { time: moment(point.time).format("HH[h]mm") })
+      );
+
+      return topThree;
+    },
+    week() {
+      return this.days.map(day => {
+        return {
+          date: moment(day.date).date(),
+          weekDay: WEEK_DAYS[moment(day.date).day()]
+        };
+      });
+    },
+    tideHourSeries() {
+      return this.tides.map(tide => {
+        return [new Date(tide.tideDateTime).getTime(), tide.tideHeight_mt];
+      });
+    },
+    waveHeightSeries() {
+      const date = this.days[this.selectedDay].date;
+      return this.days[this.selectedDay].hourly.map(day => {
+        return [
+          new Date(date).setHours(this.parseHour(day.time), 0, 0, 0),
+          Number(day.sigHeight_m)
+        ];
+      });
+    },
+    wavePeriodSeries() {
+      const date = this.days[this.selectedDay].date;
+      return this.days[this.selectedDay].hourly.map(day => {
+        return [
+          new Date(date).setHours(this.parseHour(day.time), 0, 0, 0),
+          Number(day.swellPeriod_secs)
+        ];
+      });
+    },
+    windSpeedSeries() {
+      const date = this.weatherDays[this.selectedDay].date;
+      return this.weatherDays[this.selectedDay].hourly.map(day => {
+        return [
+          new Date(date).setHours(this.parseHour(day.time), 0, 0, 0),
+          Number(day.windspeedKmph)
+        ];
+      });
+    },
+    swellHeightSeries() {
+      const date = this.days[this.selectedDay].date;
+      return this.days[this.selectedDay].hourly.map(day => {
+        console.log(day.swellHeight_m);
+        return [
+          new Date(date).setHours(this.parseHour(day.time), 0, 0, 0),
+          Number(day.swellHeight_m)
+        ];
+      });
+    },
+    selectedData() {
+      switch (this.selectedChart) {
+        case 0:
+          this.chartMax = 3;
+          return this.waveHeightData;
+        case 1:
+          this.chartMax = 15;
+          return this.wavePeriodData;
+        case 2:
+          this.chartMax = 50;
+          return this.windSpeedData;
+        case 3:
+          this.chartMax = 3;
+          return this.swellHeightData;
+      }
+    },
+    barOptions() {
+      return {
+        zoom: {
+          enabled: false
+        },
+        dataLabels: {
+          enabled: false
+        },
+        grid: {
+          show: true
+        },
+        chart: {
+          id: "vuechart-example",
+          toolbar: {
+            show: false
+          }
+        },
+        xaxis: {
+          type: "datetime"
+        },
+        yaxis: {
+          show: true,
+          min: 0,
+          max: this.chartMax
+        },
+        tooltip: {
+          x: {
+            show: true,
+            format: "HH:mm"
+          }
+        }
+      };
+    },
+    areaOptions() {
+      return {
+        grid: {
+          show: false
+        },
+        chart: {
+          id: "vuechart-example",
+          toolbar: {
+            show: false
+          },
+          selection: {
+            enabled: false
+          }
+        },
+
+        dataLabels: {
+          enabled: true
+        },
+
+        markers: {
+          size: 0,
+          style: "hollow"
+        },
+        xaxis: {
+          type: "datetime"
+        },
+        tooltip: {
+          x: {
+            show: false,
+            format: "HH:mm"
+          }
+        },
+        fill: {
+          type: "gradient",
+          gradient: {
+            shadeIntensity: 1,
+            opacityFrom: 0.7,
+            opacityTo: 0.9,
+            stops: [0, 100]
+          }
+        }
+      };
+    }
+  },
 
   data() {
     return {
-      barChart: {
-        options: {
-          grid: {
-            show: false
-          },
-          chart: {
-            id: "vuechart-example",
-            toolbar: {
-              show: false
-            }
-          },
-          xaxis: {
-            type: "datetime"
-          },
-          tooltip: {
-            x: {
-              show: true,
-              format: "HH:mm"
-            }
-          }
-        }
-      },
-      areaChart: {
-        chartOptions: {
-          grid: {
-            show: false
-          },
-          chart: {
-            id: "vuechart-example",
-            toolbar: {
-              show: false
-            },
-            selection: {
-              enabled: false
-            }
-          },
-
-          dataLabels: {
-            enabled: true
-          },
-
-          markers: {
-            size: 0,
-            style: "hollow"
-          },
-          xaxis: {
-            type: "datetime"
-          },
-          tooltip: {
-            x: {
-              show: false,
-              format: "HH:mm"
-            }
-          },
-          fill: {
-            type: "gradient",
-            gradient: {
-              shadeIntensity: 1,
-              opacityFrom: 0.7,
-              opacityTo: 0.9,
-              stops: [0, 100]
-            }
-          }
-        }
-      }
+      selectedChart: 0,
+      chartMin: 0,
+      chartMax: 10
     };
   }
 };

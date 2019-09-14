@@ -33,26 +33,9 @@
     <section class="section">
       <div class="container">
         <div class="tile is-ancestor">
-          <div class="tile is-vertical is-parent is-7" style="padding-bottom:0px">
+          <div class="tile is-vertical is-parent is-8" style="padding-bottom:0px">
             <div class="tile is-child">
-              <div
-                class="columns is-vcentered is-centered is-mobile has-background-primary box is-paddingless"
-              >
-                <div class="column is-3 has-text-secondary has-text-weight-bold">
-                  <p class>NOSSOS PICOS</p>
-                </div>
-                <div class="column is-9">
-                  <b-field>
-                    <b-select
-                      class="is-pulled-right select"
-                      placeholder="Selecione um pico"
-                      icon="search"
-                    >
-                      <option v-for="option in data" :value="option" :key="option">{{ option }}</option>
-                    </b-select>
-                  </b-field>
-                </div>
-              </div>
+              <search-bar :hideMessage="true" title="Nossos Picos"/>
             </div>
             <div class="tile is-child">
               <div class="columns">
@@ -91,7 +74,7 @@
               ></div>
             </div>
           </div>
-          <div class="tile is-parent is-5 is-horizontal-center is-flex">
+          <div class="tile is-parent is-4 is-horizontal-center is-flex">
             <div class="tile is-child">
               <div class="is-paddingless">
                 <forecast-hud
@@ -289,13 +272,15 @@
 <script>
 import { Carousel, Slide } from "vue-carousel";
 import ForecastHud from "@/components/ForecastHud";
+import SearchBar from "@/components/SearchBar";
 import core from "../mixins/core";
 export default {
   mixins: [core],
   components: {
     ForecastHud,
     Carousel,
-    Slide
+    Slide,
+    SearchBar
   },
   data() {
     return {

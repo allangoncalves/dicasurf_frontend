@@ -8,11 +8,12 @@
       :interval="10000"
       indicator-type="disc"
     ></carousel>
+
     <section class="section hero is-medium" style="padding-top:1rem;padding-bottom:4rem;">
       <div class="container">
         <div class="columns is-multiline">
           <div class="column is-12">
-            <SearchBar/>
+            <search-bar title="PREVISÃO" @spot-selected="spotSelected" />
           </div>
           <div class="column" style="padding-top:2rem">
             <div class="columns is-vcentered is-centered">
@@ -69,9 +70,15 @@
 
 <script>
 import SearchBar from "../components/SearchBar";
+
 export default {
   name: "home",
-  components: {SearchBar},
+  components: { SearchBar },
+  methods: {
+    spotSelected() {
+      this.$router.push("/previsao");
+    }
+  },
   data() {
     return {
       slides: [
