@@ -80,6 +80,8 @@
                   :waterTemp="waterTemp"
                   :ultraViolet="ultraViolet"
                   :wavePeriods="wavePeriods"
+                  :swellHeight="swellHeight"
+                  :windDir="windDir"
                 />
               </div>
             </div>
