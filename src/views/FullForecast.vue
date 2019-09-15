@@ -22,6 +22,8 @@
                   :wavePeriods="wavePeriods"
                   :swellHeight="swellHeight"
                   :windDir="windDir"
+                  :tempC="tempC"
+                  :fullDate="fullDate"
                 />
               </div>
             </div>
@@ -311,37 +313,33 @@ export default {
       });
     },
     waveHeightSeries() {
-      const date = this.days[this.selectedDay].date;
       return this.days[this.selectedDay].hourly.map(day => {
         return [
-          new Date(date).setHours(this.parseHour(day.time), 0, 0, 0),
+          new Date(this.date).setHours(this.parseHour(day.time), 0, 0, 0),
           Number(day.sigHeight_m)
         ];
       });
     },
     wavePeriodSeries() {
-      const date = this.days[this.selectedDay].date;
       return this.days[this.selectedDay].hourly.map(day => {
         return [
-          new Date(date).setHours(this.parseHour(day.time), 0, 0, 0),
+          new Date(this.date).setHours(this.parseHour(day.time), 0, 0, 0),
           Number(day.swellPeriod_secs)
         ];
       });
     },
     windSpeedSeries() {
-      const date = this.weatherDays[this.selectedDay].date;
       return this.weatherDays[this.selectedDay].hourly.map(day => {
         return [
-          new Date(date).setHours(this.parseHour(day.time), 0, 0, 0),
+          new Date(this.date).setHours(this.parseHour(day.time), 0, 0, 0),
           Number(day.windspeedKmph)
         ];
       });
     },
     swellHeightSeries() {
-      const date = this.days[this.selectedDay].date;
       return this.days[this.selectedDay].hourly.map(day => {
         return [
-          new Date(date).setHours(this.parseHour(day.time), 0, 0, 0),
+          new Date(this.date).setHours(this.parseHour(day.time), 0, 0, 0),
           Number(day.swellHeight_m)
         ];
       });

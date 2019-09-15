@@ -15,9 +15,9 @@ import Navbar from "@/components/Navbar";
 import { mapActions } from 'vuex';
 
 export default {
-  mounted(){
-    this.getCities();
+  created(){
     this.getStateData();
+    this.getCities();
   },
   components: {
     Footer,

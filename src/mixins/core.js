@@ -62,6 +62,15 @@ export default {
     humidity() {
       return `${this.currentWeatherData.humidity}%`;
     },
+    tempC(){
+      return this.currentWeatherData.tempC;
+    },
+    date(){
+      return this.days[this.selectedDay].date;
+    },
+    fullDate(){
+      return moment(`${this.date} ${this.currentTime.format('HH:mm')}`);
+    },
     currentMarineData() {
       const index = this.findCurrentElementIndex(
         this.days[this.selectedDay].hourly

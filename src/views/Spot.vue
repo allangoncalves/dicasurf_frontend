@@ -82,6 +82,8 @@
                   :wavePeriods="wavePeriods"
                   :swellHeight="swellHeight"
                   :windDir="windDir"
+                  :tempC="tempC"
+                  :fullDate="fullDate"
                 />
               </div>
             </div>

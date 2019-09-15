@@ -1,7 +1,7 @@
 <template>
   <div class="columns is-multiline is-mobile">
     <div class="column is-full indicator">
-      <indicator />
+      <indicator :tempC="tempC" :fullDate="fullDate"/>
     </div>
     <div class="column is-paddingless">
       <div class="columns is-gapless is-mobile is-multiline has-text-centered">
@@ -125,6 +125,13 @@ export default {
     windDir: {
       required: true,
       type: String
+    },
+    tempC: {
+      required: true,
+      type: String
+    },
+    fullDate: {
+      required: true
     }
   }
 };
