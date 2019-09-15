@@ -11,7 +11,7 @@
           <div class="tile is-child is-5">
             <div class="tile is-parent is-vertical">
               <div class="tile is-child has-text-centered">
-                <p class="title">Praia do Madeiro</p>
+                <p class="title">{{currentSpot.name}}</p>
               </div>
               <div class="tile is-child">
                 <forecast-hud
@@ -225,6 +225,7 @@ import SearchBar from "../components/SearchBar";
 import Tabs from "../components/Tabs";
 
 import core from "../mixins/core";
+import { mapState } from "vuex";
 
 var moment = require("moment");
 const WEEK_DAYS = ["dom", "seg", "ter", "qua", "qui", "sex", "sab"];
@@ -238,13 +239,12 @@ export default {
   mixins: [core],
   methods: {
     selectedChartChange(index) {
-      console.log(index);
-
       this.selectedChart = index;
     },
     spotSelected() {}
   },
   computed: {
+    ...mapState(["currentSpot"]),
     waveHeightData() {
       return [
         { name: "Altura das ondas (metros)", data: this.waveHeightSeries }
@@ -338,7 +338,6 @@ export default {
     swellHeightSeries() {
       const date = this.days[this.selectedDay].date;
       return this.days[this.selectedDay].hourly.map(day => {
-        console.log(day.swellHeight_m);
         return [
           new Date(date).setHours(this.parseHour(day.time), 0, 0, 0),
           Number(day.swellHeight_m)
@@ -438,7 +437,6 @@ export default {
       };
     }
   },
-
   data() {
     return {
       selectedChart: 0,

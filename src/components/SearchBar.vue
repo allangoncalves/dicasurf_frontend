@@ -1,29 +1,31 @@
 <template>
-  <div class="columns is-vcentered has-background-primary is-marginless box is-paddingless">
+  <div class="columns is-vcentered has-background-primary box is-paddingless">
     <div class="column is-2 has-text-secondary has-text-weight-bold">
       <p class="title is-4 has-text-centered-mobile has-text-weight-bold">{{title}}</p>
     </div>
     <div class="column has-text-centered-mobile">
       <b-field>
         <b-select
-          v-model="selectedBeach"
+          v-model="selectedCity"
           class="select"
-          placeholder="Selecione uma praia"
+          placeholder="Selecione uma cidade"
           icon="search"
+          @input="citySelected"
         >
-          <option v-for="option in data" :value="option" :key="option">{{ option }}</option>
+          <option v-for="city in cities" :value="city" :key="city.id">{{ city.name }}</option>
         </b-select>
       </b-field>
     </div>
     <div class="column has-text-centered-mobile">
       <b-field>
         <b-select
+          v-model="selectedSpot"
           class="select"
-          :disabled="selectedBeach === null"
+          :disabled="selectedCity === null"
           placeholder="Selecione um pico"
-          @input="$emit('spot-selected')"
+          @input="spotSelected"
         >
-          <option v-for="option in data" :value="option" :key="option">{{ option }}</option>
+          <option v-for="spot in spots" :value="spot" :key="spot.id">{{ spot.name }}</option>
         </b-select>
       </b-field>
     </div>
@@ -34,6 +36,7 @@
 </template>
 
 <script>
+import { mapState, mapActions, mapMutations } from "vuex";
 export default {
   props: {
     title: {
@@ -45,25 +48,38 @@ export default {
       type: Boolean
     }
   },
-  data() {
-    return {
-      selectedBeach: null,
-      selectedSpot: null,
-      data: [
-        "Angular",
-        "Angular 2",
-        "Aurelia",
-        "Backbone",
-        "Ember",
-        "jQuery",
-        "Meteor",
-        "Node.js",
-        "Polymer",
-        "React",
-        "RxJS",
-        "Vue.js"
-      ]
-    };
+  computed: {
+    ...mapState(["cities", "spots", "currentCity", "currentSpot"]),
+    selectedCity: {
+      get(){
+        return this.currentCity;
+      },
+      set(value){
+        this.setCurrentCity(value)
+      }
+    },
+    selectedSpot: {
+      get(){
+        return this.currentSpot;
+      },
+      set(value){
+        this.setCurrentSpot(value);
+      }
+    }
+  },
+  methods: {
+    ...mapActions(["getSpots", "getForecast", "getWeather"]),
+    ...mapMutations(["setCurrentCity", "setCurrentSpot"]),
+    citySelected() {
+      this.getSpots({id: this.selectedCity.id});
+    },
+    spotSelected() {
+      const lat = this.selectedSpot.lat;
+      const lng = this.selectedSpot.lng;
+      this.getForecast({ lat, lng, hourTick: 1 });
+      this.getWeather({ lat, lng });
+      this.$emit("spot-selected");
+    }
   }
 };
 </script>

@@ -35,7 +35,7 @@
         <div class="tile is-ancestor">
           <div class="tile is-vertical is-parent is-8" style="padding-bottom:0px">
             <div class="tile is-child">
-              <search-bar :hideMessage="true" title="Nossos Picos"/>
+              <search-bar :hideMessage="true" title="Nossos Picos" />
             </div>
             <div class="tile is-child">
               <div class="columns">
@@ -66,24 +66,21 @@
               </div>
             </div>
             <div class="tile is-child">
-              <p class="title">MADEIRO</p>
-              <p class="subtitle">Tibau do Sul - RN</p>
-              <div
-                class="has-background-secondary"
-                style="max-height:0.7em;height:0.2em"
-              ></div>
+              <p class="title">{{ currentSpot.name }}</p>
+              <p class="subtitle">{{ cityAndState }}</p>
+              <div class="has-background-secondary" style="max-height:0.7em;height:0.2em"></div>
             </div>
           </div>
           <div class="tile is-parent is-4 is-horizontal-center is-flex">
             <div class="tile is-child">
               <div class="is-paddingless">
                 <forecast-hud
-                :waveHeight="waveHeight"
-                :WindGustKmph="WindGustKmph"
-                :waterTemp="waterTemp"
-                :ultraViolet="ultraViolet"
-                :wavePeriods="wavePeriods"
-              />
+                  :waveHeight="waveHeight"
+                  :WindGustKmph="WindGustKmph"
+                  :waterTemp="waterTemp"
+                  :ultraViolet="ultraViolet"
+                  :wavePeriods="wavePeriods"
+                />
               </div>
             </div>
           </div>
@@ -95,7 +92,7 @@
       <div class="container">
         <div class="tile is-parent is-vertical section-bottom">
           <div class="tile is-child">
-            <div class="tile is-ancestor ">
+            <div class="tile is-ancestor">
               <div class="tile is-vertical is-parent">
                 <div class="tile is-child">
                   <div>
@@ -103,47 +100,52 @@
                     <p>
                       Acesso de carro:
                       <span
-                        :class="{'is-success': isCar, 'is-danger':!isCar}"
-                      >{{ access }}</span>
+                      class="has-text-weight-bold"
+                        :class="{'has-text-success': currentSpot.car, 'has-text-danger':!currentSpot.car}"
+                      >{{ carAccess }}</span>
                     </p>
                     <p>
                       Acesso especial:
                       <span
-                        :class="{'is-success': isSpecial, 'is-danger':!isSpecial}"
+                      class="has-text-weight-bold"
+                        :class="{'has-text-success': currentSpot.special_access, 'has-text-danger':!currentSpot.special_access}"
                       >{{ specialAccess }}</span>
                     </p>
                     <p>
                       Tipo de praia:
                       <span
-                        :class="{'is-success': isPublic, 'is-danger':!isPublic}"
+                      class="has-text-weight-bold"
+                        :class="{'has-text-success': currentSpot.beach_type === 'Pública', 'has-text-danger':currentSpot.beach_type === 'Privada'}"
                       >{{ beachType }}</span>
                     </p>
                     <p>
                       Tipo de acesso:
-                      <span class="has-text-weight-bold">{{ accessType }}</span>
+                      <span class="has-text-weight-bold">{{ accessTypes }}</span>
                     </p>
                   </div>
                   <div class="data-category">
                     <h5 class="title is-4 is-marginless has-text-primary">Características</h5>
                     <p>
                       Fundo:
-                      <span>{{ }}</span>
+                      <span class="has-text-weight-bold">{{ grounds }}</span>
                     </p>
                     <p>
                       Melhor época do ano:
-                      <span>{{ }}</span>
+                      <span class="has-text-weight-bold">{{ timeOfYear }}</span>
                     </p>
                     <p>
                       Melhor Movimento da Maré:
-                      <span>{{ }}</span>
+                      <span
+                        class="has-text-weight-bold"
+                      >{{ bestTideMoves }}</span>
                     </p>
                     <p>
                       Crowd da semana:
-                      <span>{{ }}</span>
+                      <span class="has-text-weight-bold">{{ weekCrowd }}</span>
                     </p>
                     <p>
                       Crowd do final de semana:
-                      <span>{{ }}</span>
+                      <span class="has-text-weight-bold">{{ weekendCrowd }}</span>
                     </p>
                   </div>
                   <div class="data-category">
@@ -185,35 +187,36 @@
                     </p>
                     <p>
                       Direção:
-                      <span>{{ }}</span>
+                      <span class="has-text-weight-bold">{{ waveDirections }}</span>
                     </p>
                     <p>
                       Nivel do surf:
-                      <span>{{ }}</span>
+                      <span class="has-text-weight-bold">{{ surfLevels }}</span>
                     </p>
                     <p>
                       Comprimento das ondas:
-                      <span>{{ }}</span>
+                      <span class="has-text-weight-bold">{{ waveLength }}</span>
                     </p>
                     <p>
                       Força:
-                      <span>{{ }}</span>
+                      <span class="has-text-weight-bold">{{ waveStrength }}</span>
                     </p>
                     <p>
                       Frequência das ondas:
-                      <span>{{ }}</span>
+                      <span class="has-text-weight-bold">{{ waveFrequencies }}</span>
                     </p>
                   </div>
                   <div class="data-category">
                     <h5 class="title is-4 is-marginless has-text-danger">Perigos</h5>
-                    <p>lorem ipsum</p>
+                    <b-tag style="margin-right:1rem;margin-top:1rem" type="is-danger" v-for="danger in dangers" :key="danger">{{ danger }}</b-tag>
+                    <!-- <p class="has-text-weight-bold" v-for="danger in dangers" :key="danger">{{ danger }}</p> -->
                   </div>
                 </div>
               </div>
               <div class="tile is-parent">
                 <div class="tile is-child">
                   <figure class="image is-square">
-                  <img src="https://bulma.io/images/placeholders/128x128.png" />
+                    <img src="https://bulma.io/images/placeholders/128x128.png" />
                   </figure>
                 </div>
               </div>
@@ -241,7 +244,7 @@
                       <p class="title is-5">MADEIRO</p>
                     </div>
                   </slide>
-<slide>
+                  <slide>
                     <div class="has-text-centered">
                       <img src="https://bulma.io/images/placeholders/128x128.png" />
                       <p class="title is-5">CACIMBINHAS</p>
@@ -274,6 +277,7 @@ import { Carousel, Slide } from "vue-carousel";
 import ForecastHud from "@/components/ForecastHud";
 import SearchBar from "@/components/SearchBar";
 import core from "../mixins/core";
+import { mapState } from "vuex";
 export default {
   mixins: [core],
   components: {
@@ -287,7 +291,6 @@ export default {
       isCar: true,
       isSpecial: true,
       isPublic: true,
-      waveQuality: 3,
       data: [
         "Angular",
         "Angular 2",
@@ -316,17 +319,154 @@ export default {
     }
   },
   computed: {
-    access() {
-      return `${this.spot.access}`;
+    ...mapState(["currentSpot", "currentCity", "currentState"]),
+    cityAndState() {
+      return `${this.currentCity.name} - ${this.currentState.abbreviation}`;
+    },
+    carAccess() {
+      return this.currentSpot.car ? "Sim" : "Não";
     },
     specialAccess() {
-      return `${this.spot.access}`;
+      return this.currentSpot.special_access ? "Sim" : "Não";
     },
     beachType() {
-      return `${this.spot.access}`;
+      return this.currentSpot.beach_type;
     },
-    accessType() {
-      return `${this.spot.access}`;
+    timeOfYear() {
+      return this.currentSpot.time_of_year;
+    },
+    weekCrowd() {
+      return this.currentSpot.week_crowd;
+    },
+    weekendCrowd() {
+      return this.currentSpot.weekend_crowd;
+    },
+    waveQuality() {
+      return this.currentSpot.wave_quality;
+    },
+    waveLength() {
+      return this.currentSpot.wave_length;
+    },
+    waveStrength() {
+      return this.currentSpot.wave_strength;
+    },
+    accessTypes() {
+      let types = [];
+      if (this.currentSpot.accesses.stairwell) {
+        types.push("Escadaria");
+      }
+      if (this.currentSpot.accesses.cliff) {
+        types.push("Falésia");
+      }
+      if (this.currentSpot.accesses.bay) {
+        types.push("Beira Mar");
+      }
+      if (this.currentSpot.accesses.trail) {
+        types.push("Trilha");
+      }
+      if (this.currentSpot.accesses.other !== "") {
+        types.push(this.currentSpot.accesses.others);
+      }
+      return types.join(" / ");
+    },
+    grounds() {
+      let types = [];
+      if (this.currentSpot.grounds.rock) {
+        types.push("Pedra");
+      }
+      if (this.currentSpot.grounds.sand) {
+        types.push("Areia");
+      }
+      if (this.currentSpot.grounds.coral) {
+        types.push("Coral");
+      }
+      return types.join(" / ");
+    },
+    bestTideMoves() {
+      let types = [];
+      if (this.currentSpot.best_tide_moves.low) {
+        types.push("Seca");
+      }
+      if (this.currentSpot.best_tide_moves.high) {
+        types.push("Cheia");
+      }
+      if (this.currentSpot.best_tide_moves.ebb) {
+        types.push("Secando");
+      }
+      if (this.currentSpot.best_tide_moves.flood) {
+        types.push("Enchendo");
+      }
+      return types.join(" / ");
+    },
+    waveDirections() {
+      let types = [];
+      if (this.currentSpot.wave_directions.left) {
+        types.push("Esquerda");
+      }
+      if (this.currentSpot.wave_directions.right) {
+        types.push("Direita");
+      }
+      return types.join(" / ");
+    },
+    surfLevels() {
+      let types = [];
+      if (this.currentSpot.surf_levels.beginner) {
+        types.push("Iniciante");
+      }
+      if (this.currentSpot.surf_levels.intermediate) {
+        types.push("Intermediário");
+      }
+      if (this.currentSpot.surf_levels.expert) {
+        types.push("Avançado");
+      }
+      return types.join(" / ");
+    },
+    waveFrequencies() {
+      let types = [];
+      if (this.currentSpot.wave_frequencies.low) {
+        types.push("Baixa");
+      }
+      if (this.currentSpot.wave_frequencies.regular) {
+        types.push("Regular");
+      }
+      if (this.currentSpot.wave_frequencies.high) {
+        types.push("Alta");
+      }
+      return types.join(" / ");
+    },
+    dangers() {
+      let types = [];
+      if (this.currentSpot.dangers.current) {
+        types.push("Correnteza");
+      }
+      if (this.currentSpot.dangers.localism) {
+        types.push("Localismo");
+      }
+      if (this.currentSpot.dangers.boat) {
+        types.push("Barcos");
+      }
+      if (this.currentSpot.dangers.jetski) {
+        types.push("Jet Ski");
+      }
+      if (this.currentSpot.dangers.buoy) {
+        types.push("Bóias");
+      }
+      if (this.currentSpot.dangers.pollution) {
+        types.push("Poluição");
+      }
+      if (this.currentSpot.dangers.rock) {
+        types.push("Pedras");
+      }
+      if (this.currentSpot.dangers.shark) {
+        types.push("Tubarões");
+      }
+      if (this.currentSpot.dangers.undertow) {
+        types.push("Ressaca");
+      }
+      if (this.currentSpot.dangers.other !== "") {
+        types.push(this.currentSpot.dangers.other);
+      }
+      return types;
     },
     filteredDataArray() {
       return this.data.filter(option => {

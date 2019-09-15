@@ -16,15 +16,15 @@ import { mapActions } from 'vuex';
 
 export default {
   mounted(){
-    this.getForecast({ lat: -6.222, lng: -35.07, hourTick:1 });
-    this.getWeather({ lat: -6.222, lng: -35.07 });
+    this.getCities();
+    this.getStateData();
   },
   components: {
     Footer,
     Navbar
   },
   methods: {
-    ...mapActions(["getForecast", "getWeather"])
+    ...mapActions([ "getCities", "getStateData"])
   }
 };
 </script>
