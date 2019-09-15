@@ -47,15 +47,18 @@ export default {
     wavePeriods() {
       return this.currentMarineData.swellPeriod_secs;
     },
-
+    swellHeight(){
+      return this.currentMarineData.swellHeight_m;
+    },
     ultraViolet() {
       return this.currentWeatherData.uvIndex;
     },
-
     WindGustKmph() {
       return this.currentWeatherData.WindGustKmph;
     },
-
+    windDir(){
+      return this.currentWeatherData.winddir16Point;
+    },
     humidity() {
       return `${this.currentWeatherData.humidity}%`;
     },

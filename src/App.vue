@@ -50,12 +50,24 @@ $secondary: #222221;
 $secondary-invert: findColorInvert($secondary);
 $tertiary: #343434;
 $tertiary-invert: findColorInvert($tertiary);
+$dica-green: #2C9A7C;
+$dica-green-invert: findColorInvert($dica-green);
+$dica-grey:#9B887A;
+$dica-grey-invert: findColorInvert($dica-grey);
 $footer-background-color: $secondary;
 
 $section-padding: 0rem 1.5rem 0rem 1.5rem;
 
 // Setup $colors to use as bulma classes (e.g. 'is-twitter')
 $colors: (
+  "dicagreen": (
+    $dica-green,
+    $dica-green-invert
+  ),
+  "dicagrey": (
+    $dica-grey,
+    $dica-grey-invert
+  ),
   "white": (
     $white,
     $black

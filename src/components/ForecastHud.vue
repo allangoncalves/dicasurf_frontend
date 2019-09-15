@@ -17,7 +17,10 @@
         <div class="column is-full">
           <p class="subtitle has-text-weight-bold">{{waveHeight}}</p>
         </div>
-        <!-- <div class="column is-full">DFF</div> -->
+
+        <div class="column is-full">
+          <b-tag class="has-text-weight-bold" type="is-dicagreen">{{swellHeight}}</b-tag>
+        </div>
       </div>
     </div>
     <div class="column is-paddingless">
@@ -33,7 +36,6 @@
         <div class="column is-full">
           <p class="subtitle has-text-weight-bold">{{wavePeriods}}</p>
         </div>
-        <!-- <div class="column is-full">DFF</div> -->
       </div>
     </div>
     <div class="column is-paddingless">
@@ -49,7 +51,9 @@
         <div class="column is-full">
           <p class="subtitle has-text-weight-bold">{{WindGustKmph}}</p>
         </div>
-        <!-- <div class="column is-full">DFF</div> -->
+        <div class="column is-full">
+          <b-tag class="has-text-weight-bold" type="is-dicagrey">{{windDir}}</b-tag>
+        </div>
       </div>
     </div>
     <div class="column is-paddingless">
@@ -111,6 +115,14 @@ export default {
       type: String
     },
     wavePeriods: {
+      required: true,
+      type: String
+    },
+    swellHeight: {
+      required: true,
+      type: String
+    },
+    windDir: {
       required: true,
       type: String
     }
