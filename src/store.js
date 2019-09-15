@@ -60,7 +60,7 @@ export default new Vuex.Store({
   },
   actions: {
     getForecast({ commit }, payload) {
-      EXTERNAL_API.get("/marine.ashx", {
+      return EXTERNAL_API.get("/marine.ashx", {
         params: {
           key: process.env.VUE_APP_SECRET,
           q: `${payload.lat},${payload.lng}`,
@@ -73,7 +73,7 @@ export default new Vuex.Store({
       });
     },
     getWeather({ commit }, payload) {
-      EXTERNAL_API.get("/weather.ashx", {
+      return EXTERNAL_API.get("/weather.ashx", {
         params: {
           key: process.env.VUE_APP_SECRET,
           q: `${payload.lat},${payload.lng}`,
@@ -116,12 +116,16 @@ export default new Vuex.Store({
         commit("setCurrentState", res.data);
       });
     },
-    getLastSpotAdded({ commit, state }) {
-      DICA_API.get(`/states/${1}/cities/`).then(res => {
-        commit("setCurrentCity", res.data[res.data.length - 1]);
-        DICA_API.get(`/states/${1}/cities/${state.currentCity.id}/spots`).then(
+    selectLastSpotAdded({ commit, state }) {
+      return DICA_API.get(`/states/${1}/cities/`).then(res => {
+        const cities = res.data;
+        commit("setCities", cities);
+        commit("setCurrentCity", cities[cities.length - 1]);
+        return DICA_API.get(`/states/${1}/cities/${state.currentCity.id}/spots`).then(
           res => {
-            commit("setCurrentSpot", res.data[res.data.length - 1]);
+            const spots = res.data;
+            commit("setSpots", spots);
+            commit("setCurrentSpot", spots[spots.length - 1]);
           }
         );
       });

@@ -229,7 +229,7 @@ import SearchBar from "../components/SearchBar";
 import Tabs from "../components/Tabs";
 
 import core from "../mixins/core";
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 var moment = require("moment");
 const WEEK_DAYS = ["dom", "seg", "ter", "qua", "qui", "sex", "sab"];
@@ -241,7 +241,18 @@ export default {
     Tabs
   },
   mixins: [core],
+  mounted() {
+    if (this.days.length === 0) {
+      this.selectLastSpotAdded().then(() => {
+        const lat = this.currentSpot.lat;
+        const lng = this.currentSpot.lng;
+        this.getWeather({ lat, lng });
+        this.getForecast({ lat, lng, hourTick: 1 });
+      });
+    }
+  },
   methods: {
+    ...mapActions(["selectLastSpotAdded", "getForecast", "getWeather"]),
     selectedChartChange(index) {
       this.selectedChart = index;
     },

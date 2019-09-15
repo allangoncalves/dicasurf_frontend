@@ -33,11 +33,11 @@
     <section class="section">
       <div class="container">
         <div class="tile is-ancestor">
-          <div class="tile is-vertical is-parent is-8" style="padding-bottom:0px">
+          <div class="tile is-vertical is-parent" style="padding-bottom:0px">
             <div class="tile is-child">
               <search-bar :hideMessage="true" title="Nossos Picos" />
             </div>
-            <div class="tile is-child">
+            <div class="tile is-child" v-if="currentSpot != null && days.length !== 0">
               <div class="columns">
                 <div class="column is-half">
                   <div class="columns is-vcentered">
@@ -65,13 +65,16 @@
                 </div>
               </div>
             </div>
-            <div class="tile is-child">
+            <div class="tile is-child" v-if="currentSpot != null && days.length !== 0">
               <p class="title">{{ currentSpot.name }}</p>
               <p class="subtitle">{{ cityAndState }}</p>
               <div class="has-background-secondary" style="max-height:0.7em;height:0.2em"></div>
             </div>
           </div>
-          <div class="tile is-parent is-4 is-horizontal-center is-flex">
+          <div
+            class="tile is-parent is-4 is-horizontal-center is-flex"
+            v-if="currentSpot != null && days.length !== 0"
+          >
             <div class="tile is-child">
               <div class="is-paddingless">
                 <forecast-hud
@@ -96,7 +99,7 @@
       <div class="container">
         <div class="tile is-parent is-vertical section-bottom">
           <div class="tile is-child">
-            <div class="tile is-ancestor">
+            <div class="tile is-ancestor" v-if="currentSpot != null && days.length !== 0">
               <div class="tile is-vertical is-parent">
                 <div class="tile is-child">
                   <div>
@@ -104,21 +107,21 @@
                     <p>
                       Acesso de carro:
                       <span
-                      class="has-text-weight-bold"
+                        class="has-text-weight-bold"
                         :class="{'has-text-success': currentSpot.car, 'has-text-danger':!currentSpot.car}"
                       >{{ carAccess }}</span>
                     </p>
                     <p>
                       Acesso especial:
                       <span
-                      class="has-text-weight-bold"
+                        class="has-text-weight-bold"
                         :class="{'has-text-success': currentSpot.special_access, 'has-text-danger':!currentSpot.special_access}"
                       >{{ specialAccess }}</span>
                     </p>
                     <p>
                       Tipo de praia:
                       <span
-                      class="has-text-weight-bold"
+                        class="has-text-weight-bold"
                         :class="{'has-text-success': currentSpot.beach_type === 'Pública', 'has-text-danger':currentSpot.beach_type === 'Privada'}"
                       >{{ beachType }}</span>
                     </p>
@@ -212,7 +215,12 @@
                   </div>
                   <div class="data-category">
                     <h5 class="title is-4 is-marginless has-text-danger">Perigos</h5>
-                    <b-tag style="margin-right:1rem;margin-top:1rem" type="is-danger" v-for="danger in dangers" :key="danger">{{ danger }}</b-tag>
+                    <b-tag
+                      style="margin-right:1rem;margin-top:1rem"
+                      type="is-danger"
+                      v-for="danger in dangers"
+                      :key="danger"
+                    >{{ danger }}</b-tag>
                     <!-- <p class="has-text-weight-bold" v-for="danger in dangers" :key="danger">{{ danger }}</p> -->
                   </div>
                 </div>
@@ -226,7 +234,7 @@
               </div>
             </div>
           </div>
-          <div class="tile is-child">
+          <div class="tile is-child" v-if="currentSpot != null && days.length !== 0">
             <div class="tile is-parent">
               <div class="tile is-child">
                 <carousel :per-page="3" :navigationEnabled="true" :paginationEnabled="false">
@@ -281,7 +289,7 @@ import { Carousel, Slide } from "vue-carousel";
 import ForecastHud from "@/components/ForecastHud";
 import SearchBar from "@/components/SearchBar";
 import core from "../mixins/core";
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 export default {
   mixins: [core],
   components: {
@@ -289,6 +297,16 @@ export default {
     Carousel,
     Slide,
     SearchBar
+  },
+  created() {
+    if (this.days.length === 0) {
+      this.selectLastSpotAdded().then(() => {
+        const lat = this.currentSpot.lat;
+        const lng = this.currentSpot.lng;
+        this.getWeather({ lat, lng });
+        this.getForecast({ lat, lng, hourTick: 1 });
+      });
+    }
   },
   data() {
     return {
@@ -318,6 +336,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["selectLastSpotAdded", "getForecast", "getWeather"]),
     fullStar(position) {
       return position <= this.waveQuality ? "fas" : "far";
     }

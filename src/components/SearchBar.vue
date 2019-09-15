@@ -3,7 +3,7 @@
     <div class="column is-2 has-text-secondary has-text-weight-bold">
       <p class="title is-4 has-text-centered-mobile has-text-weight-bold">{{title}}</p>
     </div>
-    <div class="column has-text-centered-mobile">
+    <div class="column is-3 has-text-centered-mobile">
       <b-field>
         <b-select
           v-model="selectedCity"
@@ -16,7 +16,7 @@
         </b-select>
       </b-field>
     </div>
-    <div class="column has-text-centered-mobile">
+    <div class="column is-3 has-text-centered-mobile">
       <b-field>
         <b-select
           v-model="selectedSpot"
@@ -29,8 +29,8 @@
         </b-select>
       </b-field>
     </div>
-    <div class="column is-4" v-if="!hideMessage">
-      <p class="has-text-white has-text-centered">Nossa vibe é surf, o resto é onda.</p>
+    <div class="column" v-if="!hideMessage">
+      <p class="has-text-white has-text-centered-mobile has-text-right-tablet">Nossa vibe é surf, o resto é onda.</p>
     </div>
   </div>
 </template>
