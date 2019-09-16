@@ -256,7 +256,12 @@ export default {
     selectedChartChange(index) {
       this.selectedChart = index;
     },
-    spotSelected() {}
+    spotSelected() {
+      const lat = this.currentSpot.lat;
+      const lng = this.currentSpot.lng;
+      this.getForecast({ lat, lng, hourTick: 1 });
+      this.getWeather({ lat, lng });
+    }
   },
   computed: {
     ...mapState(["currentSpot"]),

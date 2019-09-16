@@ -70,14 +70,24 @@
 
 <script>
 import SearchBar from "../components/SearchBar";
+import { mapState, mapActions } from 'vuex';
 
 export default {
   name: "home",
   components: { SearchBar },
   methods: {
+    ...mapActions([ "getForecast", "getWeather"]),
     spotSelected() {
-      this.$router.push("/previsao");
+      const lat = this.currentSpot.lat;
+      const lng = this.currentSpot.lng;
+      Promise.all([
+        this.getWeather({ lat, lng }),
+        this.getForecast({ lat, lng, hourTick: 1 })
+      ]).then(() => this.$router.push("/previsao"));
     }
+  },
+  computed: {
+    ...mapState(["currentSpot"])
   },
   data() {
     return {

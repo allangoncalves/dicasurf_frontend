@@ -74,10 +74,7 @@ export default {
       this.getSpots({id: this.selectedCity.id});
     },
     spotSelected() {
-      const lat = this.selectedSpot.lat;
-      const lng = this.selectedSpot.lng;
-      this.getForecast({ lat, lng, hourTick: 1 });
-      this.getWeather({ lat, lng });
+      console.log(this.currentSpot);
       this.$emit("spot-selected");
     }
   }

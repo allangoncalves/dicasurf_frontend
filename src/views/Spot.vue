@@ -35,7 +35,7 @@
         <div class="tile is-ancestor">
           <div class="tile is-vertical is-parent" style="padding-bottom:0px">
             <div class="tile is-child">
-              <search-bar :hideMessage="true" title="Nossos Picos" />
+              <search-bar :hideMessage="true" @spot-selected="spotSelected" title="Nossos Picos" />
             </div>
             <div class="tile is-child" v-if="currentSpot != null && days.length !== 0">
               <div class="columns">
@@ -339,6 +339,12 @@ export default {
     ...mapActions(["selectLastSpotAdded", "getForecast", "getWeather"]),
     fullStar(position) {
       return position <= this.waveQuality ? "fas" : "far";
+    },
+    spotSelected(){
+      const lat = this.currentSpot.lat;
+      const lng = this.currentSpot.lng;
+      this.getForecast({ lat, lng, hourTick: 1 });
+      this.getWeather({ lat, lng });
     }
   },
   computed: {
