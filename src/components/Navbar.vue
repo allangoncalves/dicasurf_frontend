@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar wrapper-class="container transparent" type="is-tertiary">
+    <b-navbar fixed-top wrapper-class="container transparent" type="is-tertiary">
       <template slot="brand">
         <b-navbar-item tag="router-link" to="/">
           <img :src="mainLogo" alt="DicaSurf" />
