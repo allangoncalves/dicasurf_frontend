@@ -1,6 +1,6 @@
 <template>
   <div class="columns is-multiline is-mobile">
-    <div class="column is-full indicator">
+    <div class="column is-full indicator " style="display: flex;justify-content:center">
       <indicator :tempC="tempC" :fullDate="fullDate"/>
     </div>
     <div class="column is-paddingless">

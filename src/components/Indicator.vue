@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="base has-text-centered test">
+  <div style="width:330px;">
+    <div class="base indicator">
       <div class="is-horizontal-center">
         <!-- <img class="abs-position base" src="@/assets/indicators/tide_med.svg" alt /> -->
         <p class="hour title is-1 has-text-white">{{temperature}}</p>
@@ -15,11 +15,11 @@
 var moment = require("moment");
 const WEEK_DAYS = [
   "Domingo",
-  "Segunda",
-  "Terça",
-  "Quarta",
-  "Quinta",
-  "Sexta",
+  "Segunda-feira",
+  "Terça-feira",
+  "Quarta-feira",
+  "Quinta-feira",
+  "Sexta-feira",
   "Sábado"
 ];
 const MONTHS = [
@@ -65,26 +65,31 @@ export default {
   position: absolute;
 }
 .is-horizontal-center {
-  display: flex;
-  justify-content: center;
+  float: right;
+  padding-right: 0.6rem;
+  padding-top: 7.8rem;
+  // display: flex;
+  // justify-content: center;
 }
 .hour {
-  position: absolute;
-  margin-left: 180px;
-  margin-top: 120px;
+  margin-bottom:0.1em;
+  // position: absolute;
+  // margin-left: 1.8em;
+  // margin-top: 2.5em;
 }
 .date {
-  position: absolute;
-  margin-left: 180px;
-  margin-top: 180px;
+  margin-bottom:0.2em;
+  // position: absolute;
+  // margin-left: 6em;
+  // margin-top: 11.3em;
 }
 .day {
-  position: absolute;
-  margin-left: 180px;
-  margin-top: 203px;
+  // position: absolute;
+  // margin-left: 5.8em;
+  // margin-top: 12.6em;
 }
 
-.test {
+.indicator {
   background-image: url("../assets/indicators/wind_med.svg"),
     url("../assets/indicators/clouds.svg"), url("../assets/indicators/sun.svg"),
     url("../assets/indicators/tide_med.svg"),
