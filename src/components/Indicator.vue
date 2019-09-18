@@ -12,7 +12,6 @@
   </div>
 </template>
 <script>
-var moment = require("moment");
 const WEEK_DAYS = [
   "Domingo",
   "Segunda-feira",
