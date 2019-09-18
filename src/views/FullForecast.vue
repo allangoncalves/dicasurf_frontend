@@ -65,7 +65,7 @@
 
               <div class="tile is-child">
                 <div class="columns is-multiline">
-                  <div class="column is-full" style="padding-bottom:0px">
+                  <div class="column is-9" style="padding-bottom:0px">
                     <tabs @selectionChanged="selectedChartChange($event)" />
                   </div>
                   <div class="column is-full" style="padding-top:0px">
@@ -241,13 +241,18 @@ export default {
     Tabs
   },
   mixins: [core],
-  mounted() {
+  created() {
     if (this.days.length === 0) {
+      const loading = this.$buefy.loading.open();
       this.selectLastSpotAdded().then(() => {
         const lat = this.currentSpot.lat;
         const lng = this.currentSpot.lng;
-        this.getWeather({ lat, lng });
-        this.getForecast({ lat, lng, hourTick: 1 });
+        Promise.all([
+          this.getWeather({ lat, lng }),
+          this.getForecast({ lat, lng, hourTick: 1 })
+        ])
+          .then(() => loading.close())
+          .catch(() => loading.close());
       });
     }
   },
@@ -257,10 +262,15 @@ export default {
       this.selectedChart = index;
     },
     spotSelected() {
+      const loading = this.$buefy.loading.open();
       const lat = this.currentSpot.lat;
       const lng = this.currentSpot.lng;
-      this.getForecast({ lat, lng, hourTick: 1 });
-      this.getWeather({ lat, lng });
+      Promise.all([
+        this.getWeather({ lat, lng }),
+        this.getForecast({ lat, lng, hourTick: 1 })
+      ])
+        .then(() => loading.close())
+        .catch(() => loading.close());
     }
   },
   computed: {
@@ -363,17 +373,27 @@ export default {
     selectedData() {
       switch (this.selectedChart) {
         case 0:
-          this.chartMax = 3;
           return this.waveHeightData;
         case 1:
-          this.chartMax = 15;
           return this.wavePeriodData;
         case 2:
-          this.chartMax = 50;
           return this.windSpeedData;
         case 3:
-          this.chartMax = 3;
           return this.swellHeightData;
+      }
+    },
+    chartMax() {
+      switch (this.selectedChart) {
+        case 0:
+          return 3;
+        case 1:
+          return 15;
+        case 2:
+          return 50;
+        case 3:
+          return 3;
+        default:
+          return 10;
       }
     },
     barOptions() {
@@ -457,7 +477,6 @@ export default {
     return {
       selectedChart: 0,
       chartMin: 0,
-      chartMax: 10
     };
   }
 };

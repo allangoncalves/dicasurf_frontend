@@ -41,7 +41,7 @@
               <div class="columns">
                 <div class="column is-half">
                   <div class="columns is-vcentered">
-                    <div class="column has-text-centered-mobile is-3">
+                    <div class="column has-text-centered-mobile is-narrow">
                       <b-icon type="is-danger" icon="map-marker-alt" size="is-large"></b-icon>
                     </div>
                     <div
@@ -53,7 +53,7 @@
                 </div>
                 <div class="column is-half">
                   <div class="columns is-vcentered">
-                    <div class="column has-text-centered-mobile is-3">
+                    <div class="column has-text-centered-mobile is-narrow">
                       <b-icon type="is-success" icon="globe" size="is-large"></b-icon>
                     </div>
                     <div
@@ -72,7 +72,7 @@
             </div>
           </div>
           <div
-            class="tile is-parent is-4 is-horizontal-center is-flex"
+            class="tile is-parent is-5 is-horizontal-center is-flex"
             v-if="currentSpot != null && days.length !== 0"
           >
             <div class="tile is-child">
@@ -300,11 +300,16 @@ export default {
   },
   created() {
     if (this.days.length === 0) {
+      const loading = this.$buefy.loading.open();
       this.selectLastSpotAdded().then(() => {
         const lat = this.currentSpot.lat;
         const lng = this.currentSpot.lng;
-        this.getWeather({ lat, lng });
-        this.getForecast({ lat, lng, hourTick: 1 });
+        Promise.all([
+          this.getWeather({ lat, lng }),
+          this.getForecast({ lat, lng, hourTick: 1 })
+        ])
+          .then(() => loading.close())
+          .catch(() => loading.close());
       });
     }
   },

@@ -22,7 +22,7 @@
                   <div class="columns is-multiline">
                     <div class="column is-full is-flex is-horizontal-center">
                       <div class="home-icon">
-                        <img src="@/assets/icons/previsao.svg" alt />
+                        <img width="110px" src="@/assets/icons/previsao.svg" alt />
                       </div>
                     </div>
                     <div class="column is-full">
@@ -37,7 +37,7 @@
                   <div class="columns is-multiline">
                     <div class="column is-full is-flex is-horizontal-center">
                       <div class="home-icon">
-                        <img src="@/assets/icons/picos.svg" alt />
+                        <img width="110px" src="@/assets/icons/picos.svg" alt />
                       </div>
                     </div>
                     <div class="column is-full">
@@ -51,7 +51,7 @@
                   <div class="columns is-multiline">
                     <div class="column is-full is-flex is-horizontal-center">
                       <div class="home-icon">
-                        <img src="@/assets/icons/news.svg" alt />
+                        <img width="110px" src="@/assets/icons/news.svg" alt />
                       </div>
                     </div>
                     <div class="column is-full">
@@ -70,20 +70,24 @@
 
 <script>
 import SearchBar from "../components/SearchBar";
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "home",
   components: { SearchBar },
   methods: {
-    ...mapActions([ "getForecast", "getWeather"]),
+    ...mapActions(["getForecast", "getWeather"]),
     spotSelected() {
+      const loading = this.$buefy.loading.open();
       const lat = this.currentSpot.lat;
       const lng = this.currentSpot.lng;
       Promise.all([
         this.getWeather({ lat, lng }),
         this.getForecast({ lat, lng, hourTick: 1 })
-      ]).then(() => this.$router.push("/previsao"));
+      ]).then(() => {
+        loading.close();
+        this.$router.push("/previsao");
+      });
     }
   },
   computed: {
@@ -190,7 +194,7 @@ export default {
   justify-content: center;
   border-radius: 50%;
   background-image: radial-gradient(#0075bb 100%, blue 30%);
-  width: 160px;
-  height: 160px;
+  width: 130px;
+  height: 130px;
 }
 </style>
