@@ -9,7 +9,7 @@
         @click="changeSelection(index)"
         :style="{backgroundImage: `url('${require(`@/assets/icons/tab_${ selectedTab === index ? 'black': 'blue'}.svg`)}')`}"
       >
-        <p class="title is-5 is-size-6-mobile">{{ tab }}</p>
+        <p class="title is-size-6-mobile is-size-6-tablet">{{ tab }}</p>
       </div>
     </div>
   </div>
@@ -39,7 +39,7 @@ export default {
   background-repeat: no-repeat;
   background-attachment: center;
   background-size: contain;
-  height: 70px;
+  height: 50px;
 }
 .home-carousel-item {
   //   background-image: url("../assets/icons/tab_blue_base.svg");
