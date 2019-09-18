@@ -12,10 +12,19 @@
 <script>
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import { mapActions } from 'vuex';
+import { mapActions } from "vuex";
 
 export default {
-  created(){
+  beforeCreate() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+        console.log({ lat, lng });
+      });
+    }
+  },
+  created() {
     this.getStateData();
     this.getCities();
   },
@@ -24,7 +33,7 @@ export default {
     Navbar
   },
   methods: {
-    ...mapActions([ "getCities", "getStateData"])
+    ...mapActions(["getCities", "getStateData"])
   }
 };
 </script>
@@ -50,9 +59,9 @@ $secondary: #222221;
 $secondary-invert: findColorInvert($secondary);
 $tertiary: #343434;
 $tertiary-invert: findColorInvert($tertiary);
-$dica-green: #2C9A7C;
+$dica-green: #2c9a7c;
 $dica-green-invert: findColorInvert($dica-green);
-$dica-grey:#9B887A;
+$dica-grey: #9b887a;
 $dica-grey-invert: findColorInvert($dica-grey);
 $footer-background-color: $secondary;
 
@@ -117,8 +126,8 @@ $colors: (
 // Footer size needs to be set before bulma import
 $footer-padding: 1.5rem;
 
-// 
-$family-primary: 'Montserrat';
+//
+$family-primary: "Montserrat";
 
 @import "~bulma";
 @import "~buefy/src/scss/buefy";
