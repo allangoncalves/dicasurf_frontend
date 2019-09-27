@@ -31,7 +31,8 @@ export default new Vuex.Store({
     currentState: null,
     currentCity: null,
     currentSpot: null,
-    homeCarousel: []
+    homeCarousel: [],
+    posts: []
   },
   mutations: {
     setDays(state, days) {
@@ -58,8 +59,11 @@ export default new Vuex.Store({
     setCurrentSpot(state, spot) {
       state.currentSpot = spot;
     },
-    setHomeCarousel(state, homeCarousel){
+    setHomeCarousel(state, homeCarousel) {
       state.homeCarousel = homeCarousel;
+    },
+    setPosts(state, posts) {
+      state.posts = posts;
     }
   },
   actions: {
@@ -88,67 +92,81 @@ export default new Vuex.Store({
         commit("setWeatherDays", res.data.data.weather);
       });
     },
+    getPosts({ commit }) {
+      return DICA_API.get("/posts").then(res => {
+        commit("setPosts", res.data);
+      });
+    },
     getStates({ commit }) {
-      DICA_API.get("/states").then(res => {
+      return DICA_API.get("/states").then(res => {
         commit("setStates", res.data);
       });
     },
     getCities({ commit }) {
-      DICA_API.get(`/states/${1}/cities`).then(res => {
+      return DICA_API.get(`/states/${1}/cities`).then(res => {
         commit("setCities", res.data);
       });
     },
     getSpots({ commit }, payload) {
-      DICA_API.get(`/states/${1}/cities/${payload.id}/spots`).then(res => {
+      return DICA_API.get(`/states/${1}/cities/${payload.id}/spots`).then(res => {
         commit("setSpots", res.data);
       });
     },
     getCityData({ commit }, payload) {
-      DICA_API.get(`/states/${1}/cities/${payload.id}`).then(res => {
+      return DICA_API.get(`/states/${1}/cities/${payload.id}`).then(res => {
         commit("setCurrentCity", res.data);
       });
     },
     getSpotData({ commit }, payload) {
-      DICA_API.get(
+      return DICA_API.get(
         `/states/${1}/cities/${payload.cityId}/spots/${payload.id}`
       ).then(res => {
         commit("setCurrentSpot", res.data);
       });
     },
     getStateData({ commit }, payload) {
-      DICA_API.get(`/states/${1}`).then(res => {
+      return DICA_API.get(`/states/${1}`).then(res => {
         commit("setCurrentState", res.data);
       });
     },
     getHomeData({ commit }, payload) {
-      return DICA_API.get(`homepage/`).then(res => {
-        commit("setHomeCarousel", res.data[0].carousel);
-      }).catch(res => console.log(res));
+      return DICA_API.get(`homepage/`)
+        .then(res => {
+          commit("setHomeCarousel", res.data[0].carousel);
+        })
     },
-    getNearestSpot({commit}, payload){
-      return DICA_API.get('nearest', {
+    getNearestSpot({ commit }, payload) {
+      return DICA_API.get("nearest", {
         params: {
           lat: payload.lat,
           lng: payload.lng
         }
       }).then(res => {
         let nearest_spot = res.data[0];
-        
+
         let state = nearest_spot.city.state;
         commit("setCurrentState", state);
 
         let city_found = nearest_spot.city;
-        
+
         DICA_API.get(`/states/${1}/cities/`).then(res => {
           const cities = res.data;
           commit("setCities", cities);
-          commit("setCurrentCity", cities.find(city => city.id === city_found.id));
+          commit(
+            "setCurrentCity",
+            cities.find(city => city.id === city_found.id)
+          );
         });
 
-        return DICA_API.get(`/states/${1}/cities/${nearest_spot.id}/spots`).then(res => {
+        return DICA_API.get(
+          `/states/${1}/cities/${nearest_spot.id}/spots`
+        ).then(res => {
           const spots = res.data;
           commit("setSpots", spots);
-          commit("setCurrentSpot", spots.find(spot => spot.id === nearest_spot.id));
+          commit(
+            "setCurrentSpot",
+            spots.find(spot => spot.id === nearest_spot.id)
+          );
         });
       });
     },
@@ -157,13 +175,13 @@ export default new Vuex.Store({
         const cities = res.data;
         commit("setCities", cities);
         commit("setCurrentCity", cities[cities.length - 1]);
-        return DICA_API.get(`/states/${1}/cities/${state.currentCity.id}/spots`).then(
-          res => {
-            const spots = res.data;
-            commit("setSpots", spots);
-            commit("setCurrentSpot", spots[spots.length - 1]);
-          }
-        );
+        return DICA_API.get(
+          `/states/${1}/cities/${state.currentCity.id}/spots`
+        ).then(res => {
+          const spots = res.data;
+          commit("setSpots", spots);
+          commit("setCurrentSpot", spots[spots.length - 1]);
+        });
       });
     }
   }

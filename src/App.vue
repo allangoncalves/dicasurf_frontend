@@ -31,7 +31,7 @@ export default {
       this.getHomeData()
     ]).then(() => {
       loading.close();
-    });
+    }).catch(res => loading.close());
   },
   components: {
     Footer,
