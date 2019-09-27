@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="tile is-ancestor is-vertical">
-      <div class="tile is-parent" style="padding-top:3rem;padding-bottom:3rem">
+      <div class="tile is-parent" style="padding-top:5rem;padding-bottom:3rem">
         <div class="tile is-child">
           <search-bar title="PREVISÃO" @spot-selected="spotSelected" />
         </div>
@@ -242,7 +242,22 @@ export default {
   },
   mixins: [core],
   created() {
-    if (this.days.length === 0) {
+    const local_lat = localStorage.getItem("lat");
+    const local_lng = localStorage.getItem("lng");
+    if (local_lat !== null && local_lng !== null) {
+      const loading = this.$buefy.loading.open();
+      this.getNearestSpot({ lat: local_lat, lng: local_lng }).then(() => {
+        console.log(this.currentSpot);
+        const lat = this.currentSpot.lat;
+        const lng = this.currentSpot.lng;
+        Promise.all([
+          this.getWeather({ lat, lng }),
+          this.getForecast({ lat, lng, hourTick: 1 })
+        ])
+          .then(() => loading.close())
+          .catch(() => loading.close());
+      });
+    } else if (this.days.length === 0) {
       const loading = this.$buefy.loading.open();
       this.selectLastSpotAdded().then(() => {
         const lat = this.currentSpot.lat;
@@ -257,7 +272,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["selectLastSpotAdded", "getForecast", "getWeather"]),
+    ...mapActions([
+      "selectLastSpotAdded",
+      "getForecast",
+      "getWeather",
+      "getNearestSpot"
+    ]),
     selectedChartChange(index) {
       this.selectedChart = index;
     },
@@ -476,7 +496,7 @@ export default {
   data() {
     return {
       selectedChart: 0,
-      chartMin: 0,
+      chartMin: 0
     };
   }
 };

@@ -1,6 +1,7 @@
 <template>
   <div>
     <carousel
+      v-if="this.homeCarousel.length !== 0"
       tag="div"
       :data="slides"
       direction="up"
@@ -88,91 +89,42 @@ export default {
         loading.close();
         this.$router.push("/previsao");
       });
+    },
+    createSlide(slide) {
+      return `<section class="section is-medium home-carousel-item" :style="{backgroundImage: 'url(${slide.image})'}">
+        <div class="container">
+          <div class="columns is-multiline">
+            <div class="column is-full">
+              <h1 class="title has-text-white has-text-centered-mobile">${slide.title}</h1>
+            </div>
+            <div class="column is-full is-paddingless">
+              <div class="columns is-vcentered is-marginless">
+                <div
+                  class="column is-4 has-background-primary is-paddingless"
+                  style="max-height:0.2em;height:0.2em"
+                ></div>
+              </div>
+            </div>
+            <div class="column is-full">
+              <div class="columns">
+                <div class="column is-4">
+                  <h2
+                    class="has-text-white has-text-centered-mobile"
+                  >${slide.text}<br><a>${slide.hashtag}</a></h2>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>`;
     }
   },
   computed: {
-    ...mapState(["currentSpot"])
-  },
-  data() {
-    return {
-      slides: [
-        `<section class="section is-medium home-carousel-item"><div class="container">
-          <div class="columns is-multiline">
-            <div class="column is-full">
-              <h1 class="title has-text-white has-text-centered-mobile">Praia do Madeiro</h1>
-            </div>
-            <div class="column is-full is-paddingless">
-              <div class="columns is-vcentered is-marginless">
-                <div
-                  class="column is-4 has-background-primary is-paddingless"
-                  style="max-height:0.2em;height:0.2em"
-                ></div>
-              </div>
-            </div>
-            <div class="column is-full">
-              <div class="columns">
-                <div class="column is-4">
-                  <h2
-                    class="has-text-white has-text-centered-mobile"
-                  >O Pico mais democrático de Pipa. Todos os níveis, ondas o ano todo.<br><a>#DicaSurfPicos</a></h2>
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-        </div></section>`,
-        `<section class="section is-medium home-carousel-item"><div class="container">
-          <div class="columns is-multiline">
-            <div class="column is-full">
-              <h1 class="title has-text-white has-text-centered-mobile">Praia do Madeiro</h1>
-            </div>
-            <div class="column is-full is-paddingless">
-              <div class="columns is-vcentered is-marginless">
-                <div
-                  class="column is-4 has-background-primary is-paddingless"
-                  style="max-height:0.2em;height:0.2em"
-                ></div>
-              </div>
-            </div>
-            <div class="column is-full">
-              <div class="columns">
-                <div class="column is-4">
-                  <h2
-                    class="has-text-white has-text-centered-mobile"
-                  >O Pico mais democrático de Pipa. Todos os níveis, ondas o ano todo.<br><a>#DicaSurfPicos</a></h2>
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-        </div></section>`,
-        `<section class="section is-medium home-carousel-item"><div class="container">
-          <div class="columns is-multiline">
-            <div class="column is-full">
-              <h1 class="title has-text-white has-text-centered-mobile">Praia do Madeiro</h1>
-            </div>
-            <div class="column is-full is-paddingless">
-              <div class="columns is-vcentered is-marginless">
-                <div
-                  class="column is-4 has-background-primary is-paddingless"
-                  style="max-height:0.2em;height:0.2em"
-                ></div>
-              </div>
-            </div>
-            <div class="column is-full">
-              <div class="columns">
-                <div class="column is-4">
-                  <h2
-                    class="has-text-white has-text-centered-mobile"
-                  >O Pico mais democrático de Pipa. Todos os níveis, ondas o ano todo.<br><a>#DicaSurfPicos</a></h2>
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-        </div></section>`
-      ]
-    };
+    ...mapState(["currentSpot", "homeCarousel"]),
+    slides() {
+      return this.homeCarousel.map(slide => this.createSlide(slide));
+    }
   }
 };
 </script>
@@ -182,7 +134,6 @@ export default {
   justify-content: center;
 }
 .home-carousel-item {
-  background-image: url("../assets/images/surf-em-Ubatuba.jpg");
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: inherit;

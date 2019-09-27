@@ -30,7 +30,8 @@ export default new Vuex.Store({
     spots: [],
     currentState: null,
     currentCity: null,
-    currentSpot: null
+    currentSpot: null,
+    homeCarousel: []
   },
   mutations: {
     setDays(state, days) {
@@ -56,6 +57,9 @@ export default new Vuex.Store({
     },
     setCurrentSpot(state, spot) {
       state.currentSpot = spot;
+    },
+    setHomeCarousel(state, homeCarousel){
+      state.homeCarousel = homeCarousel;
     }
   },
   actions: {
@@ -114,6 +118,38 @@ export default new Vuex.Store({
     getStateData({ commit }, payload) {
       DICA_API.get(`/states/${1}`).then(res => {
         commit("setCurrentState", res.data);
+      });
+    },
+    getHomeData({ commit }, payload) {
+      return DICA_API.get(`homepage/`).then(res => {
+        commit("setHomeCarousel", res.data[0].carousel);
+      }).catch(res => console.log(res));
+    },
+    getNearestSpot({commit}, payload){
+      return DICA_API.get('nearest', {
+        params: {
+          lat: payload.lat,
+          lng: payload.lng
+        }
+      }).then(res => {
+        let nearest_spot = res.data[0];
+        
+        let state = nearest_spot.city.state;
+        commit("setCurrentState", state);
+
+        let city_found = nearest_spot.city;
+        
+        DICA_API.get(`/states/${1}/cities/`).then(res => {
+          const cities = res.data;
+          commit("setCities", cities);
+          commit("setCurrentCity", cities.find(city => city.id === city_found.id));
+        });
+
+        return DICA_API.get(`/states/${1}/cities/${nearest_spot.id}/spots`).then(res => {
+          const spots = res.data;
+          commit("setSpots", spots);
+          commit("setCurrentSpot", spots.find(spot => spot.id === nearest_spot.id));
+        });
       });
     },
     selectLastSpotAdded({ commit, state }) {

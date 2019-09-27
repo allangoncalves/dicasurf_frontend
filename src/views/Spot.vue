@@ -1,6 +1,10 @@
 <template>
   <div>
-    <section class="hero hero-img is-medium">
+    <section
+      class="hero hero-img is-medium"
+      v-if="currentSpot != null && days.length !== 0"
+      :style="{backgroundImage: `url(${currentSpot.header_image})`}"
+    >
       <!-- Hero content: will be in the middle -->
       <div class="hero-body">
         <div class="container">
@@ -228,7 +232,7 @@
               <div class="tile is-parent">
                 <div class="tile is-child">
                   <figure class="image is-square">
-                    <img src="https://bulma.io/images/placeholders/128x128.png" />
+                    <img :src="currentSpot.info_image" />
                   </figure>
                 </div>
               </div>
@@ -238,40 +242,14 @@
             <div class="tile is-parent">
               <div class="tile is-child">
                 <carousel :per-page="3" :navigationEnabled="true" :paginationEnabled="false">
-                  <slide>
+                  <slide
+                    @slide-click="openVideo(video.youtube_url)"
+                    v-for="video in currentSpot.videos"
+                    :key="video.id"
+                  >
                     <div class="has-text-centered">
-                      <img src="https://bulma.io/images/placeholders/128x128.png" />
-                      <p class="title is-5">MADEIRO</p>
-                    </div>
-                  </slide>
-                  <slide>
-                    <div class="has-text-centered">
-                      <img src="https://bulma.io/images/placeholders/128x128.png" />
-                      <p class="title is-5">MADEIRO</p>
-                    </div>
-                  </slide>
-                  <slide>
-                    <div class="has-text-centered">
-                      <img src="https://bulma.io/images/placeholders/128x128.png" />
-                      <p class="title is-5">MADEIRO</p>
-                    </div>
-                  </slide>
-                  <slide>
-                    <div class="has-text-centered">
-                      <img src="https://bulma.io/images/placeholders/128x128.png" />
-                      <p class="title is-5">CACIMBINHAS</p>
-                    </div>
-                  </slide>
-                  <slide>
-                    <div class="has-text-centered">
-                      <img src="https://bulma.io/images/placeholders/128x128.png" />
-                      <p class="title is-5">CACIMBINHAS</p>
-                    </div>
-                  </slide>
-                  <slide>
-                    <div class="has-text-centered">
-                      <img src="https://bulma.io/images/placeholders/128x128.png" />
-                      <p class="title is-5">CACIMBINHAS</p>
+                      <img :src="video.thumb" />
+                      <p class="title is-5">{{video.title}}</p>
                     </div>
                   </slide>
                 </carousel>
@@ -298,8 +276,27 @@ export default {
     Slide,
     SearchBar
   },
+  mounted(){
+
+  },
   created() {
-    if (this.days.length === 0) {
+    const local_lat = localStorage.getItem("lat");
+    const local_lng = localStorage.getItem("lng");
+    if (local_lat !== null && local_lng !== null) {
+
+      const loading = this.$buefy.loading.open();
+      this.getNearestSpot({ lat: local_lat, lng: local_lng }).then(() => {
+        console.log(this.currentSpot);
+        const lat = this.currentSpot.lat;
+        const lng = this.currentSpot.lng;
+        Promise.all([
+          this.getWeather({ lat, lng }),
+          this.getForecast({ lat, lng, hourTick: 1 })
+        ])
+          .then(() => loading.close())
+          .catch(() => loading.close());
+      });
+    } else if (this.days.length === 0) {
       const loading = this.$buefy.loading.open();
       this.selectLastSpotAdded().then(() => {
         const lat = this.currentSpot.lat;
@@ -341,16 +338,26 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["selectLastSpotAdded", "getForecast", "getWeather"]),
+    ...mapActions([
+      "selectLastSpotAdded",
+      "getForecast",
+      "getWeather",
+      "getNearestSpot"
+    ]),
     fullStar(position) {
       return position <= this.waveQuality ? "fas" : "far";
     },
-    spotSelected(){
+    spotSelected() {
       const lat = this.currentSpot.lat;
       const lng = this.currentSpot.lng;
       this.getForecast({ lat, lng, hourTick: 1 });
       this.getWeather({ lat, lng });
-    }
+    },
+    openVideo(src) {
+      this.$buefy.modal.open(`<figure class="image is-16by9">
+          <iframe class="has-ratio" width="640" height="360" src="${src}" frameborder="0" allowfullscreen></iframe>
+        </figure>`);
+    },
   },
   computed: {
     ...mapState(["currentSpot", "currentCity", "currentState"]),
@@ -386,119 +393,119 @@ export default {
     },
     accessTypes() {
       let types = [];
-      if (this.currentSpot.accesses.stairwell) {
+      if (this.currentSpot.stairwell) {
         types.push("Escadaria");
       }
-      if (this.currentSpot.accesses.cliff) {
+      if (this.currentSpot.cliff) {
         types.push("Falésia");
       }
-      if (this.currentSpot.accesses.bay) {
+      if (this.currentSpot.bay) {
         types.push("Beira Mar");
       }
-      if (this.currentSpot.accesses.trail) {
+      if (this.currentSpot.trail) {
         types.push("Trilha");
       }
-      if (this.currentSpot.accesses.other !== "") {
-        types.push(this.currentSpot.accesses.others);
+      if (this.currentSpot.other_accesses !== "") {
+        types.push(this.currentSpot.other_accesses);
       }
       return types.join(" / ");
     },
     grounds() {
       let types = [];
-      if (this.currentSpot.grounds.rock) {
+      if (this.currentSpot.rock) {
         types.push("Pedra");
       }
-      if (this.currentSpot.grounds.sand) {
+      if (this.currentSpot.sand) {
         types.push("Areia");
       }
-      if (this.currentSpot.grounds.coral) {
+      if (this.currentSpot.coral) {
         types.push("Coral");
       }
       return types.join(" / ");
     },
     bestTideMoves() {
       let types = [];
-      if (this.currentSpot.best_tide_moves.low) {
+      if (this.currentSpot.low) {
         types.push("Seca");
       }
-      if (this.currentSpot.best_tide_moves.high) {
+      if (this.currentSpot.high) {
         types.push("Cheia");
       }
-      if (this.currentSpot.best_tide_moves.ebb) {
+      if (this.currentSpot.ebb) {
         types.push("Secando");
       }
-      if (this.currentSpot.best_tide_moves.flood) {
+      if (this.currentSpot.flood) {
         types.push("Enchendo");
       }
       return types.join(" / ");
     },
     waveDirections() {
       let types = [];
-      if (this.currentSpot.wave_directions.left) {
+      if (this.currentSpot.left) {
         types.push("Esquerda");
       }
-      if (this.currentSpot.wave_directions.right) {
+      if (this.currentSpot.right) {
         types.push("Direita");
       }
       return types.join(" / ");
     },
     surfLevels() {
       let types = [];
-      if (this.currentSpot.surf_levels.beginner) {
+      if (this.currentSpot.beginner) {
         types.push("Iniciante");
       }
-      if (this.currentSpot.surf_levels.intermediate) {
+      if (this.currentSpot.intermediate) {
         types.push("Intermediário");
       }
-      if (this.currentSpot.surf_levels.expert) {
+      if (this.currentSpot.expert) {
         types.push("Avançado");
       }
       return types.join(" / ");
     },
     waveFrequencies() {
       let types = [];
-      if (this.currentSpot.wave_frequencies.low) {
+      if (this.currentSpot.low_frequency) {
         types.push("Baixa");
       }
-      if (this.currentSpot.wave_frequencies.regular) {
+      if (this.currentSpot.regular_frequency) {
         types.push("Regular");
       }
-      if (this.currentSpot.wave_frequencies.high) {
+      if (this.currentSpot.high_frequency) {
         types.push("Alta");
       }
       return types.join(" / ");
     },
     dangers() {
       let types = [];
-      if (this.currentSpot.dangers.current) {
+      if (this.currentSpot.current) {
         types.push("Correnteza");
       }
-      if (this.currentSpot.dangers.localism) {
+      if (this.currentSpot.localism) {
         types.push("Localismo");
       }
-      if (this.currentSpot.dangers.boat) {
+      if (this.currentSpot.boat) {
         types.push("Barcos");
       }
-      if (this.currentSpot.dangers.jetski) {
+      if (this.currentSpot.jetski) {
         types.push("Jet Ski");
       }
-      if (this.currentSpot.dangers.buoy) {
+      if (this.currentSpot.buoy) {
         types.push("Bóias");
       }
-      if (this.currentSpot.dangers.pollution) {
+      if (this.currentSpot.pollution) {
         types.push("Poluição");
       }
-      if (this.currentSpot.dangers.rock) {
+      if (this.currentSpot.rocks) {
         types.push("Pedras");
       }
-      if (this.currentSpot.dangers.shark) {
+      if (this.currentSpot.shark) {
         types.push("Tubarões");
       }
-      if (this.currentSpot.dangers.undertow) {
+      if (this.currentSpot.undertow) {
         types.push("Ressaca");
       }
-      if (this.currentSpot.dangers.other !== "") {
-        types.push(this.currentSpot.dangers.other);
+      if (this.currentSpot.other_dangers !== "") {
+        types.push(this.currentSpot.other_dangers);
       }
       return types;
     },
@@ -541,7 +548,6 @@ export default {
   margin-top: 1.2rem;
 }
 .hero-img {
-  background-image: url("../assets/images/surf-em-Ubatuba.jpg");
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: inherit;

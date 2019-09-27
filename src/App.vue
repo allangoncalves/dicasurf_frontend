@@ -18,22 +18,27 @@ export default {
   beforeCreate() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
-        const lat = position.coords.latitude;
-        const lng = position.coords.longitude;
-        console.log({ lat, lng });
+        localStorage.setItem("lat", position.coords.latitude);
+        localStorage.setItem("lng", position.coords.longitude);
       });
     }
   },
   created() {
-    this.getStateData();
-    this.getCities();
+    const loading = this.$buefy.loading.open();
+    Promise.all([
+      this.getStateData(),
+      this.getCities(),
+      this.getHomeData()
+    ]).then(() => {
+      loading.close();
+    });
   },
   components: {
     Footer,
     Navbar
   },
   methods: {
-    ...mapActions(["getCities", "getStateData"])
+    ...mapActions(["getCities", "getStateData", "getHomeData"])
   }
 };
 </script>
