@@ -219,12 +219,18 @@
                   </div>
                   <div class="data-category">
                     <h5 class="title is-4 is-marginless has-text-danger">Perigos</h5>
-                    <b-tag
+                    <b-tooltip
                       style="margin-right:1rem;margin-top:1rem"
+                      :label="danger"
                       type="is-danger"
+                      multilined
+                      :delay="300"
                       v-for="danger in dangers"
                       :key="danger"
-                    >{{ danger }}</b-tag>
+                    >
+                      <b-tag type="is-danger" :ellipsis="true">{{ danger }}</b-tag>
+                    </b-tooltip>
+
                     <!-- <p class="has-text-weight-bold" v-for="danger in dangers" :key="danger">{{ danger }}</p> -->
                   </div>
                 </div>
@@ -276,38 +282,25 @@ export default {
     Slide,
     SearchBar
   },
-  mounted(){
-
-  },
   created() {
     const local_lat = localStorage.getItem("lat");
     const local_lng = localStorage.getItem("lng");
-    if (local_lat !== null && local_lng !== null) {
-
-      const loading = this.$buefy.loading.open();
-      this.getNearestSpot({ lat: local_lat, lng: local_lng }).then(() => {
-        console.log(this.currentSpot);
-        const lat = this.currentSpot.lat;
-        const lng = this.currentSpot.lng;
-        Promise.all([
-          this.getWeather({ lat, lng }),
-          this.getForecast({ lat, lng, hourTick: 1 })
-        ])
-          .then(() => loading.close())
-          .catch(() => loading.close());
-      });
-    } else if (this.days.length === 0) {
-      const loading = this.$buefy.loading.open();
-      this.selectLastSpotAdded().then(() => {
-        const lat = this.currentSpot.lat;
-        const lng = this.currentSpot.lng;
-        Promise.all([
-          this.getWeather({ lat, lng }),
-          this.getForecast({ lat, lng, hourTick: 1 })
-        ])
-          .then(() => loading.close())
-          .catch(() => loading.close());
-      });
+    if (this.currentSpot === null) {
+      if (local_lat !== null && local_lng !== null) {
+        const loading = this.$buefy.loading.open();
+        this.getNearestSpot({ lat: local_lat, lng: local_lng }).then(() => {
+          this.collectData()
+            .then(() => loading.close())
+            .catch(() => loading.close());
+        });
+      } else if (this.days.length === 0) {
+        const loading = this.$buefy.loading.open();
+        this.selectLastSpotAdded().then(() => {
+          this.collectData()
+            .then(() => loading.close())
+            .catch(() => loading.close());
+        });
+      }
     }
   },
   data() {
@@ -344,6 +337,14 @@ export default {
       "getWeather",
       "getNearestSpot"
     ]),
+    collectData() {
+      const lat = this.currentSpot.lat;
+      const lng = this.currentSpot.lng;
+      return Promise.all([
+        this.getWeather({ lat, lng }),
+        this.getForecast({ lat, lng, hourTick: 1 })
+      ]);
+    },
     fullStar(position) {
       return position <= this.waveQuality ? "fas" : "far";
     },
@@ -357,7 +358,7 @@ export default {
       this.$buefy.modal.open(`<figure class="image is-16by9">
           <iframe class="has-ratio" width="640" height="360" src="${src}" frameborder="0" allowfullscreen></iframe>
         </figure>`);
-    },
+    }
   },
   computed: {
     ...mapState(["currentSpot", "currentCity", "currentState"]),

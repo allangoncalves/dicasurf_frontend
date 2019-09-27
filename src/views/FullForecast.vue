@@ -244,31 +244,22 @@ export default {
   created() {
     const local_lat = localStorage.getItem("lat");
     const local_lng = localStorage.getItem("lng");
-    if (local_lat !== null && local_lng !== null) {
-      const loading = this.$buefy.loading.open();
-      this.getNearestSpot({ lat: local_lat, lng: local_lng }).then(() => {
-        console.log(this.currentSpot);
-        const lat = this.currentSpot.lat;
-        const lng = this.currentSpot.lng;
-        Promise.all([
-          this.getWeather({ lat, lng }),
-          this.getForecast({ lat, lng, hourTick: 1 })
-        ])
-          .then(() => loading.close())
-          .catch(() => loading.close());
-      });
-    } else if (this.days.length === 0) {
-      const loading = this.$buefy.loading.open();
-      this.selectLastSpotAdded().then(() => {
-        const lat = this.currentSpot.lat;
-        const lng = this.currentSpot.lng;
-        Promise.all([
-          this.getWeather({ lat, lng }),
-          this.getForecast({ lat, lng, hourTick: 1 })
-        ])
-          .then(() => loading.close())
-          .catch(() => loading.close());
-      });
+    if (this.currentSpot === null) {
+      if (local_lat !== null && local_lng !== null) {
+        const loading = this.$buefy.loading.open();
+        this.getNearestSpot({ lat: local_lat, lng: local_lng }).then(() => {
+          this.collectData()
+            .then(() => loading.close())
+            .catch(() => loading.close());
+        });
+      } else if (this.days.length === 0) {
+        const loading = this.$buefy.loading.open();
+        this.selectLastSpotAdded().then(() => {
+          this.collectData()
+            .then(() => loading.close())
+            .catch(() => loading.close());
+        });
+      }
     }
   },
   methods: {
@@ -278,6 +269,14 @@ export default {
       "getWeather",
       "getNearestSpot"
     ]),
+    collectData() {
+      const lat = this.currentSpot.lat;
+      const lng = this.currentSpot.lng;
+      return Promise.all([
+        this.getWeather({ lat, lng }),
+        this.getForecast({ lat, lng, hourTick: 1 })
+      ]);
+    },
     selectedChartChange(index) {
       this.selectedChart = index;
     },
