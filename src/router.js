@@ -4,6 +4,7 @@ import Spot from "@/views/Spot";
 import Home from "@/views/Home";
 import News from "@/views/News";
 import FullForecast from "@/views/FullForecast";
+import AccountCreation from "@/views/AccountCreation";
 
 Vue.use(Router);
 
@@ -36,5 +37,10 @@ export default new Router({
       name: "Full Forecast",
       component: FullForecast
     },
+    {
+      path: "/nova",
+      name: "Account Creation",
+      component: AccountCreation
+    }
   ]
 });

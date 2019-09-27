@@ -20,8 +20,7 @@
                 required
               ></b-input>
             </b-field>
-
-            <b-checkbox>Remember me</b-checkbox>
+            <p class="has-text-primary is-size-7" @click="goToAccountCreation">Não tem uma conta? Crie a sua!</p>
           </section>
           <footer class="modal-card-foot">
             <button class="button" type="button" @click="$emit('close')">Close</button>
@@ -47,6 +46,12 @@ export default {
       email: "evan@you.com",
       password: "testing"
     };
+  },
+  methods: {
+    goToAccountCreation(){
+      this.$emit("close");
+      this.$router.push('/nova');
+    }
   },
   computed: {
     sentinel: {
