@@ -17,7 +17,7 @@
           <div
             class="columns is-multiline has-text-centered has-background-black box is-paddingless"
           >
-            <div @click="isLogged = true" class="column is-full">
+            <div class="column is-full">
               <b-icon icon="user-circle" type="is-primary" size="is-medium" pack="fas"></b-icon>
             </div>
             <div class="column is-full" style="padding-top:0rem">
@@ -29,18 +29,27 @@
                 @click="openModal"
                 v-if="!isLogged"
               >Login</b-button>
-              <p class="has-text-primary" v-if="isLogged">Olá, <span>Allan</span></p>
+              <div v-if="isLogged">
+                <p class="has-text-primary">
+                  Olá,
+                  <span>{{user.first_name}}</span>
+                </p>
+              </div>
+              <div @click="logout" v-if="isLogged">
+                <p class="has-text-primary">Sair</p>
+              </div>
             </div>
           </div>
         </b-navbar-item>
       </template>
     </b-navbar>
-    <login-modal :isOpen.sync="modalOpen" @close="modalOpen = false"/>
+    <login-modal :isOpen.sync="modalOpen" @close="modalOpen = false" />
   </div>
 </template>
 
 <script>
 import LoginModal from "@/components/LoginModal";
+import { mapState, mapActions } from "vuex";
 export default {
   components: {
     LoginModal
@@ -53,13 +62,16 @@ export default {
         { text: "Picos", name: "/picos" },
         { text: "News", name: "/news" }
       ],
-      modalOpen: false,
-      isLogged: false
+      modalOpen: false
     };
   },
+  computed: {
+    ...mapState(["user", "isLogged"])
+  },
   methods: {
-    openModal(){
-      this.modalOpen = true;      
+    ...mapActions(["logout"]),
+    openModal() {
+      this.modalOpen = true;
     }
   }
 };

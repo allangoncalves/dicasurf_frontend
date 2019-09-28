@@ -22,6 +22,14 @@ const DICA_API = axios.create({
 
 export default new Vuex.Store({
   state: {
+    user: {
+      email: "",
+      first_name: "",
+      last_name: "",
+      pk: null,
+      username: ""
+    },
+    isLogged: false,
     days: [],
     weatherDays: [],
     currentData: {},
@@ -64,9 +72,50 @@ export default new Vuex.Store({
     },
     setPosts(state, posts) {
       state.posts = posts;
+    },
+    setUser(state, user) {
+      localStorage.setItem("first_name", user.first_name);
+      localStorage.setItem("last_name", user.last_name);
+      localStorage.setItem("email", user.email);
+      localStorage.setItem("pk", user.pk);
+      localStorage.setItem("username", user.username);
+      state.user = user;
+    },
+    setToken(state, token) {
+      localStorage.setItem("token", token);
+      state.token = token;
+    },
+    setLogged(state, isLogged){
+      state.isLogged = isLogged;
     }
   },
   actions: {
+    login({ commit }, payload) {
+      return DICA_API.post("auth/login/", payload)
+        .then(res => {
+          commit("setToken", res.data.token);
+          commit("setUser", res.data.user);
+          localStorage.setItem("isLogged", true);
+          commit("setLogged", true);
+        })
+        .catch(err => Promise.reject(err.response.data));
+    },
+    logout({ commit }) {
+      localStorage.setItem("isLogged", false);
+      commit("setUser", {
+        email: "",
+        first_name: "",
+        last_name: "",
+        pk: null,
+        username: ""
+      });
+      commit("setToken", "");
+      commit("setLogged", false);
+      
+    },
+    registerUser({}, payload) {
+      return DICA_API.post("users/", payload);
+    },
     getForecast({ commit }, payload) {
       return EXTERNAL_API.get("/marine.ashx", {
         params: {
@@ -108,9 +157,11 @@ export default new Vuex.Store({
       });
     },
     getSpots({ commit }, payload) {
-      return DICA_API.get(`/states/${1}/cities/${payload.id}/spots`).then(res => {
-        commit("setSpots", res.data);
-      });
+      return DICA_API.get(`/states/${1}/cities/${payload.id}/spots`).then(
+        res => {
+          commit("setSpots", res.data);
+        }
+      );
     },
     getCityData({ commit }, payload) {
       return DICA_API.get(`/states/${1}/cities/${payload.id}`).then(res => {
@@ -130,10 +181,9 @@ export default new Vuex.Store({
       });
     },
     getHomeData({ commit }, payload) {
-      return DICA_API.get(`homepage/`)
-        .then(res => {
-          commit("setHomeCarousel", res.data[0].carousel);
-        })
+      return DICA_API.get(`homepage/`).then(res => {
+        commit("setHomeCarousel", res.data[0].carousel);
+      });
     },
     getNearestSpot({ commit }, payload) {
       return DICA_API.get("nearest", {
