@@ -50,7 +50,7 @@
             </div>
           </div>
         </div>
-        <div class="tile is-ancestor" v-for="(post, index) in otherPosts" :key="index">
+        <div class="tile is-ancestor" @click="changeSelected(post.id)" v-for="post in otherPosts" :key="post.id">
           <div class="tile is-parent">
             <div class="tile is-child is-2 is-horizontal-center is-flex">
               <figure class="image is-128x128">
