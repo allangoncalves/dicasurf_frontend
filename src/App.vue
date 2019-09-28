@@ -25,13 +25,19 @@ export default {
   },
   created() {
     const loading = this.$buefy.loading.open();
-    Promise.all([
-      this.getStateData(),
-      this.getCities(),
-      this.getHomeData()
-    ]).then(() => {
-      loading.close();
-    }).catch(res => loading.close());
+    Promise.all([this.getStateData(), this.getCities(), this.getHomeData()])
+      .then(() => {
+        loading.close();
+      })
+      .catch(res => {
+        loading.close();
+        this.$buefy.toast.open({
+                    duration: 4000,
+                    message: `Ops! Não foi possível carregar os dados, tente novamente.`,
+                    position: 'is-bottom',
+                    type: 'is-danger'
+                })
+      });
   },
   components: {
     Footer,

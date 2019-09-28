@@ -59,16 +59,11 @@
             </div>
             <div class="tile is-child">
               <div class="tile is-parent is-paddingless">
-                <div class="tile is-child is-6">
-                  <p class="title has-text-centered-touch is-4">{{ post.title }}</p>
+                <div class="tile is-child is-7">
+                  <p class="title has-text-centered-mobile is-4">{{ post.title }}</p>
                 </div>
-                <div class="tile is-child">
-                  <div class="is-flex is-pulled-right date-bottom">
-                    <p
-                      class="subtitle"
-                      style="vertical-align:bottom"
-                    >{{ formatedDate(post.created_at) }}</p>
-                  </div>
+                <div class="tile is-child has-text-centered-mobile has-text-right-tablet">
+                  <p class="subtitle">{{ formatedDate(post.created_at) }}</p>
                 </div>
               </div>
               <div class="tile is-parent is-vertical is-paddingless">
@@ -113,7 +108,15 @@ export default {
         this.changeSelected(this.posts[0].id);
         loading.close();
       })
-      .catch(() => loading.close());
+      .catch(() => {
+        loading.close();
+        this.$buefy.toast.open({
+          duration: 4000,
+          message: `Ops! Não foi possível carregar os dados, tente novamente.`,
+          position: "is-bottom",
+          type: "is-danger"
+        });
+      });
   },
   methods: {
     ...mapActions(["getPosts"]),

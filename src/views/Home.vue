@@ -85,10 +85,20 @@ export default {
       Promise.all([
         this.getWeather({ lat, lng }),
         this.getForecast({ lat, lng, hourTick: 1 })
-      ]).then(() => {
-        loading.close();
-        this.$router.push("/previsao");
-      });
+      ])
+        .then(() => {
+          loading.close();
+          this.$router.push("/previsao");
+        })
+        .catch(() => {
+          loading.close();
+          this.$buefy.toast.open({
+            duration: 4000,
+            message: `Ops! Não foi possível carregar os dados, tente novamente.`,
+            position: "is-bottom",
+            type: "is-danger"
+          });
+        });
     },
     createSlide(slide) {
       return `<section class="section is-medium home-carousel-item" :style="{backgroundImage: 'url(${slide.image})'}">

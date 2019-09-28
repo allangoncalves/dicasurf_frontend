@@ -291,14 +291,30 @@ export default {
         this.getNearestSpot({ lat: local_lat, lng: local_lng }).then(() => {
           this.collectData()
             .then(() => loading.close())
-            .catch(() => loading.close());
+            .catch(() => {
+              loading.close();
+              this.$buefy.toast.open({
+                duration: 4000,
+                message: `Ops! Não foi possível carregar os dados, tente novamente.`,
+                position: "is-bottom",
+                type: "is-danger"
+              });
+            });
         });
       } else if (this.days.length === 0) {
         const loading = this.$buefy.loading.open();
         this.selectLastSpotAdded().then(() => {
           this.collectData()
             .then(() => loading.close())
-            .catch(() => loading.close());
+            .catch(() => {
+              loading.close();
+              this.$buefy.toast.open({
+                duration: 4000,
+                message: `Ops! Não foi possível carregar os dados, tente novamente.`,
+                position: "is-bottom",
+                type: "is-danger"
+              });
+            });
         });
       }
     }
