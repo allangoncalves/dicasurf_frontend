@@ -370,7 +370,7 @@ export default {
     },
     tideHourSeries() {
       return this.tides.map(tide => {
-        return [new Date(tide.tideDateTime).getTime(), tide.tideHeight_mt];
+        return [moment(tide.tideDateTime, "yyyy-MM-dd HH:mm").valueOf(), tide.tideHeight_mt];
       });
     },
     waveHeightSeries() {
