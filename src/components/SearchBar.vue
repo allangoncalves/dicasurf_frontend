@@ -79,7 +79,7 @@ export default {
     ...mapActions(["getSpots", "getForecast", "getWeather"]),
     ...mapMutations(["setCurrentCity", "setCurrentSpot"]),
     citySelected() {
-      this.getSpots({ id: this.selectedCity.id });
+      this.getSpots({state_id: 1, city_id: this.selectedCity.id });
     },
     spotSelected() {
       this.$emit("spot-selected");

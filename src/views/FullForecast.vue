@@ -48,7 +48,7 @@
                       </div>
                       <div class="column is-full">
                         <p
-                          class="title is-5 is-size-6-mobile"
+                          class="title is-5 is-size-6-touch"
                           :class="{'has-text-secondary': selectedDay == index, 'has-text-primary': selectedDay != index }"
                         >{{index === 0 ? 'HOJE' : day.date}}</p>
                       </div>
@@ -171,7 +171,7 @@
                             class="column is-full is-gapless has-text-centered"
                             style="padding-top:0px;"
                           >
-                            <p class="subtitle is-6">{{sunrise}}</p>
+                            <p>{{sunrise}}</p>
                           </div>
                         </div>
                       </div>
@@ -186,7 +186,7 @@
                             </figure>
                           </div>
                           <div class="column is-full has-text-centered" style="padding-top:0px;">
-                            <p class="subtitle is-6" style="padding-bottom:0px">{{sunset}}</p>
+                            <p style="padding-bottom:0px">{{sunset}}</p>
                           </div>
                         </div>
                       </div>
@@ -202,7 +202,7 @@
                             </figure>
                           </div>
                           <div class="column is-full has-text-centered">
-                            <p class="subtitle is-6" style="padding-top:0.5rem;">{{humidity}}</p>
+                            <p style="padding-top:0.5rem;">{{humidity}}</p>
                           </div>
                         </div>
                       </div>

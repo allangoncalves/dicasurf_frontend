@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navbar />
-    <transition name="fade" mode="out-in">
+    <transition :name="transitionName" mode="out-in">
       <router-view></router-view>
     </transition>
     <Footer />
@@ -10,11 +10,17 @@
 
 
 <script>
+const DEFAULT_TRANSITION = "fade";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { mapActions } from "vuex";
 
 export default {
+  data() {
+    return {
+      transitionName: DEFAULT_TRANSITION
+    };
+  },
   beforeCreate() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
@@ -25,18 +31,33 @@ export default {
   },
   created() {
     const loading = this.$buefy.loading.open();
-    Promise.all([this.getStateData(), this.getCities(), this.getHomeData()])
+    this.$router.beforeEach((to, from, next) => {
+      let transitionName = to.meta.transitionName || from.meta.transitionName;
+
+      if (transitionName === "slide") {
+        console.log(to);
+        const toDepth = to.meta.id
+        const fromDepth = from.meta.id
+        console.log(toDepth, fromDepth);
+        transitionName = toDepth < fromDepth ? "slide-right" : "slide-left";
+      }
+
+      this.transitionName = transitionName || DEFAULT_TRANSITION;
+
+      next();
+    });
+    Promise.all([this.getStateData(1), this.getCities(1),this.getHomeData()])
       .then(() => {
         loading.close();
       })
       .catch(res => {
         loading.close();
         this.$buefy.toast.open({
-                    duration: 4000,
-                    message: `Ops! Não foi possível carregar os dados, tente novamente.`,
-                    position: 'is-bottom',
-                    type: 'is-danger'
-                })
+          duration: 4000,
+          message: `Ops! Não foi possível carregar os dados, tente novamente.`,
+          position: "is-bottom",
+          type: "is-danger"
+        });
       });
   },
   components: {
@@ -56,6 +77,29 @@ export default {
 </style>
 
 <style lang="scss">
+.slide-left-enter-active,
+.slide-left-leave-active,
+.slide-right-enter-active,
+.slide-right-leave-active {
+  transition-duration: 0.3s;
+  transition-property: height, opacity, transform;
+  transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
+  overflow: hidden;
+}
+
+.slide-left-enter,
+.slide-right-leave-active {
+  opacity: 0;
+  transform: translate(2em, 0);
+}
+
+.slide-left-leave-active,
+.slide-right-enter {
+  opacity: 0;
+  transform: translate(-2em, 0);
+}
+
+// BULMA
 @import "~bulma/sass/utilities/_all";
 
 // Disable the widescreen breakpoint

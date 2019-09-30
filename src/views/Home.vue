@@ -6,7 +6,7 @@
       :data="slides"
       direction="up"
       :controls="false"
-      :interval="10000"
+      :interval="6000"
       indicator-type="disc"
     ></carousel>
 

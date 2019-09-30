@@ -85,7 +85,7 @@ export default new Vuex.Store({
       localStorage.setItem("token", token);
       state.token = token;
     },
-    setLogged(state, isLogged){
+    setLogged(state, isLogged) {
       state.isLogged = isLogged;
     }
   },
@@ -111,7 +111,6 @@ export default new Vuex.Store({
       });
       commit("setToken", "");
       commit("setLogged", false);
-      
     },
     registerUser({}, payload) {
       return DICA_API.post("users/", payload);
@@ -151,17 +150,19 @@ export default new Vuex.Store({
         commit("setStates", res.data);
       });
     },
-    getCities({ commit }) {
-      return DICA_API.get(`/states/${1}/cities`).then(res => {
+    async getCities({ commit }, state_id) {
+      return await DICA_API.get(`/states/${state_id}/cities`).then(res => {
         commit("setCities", res.data);
+        return res.data;
       });
     },
-    getSpots({ commit }, payload) {
-      return DICA_API.get(`/states/${1}/cities/${payload.id}/spots`).then(
-        res => {
-          commit("setSpots", res.data);
-        }
-      );
+    async getSpots({ commit }, payload) {
+      return await DICA_API.get(
+        `/states/${payload.state_id}/cities/${payload.city_id}/spots`
+      ).then(res => {
+        commit("setSpots", res.data);
+        return res.data;
+      });
     },
     getCityData({ commit }, payload) {
       return DICA_API.get(`/states/${1}/cities/${payload.id}`).then(res => {
@@ -175,8 +176,8 @@ export default new Vuex.Store({
         commit("setCurrentSpot", res.data);
       });
     },
-    getStateData({ commit }, payload) {
-      return DICA_API.get(`/states/${1}`).then(res => {
+    getStateData({ commit }, id) {
+      return DICA_API.get(`/states/${id}`).then(res => {
         commit("setCurrentState", res.data);
       });
     },
@@ -185,40 +186,24 @@ export default new Vuex.Store({
         commit("setHomeCarousel", res.data[0].carousel);
       });
     },
-    getNearestSpot({ commit }, payload) {
-      return DICA_API.get("nearest", {
+    async getNearestSpot({ commit, dispatch }, payload) {
+      let nearest_spot = await DICA_API.get("nearest", {
         params: {
           lat: payload.lat,
           lng: payload.lng
         }
       }).then(res => {
-        let nearest_spot = res.data[0];
-
-        let state = nearest_spot.city.state;
-        commit("setCurrentState", state);
-
-        let city_found = nearest_spot.city;
-
-        DICA_API.get(`/states/${1}/cities/`).then(res => {
-          const cities = res.data;
-          commit("setCities", cities);
-          commit(
-            "setCurrentCity",
-            cities.find(city => city.id === city_found.id)
-          );
-        });
-
-        return DICA_API.get(
-          `/states/${1}/cities/${nearest_spot.id}/spots`
-        ).then(res => {
-          const spots = res.data;
-          commit("setSpots", spots);
-          commit(
-            "setCurrentSpot",
-            spots.find(spot => spot.id === nearest_spot.id)
-          );
-        });
+        return res.data[0];
       });
+      let state = nearest_spot.city.state;
+      commit("setCurrentState", state);
+      let cities = await dispatch("getCities", state.id);
+      commit(
+        "setCurrentCity",
+        cities.find(city => city.id === nearest_spot.city)
+      );
+      let spots = await dispatch("getSpots", city.id);
+      commit("setCurrentSpot", spots.find(spot => spot.id === nearest_spot.id));
     },
     selectLastSpotAdded({ commit, state }) {
       return DICA_API.get(`/states/${1}/cities/`).then(res => {

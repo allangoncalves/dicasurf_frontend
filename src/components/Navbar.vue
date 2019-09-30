@@ -56,7 +56,7 @@ export default {
   },
   data() {
     return {
-      mainLogo: require("@/assets/images/logo_nome_horizontal.png"),
+      mainLogo: require("@/assets/icons/logo_top.svg"),
       routes: [
         { text: "Previsão", name: "/previsao" },
         { text: "Picos", name: "/picos" },

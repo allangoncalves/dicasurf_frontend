@@ -15,12 +15,20 @@ export default new Router({
     {
       path: "/",
       name: "Home",
-      component: Home
+      component: Home,
+      meta: { transitionName: "slide", id: 1 }
+    },
+    {
+      path: "/previsao",
+      name: "Full Forecast",
+      component: FullForecast,
+      meta: { transitionName: "slide", id: 2 }
     },
     {
       path: "/picos",
       name: "Spot",
-      component: Spot
+      component: Spot,
+      meta: { transitionName: "slide", id: 3 }
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // // which is lazy-loaded when the route is visited.
@@ -30,17 +38,14 @@ export default new Router({
     {
       path: "/news",
       name: "News",
-      component: News
-    },
-    {
-      path: "/previsao",
-      name: "Full Forecast",
-      component: FullForecast
+      component: News,
+      meta: { transitionName: "slide", id: 4 }
     },
     {
       path: "/nova",
       name: "Account Creation",
-      component: AccountCreation
+      component: AccountCreation,
+      meta: { transitionName: "slide", id: 5 }
     }
   ]
 });

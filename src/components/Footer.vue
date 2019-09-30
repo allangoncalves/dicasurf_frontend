@@ -78,7 +78,7 @@
 export default {
   data() {
     return {
-      verticalLogo: require("@/assets/images/logo_vertical_with_name.png")
+      verticalLogo: require("@/assets/icons/logo_footer.svg")
     };
   }
 };
