@@ -36,7 +36,7 @@ export default {
 
       if (transitionName === "slide") {
         const toDepth = to.meta.id
-        const fromDepth = from.meta.id
+        const fromDepth = from? from.meta.id : 0
         transitionName = toDepth < fromDepth ? "slide-right" : "slide-left";
       }
 
