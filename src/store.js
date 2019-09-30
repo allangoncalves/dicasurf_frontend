@@ -198,12 +198,12 @@ export default new Vuex.Store({
       let state = nearest_spot.city.state;
       commit("setCurrentState", state);
       let cities = await dispatch("getCities", state.id);
-      let city = cities.find(city => city.id === nearest_spot.city)
+      let city = cities.find(city => city.id === nearest_spot.city.id);
       commit(
         "setCurrentCity",
         city
       );
-      let spots = await dispatch("getSpots", city.id);
+      let spots = await dispatch("getSpots",{state_id:state.id , city_id: city.id});
       commit("setCurrentSpot", spots.find(spot => spot.id === nearest_spot.id));
     },
     selectLastSpotAdded({ commit, state }) {
