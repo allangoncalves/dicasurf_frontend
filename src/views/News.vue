@@ -50,7 +50,12 @@
             </div>
           </div>
         </div>
-        <div class="tile is-ancestor" @click="changeSelected(post.id)" v-for="post in otherPosts" :key="post.id">
+        <div
+          class="tile is-ancestor"
+          @click="changeSelected(post.id)"
+          v-for="post in otherPosts"
+          :key="post.id"
+        >
           <div class="tile is-parent">
             <div class="tile is-child is-2 is-horizontal-center is-flex">
               <figure class="image is-128x128">
@@ -134,10 +139,6 @@ export default {
     ...mapState(["posts"]),
     selectedPost() {
       let post = this.posts.find(post => post.id === this.selectedId);
-
-      if (post !== undefined) {
-        console.log(post);
-      }
       return post !== undefined
         ? post
         : {

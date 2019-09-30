@@ -35,10 +35,8 @@ export default {
       let transitionName = to.meta.transitionName || from.meta.transitionName;
 
       if (transitionName === "slide") {
-        console.log(to);
         const toDepth = to.meta.id
         const fromDepth = from.meta.id
-        console.log(toDepth, fromDepth);
         transitionName = toDepth < fromDepth ? "slide-right" : "slide-left";
       }
 
@@ -50,7 +48,7 @@ export default {
       .then(() => {
         loading.close();
       })
-      .catch(res => {
+      .catch(() => {
         loading.close();
         this.$buefy.toast.open({
           duration: 4000,

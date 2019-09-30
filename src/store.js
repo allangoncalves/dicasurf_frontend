@@ -181,7 +181,7 @@ export default new Vuex.Store({
         commit("setCurrentState", res.data);
       });
     },
-    getHomeData({ commit }, payload) {
+    getHomeData({ commit }) {
       return DICA_API.get(`homepage/`).then(res => {
         commit("setHomeCarousel", res.data[0].carousel);
       });
@@ -198,9 +198,10 @@ export default new Vuex.Store({
       let state = nearest_spot.city.state;
       commit("setCurrentState", state);
       let cities = await dispatch("getCities", state.id);
+      let city = cities.find(city => city.id === nearest_spot.city)
       commit(
         "setCurrentCity",
-        cities.find(city => city.id === nearest_spot.city)
+        city
       );
       let spots = await dispatch("getSpots", city.id);
       commit("setCurrentSpot", spots.find(spot => spot.id === nearest_spot.id));

@@ -31,7 +31,6 @@ new Vue({
       const email = localStorage.getItem("email");
       const pk = localStorage.getItem("pk");
       const username = localStorage.getItem("username");
-      console.log({ first_name, last_name, email, pk, username });
       this.setUser({ first_name, last_name, email, pk, username });
       this.setLogged(true);
     }
