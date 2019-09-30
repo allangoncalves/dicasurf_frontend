@@ -19,7 +19,7 @@
         </div>
 
         <div class="column is-full">
-          <b-tag class="has-text-weight-bold" type="is-dicagreen">{{swellHeight}}</b-tag>
+          <b-tag class="has-text-weight-bold has-text-white" type="is-primary">{{swellHeight}}</b-tag>
         </div>
       </div>
     </div>
@@ -52,7 +52,7 @@
           <p class="subtitle has-text-weight-bold">{{WindGustKmph}}</p>
         </div>
         <div class="column is-full">
-          <b-tag class="has-text-weight-bold" type="is-dicagrey">{{windDir}}</b-tag>
+          <b-tag class="has-text-weight-bold has-text-white" type="is-primary">{{windDir}}</b-tag>
         </div>
       </div>
     </div>
