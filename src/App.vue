@@ -44,7 +44,7 @@ export default {
 
       next();
     });
-    Promise.all([this.getStateData(1), this.getCities(1),this.getHomeData()])
+    Promise.all([this.getStates(), this.getHomeData()])
       .then(() => {
         loading.close();
       })
@@ -63,7 +63,7 @@ export default {
     Navbar
   },
   methods: {
-    ...mapActions(["getCities", "getStateData", "getHomeData"])
+    ...mapActions(["getStates", "getHomeData"])
   }
 };
 </script>

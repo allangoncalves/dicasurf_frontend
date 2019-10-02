@@ -69,14 +69,14 @@
                 </div>
               </div>
             </div>
-            <div class="tile is-child" v-if="currentSpot != null && days.length !== 0">
+            <div class="tile is-child is-11" v-if="currentSpot != null && days.length !== 0">
               <p class="title">{{ currentSpot.name }}</p>
               <p class="subtitle">{{ cityAndState }}</p>
               <div class="has-background-secondary" style="max-height:0.7em;height:0.2em"></div>
             </div>
           </div>
           <div
-            class="tile is-parent is-5 is-horizontal-center is-flex"
+            class="tile is-parent is-4 is-horizontal-center is-flex"
             v-if="currentSpot != null && days.length !== 0"
           >
             <div class="tile is-child">
