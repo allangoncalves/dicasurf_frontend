@@ -49,17 +49,20 @@
                 type="is-white has-text-secondary"
                 icon-right="fa-instagram"
                 icon-pack="fab"
+                @click="openInstagram"
               />
               <b-button
                 style="margin-right:0.6rem;"
                 type="is-white has-text-secondary"
                 icon-right="fa-facebook-f"
                 icon-pack="fab"
+                @click="openFacebook"
               />
               <b-button
                 type="is-white has-text-secondary"
                 icon-right="fa-whatsapp"
                 icon-pack="fab"
+                @click="openWebpage()"
               />
             </div>
           </div>
@@ -80,6 +83,16 @@ export default {
     return {
       verticalLogo: require("@/assets/icons/logo_footer.svg")
     };
+  },
+  methods: {
+    openFacebook(){
+      window.open("https://www.facebook.com/dicasurf.com.br");
+      window.focus();
+    },
+    openInstagram(){
+      window.open("https://www.instagram.com/dica.surf");
+      window.focus();
+    }
   }
 };
 </script>
