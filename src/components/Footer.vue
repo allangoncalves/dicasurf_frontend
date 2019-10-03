@@ -60,9 +60,9 @@
               />
               <b-button
                 type="is-white has-text-secondary"
-                icon-right="fa-whatsapp"
+                icon-right="fa-youtube"
                 icon-pack="fab"
-                @click="openWebpage()"
+                @click="openYoutube"
               />
             </div>
           </div>
@@ -91,6 +91,10 @@ export default {
     },
     openInstagram(){
       window.open("https://www.instagram.com/dica.surf");
+      window.focus();
+    },
+    openYoutube(){
+      window.open("https://www.youtube.com/channel/UCKFEDjVbeEya64C823H0Q6g");
       window.focus();
     }
   }
