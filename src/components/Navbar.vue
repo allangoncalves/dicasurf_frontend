@@ -66,10 +66,10 @@ export default {
     };
   },
   computed: {
-    ...mapState(["user", "isLogged"])
+    ...mapState("auth", ["user", "isLogged"])
   },
   methods: {
-    ...mapActions(["logout"]),
+    ...mapActions("auth", ["logout"]),
     openModal() {
       this.modalOpen = true;
     }

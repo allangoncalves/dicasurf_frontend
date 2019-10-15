@@ -44,11 +44,12 @@ export default {
 
       next();
     });
-    Promise.all([this.getStates(), this.getHomeData()])
+    this.getStates()
       .then(() => {
         loading.close();
       })
-      .catch(() => {
+      .catch((res) => {
+        console.log(res);
         loading.close();
         this.$buefy.toast.open({
           duration: 4000,
@@ -63,7 +64,7 @@ export default {
     Navbar
   },
   methods: {
-    ...mapActions(["getStates", "getHomeData"])
+    ...mapActions("geo", ["getStates"])
   }
 };
 </script>

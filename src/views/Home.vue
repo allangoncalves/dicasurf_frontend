@@ -76,8 +76,26 @@ import { mapState, mapActions } from "vuex";
 export default {
   name: "home",
   components: { SearchBar },
+  created() {
+    const loading = this.$buefy.loading.open();
+    this.getHomeData()
+      .then(() => {
+        loading.close();
+      })
+      .catch(res => {
+        loading.close();
+        this.$buefy.toast.open({
+          duration: 4000,
+          message: `Ops! Não foi possível carregar os dados, tente novamente.`,
+          position: "is-bottom",
+          type: "is-danger"
+        });
+      });
+  },
   methods: {
-    ...mapActions(["getForecast", "getWeather"]),
+    ...mapActions("website", ["getHomeData"]),
+    ...mapActions("marine", ["getForecast"]),
+    ...mapActions("weather", ["getWeather"]),
     spotSelected() {
       const loading = this.$buefy.loading.open();
       const lat = this.currentSpot.lat;
@@ -101,7 +119,7 @@ export default {
         });
     },
     createSlide(slide) {
-      return `<section class="section is-medium home-carousel-item" :style="{backgroundImage: 'url(${slide.image})'}">
+      return `<section class="section is-medium home-carousel-item" :style="{backgroundImage: 'url(${slide.image.image})'}">
         <div class="container">
           <div class="columns is-multiline">
             <div class="column is-full">
@@ -131,7 +149,8 @@ export default {
     }
   },
   computed: {
-    ...mapState(["currentSpot", "homeCarousel"]),
+    ...mapState("website", ["homeCarousel"]),
+    ...mapState("geo", ["currentSpot"]),
     slides() {
       return this.homeCarousel.map(slide => this.createSlide(slide));
     }

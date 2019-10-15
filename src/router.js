@@ -8,45 +8,59 @@ export default new Router({
   base: process.env.BASE_URL,
   scrollBehavior: function(to, from, savedPosition) {
     if (savedPosition) {
-      return savedPosition
+      return savedPosition;
     } else {
-      return { x: 0, y: 0 }
+      return { x: 0, y: 0 };
     }
   },
   routes: [
     {
       path: "/",
-      name: "Home",
-      component: () => import(/* webpackChunkName: "home" */ "@/views/Home.vue"),
+      name: "home",
+      component: () =>
+        import(/* webpackChunkName: "home" */ "@/views/Home.vue"),
       meta: { transitionName: "slide", id: 1 }
     },
     {
       path: "/previsao",
-      name: "Full Forecast",
-      component: () => import(/* webpackChunkName: "forecast" */ "@/views/FullForecast.vue"),
+      name: "full_forecast",
+      component: () =>
+        import(/* webpackChunkName: "forecast" */ "@/views/FullForecast.vue"),
       meta: { transitionName: "slide", id: 2 }
     },
     {
       path: "/picos",
-      name: "Spot",
-      component: () => import(/* webpackChunkName: "spot" */ "@/views/Spot.vue"),
-      meta: { transitionName: "slide", id: 3 },
+      name: "spot",
+      component: () =>
+        import(/* webpackChunkName: "spot" */ "@/views/Spot.vue"),
+      meta: { transitionName: "slide", id: 3 }
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // // which is lazy-loaded when the route is visited.
-      
     },
     {
       path: "/news",
-      name: "News",
-      component: () => import(/* webpackChunkName: "news" */ "@/views/News.vue"),
+      name: "news",
+      component: () =>
+        import(/* webpackChunkName: "news" */ "@/views/News.vue"),
       meta: { transitionName: "slide", id: 4 }
     },
     {
+      path: "/news/:id",
+      name: "single_new",
+      component: () =>
+        import(/* webpackChunkName: "news" */ "@/views/SingleNew.vue"),
+      props: (post) => ({
+        post
+      }) ,
+      meta: { transitionName: "fade", id: 5 }
+    },
+    {
       path: "/nova",
-      name: "Account Creation",
-      component: () => import(/* webpackChunkName: "create" */ "@/views/AccountCreation.vue"),
-      meta: { transitionName: "slide", id: 5 }
+      name: "account_creation",
+      component: () =>
+        import(/* webpackChunkName: "create" */ "@/views/AccountCreation.vue"),
+      meta: { transitionName: "slide", id: 1000 }
     }
   ]
 });

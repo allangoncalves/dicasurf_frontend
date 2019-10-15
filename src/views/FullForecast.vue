@@ -6,7 +6,7 @@
           <search-bar title="PREVISÃO" @spot-selected="spotSelected" />
         </div>
       </div>
-      <div v-if="days.length !== 0">
+      <div v-if="currentSpot !== null && days.length > 0">
         <div class="tile is-parent">
           <div class="tile is-child is-5">
             <div class="tile is-parent is-vertical">
@@ -244,47 +244,27 @@ export default {
   created() {
     const local_lat = localStorage.getItem("lat");
     const local_lng = localStorage.getItem("lng");
-    if (this.currentSpot === null) {
-      if (local_lat !== null && local_lng !== null) {
-        const loading = this.$buefy.loading.open();
-        this.getNearestSpot({ lat: local_lat, lng: local_lng }).then(() => {
-          this.collectData()
-            .then(() => loading.close())
-            .catch(() => {
-              loading.close();
-              this.$buefy.toast.open({
-                duration: 4000,
-                message: `Ops! Não foi possível carregar os dados, tente novamente.`,
-                position: "is-bottom",
-                type: "is-danger"
-              });
+    if (local_lat !== null && local_lng !== null) {
+      const loading = this.$buefy.loading.open();
+      this.getNearestSpot({ lat: local_lat, lng: local_lng }).then(() => {
+        this.collectData()
+          .then(() => loading.close())
+          .catch(() => {
+            loading.close();
+            this.$buefy.toast.open({
+              duration: 4000,
+              message: `Ops! Não foi possível carregar os dados, tente novamente.`,
+              position: "is-bottom",
+              type: "is-danger"
             });
-        });
-      } else if (this.days.length === 0) {
-        const loading = this.$buefy.loading.open();
-        this.selectLastSpotAdded().then(() => {
-          this.collectData()
-            .then(() => loading.close())
-            .catch(() => {
-              loading.close();
-              this.$buefy.toast.open({
-                    duration: 4000,
-                    message: `Ops! Não foi possível carregar os dados, tente novamente.`,
-                    position: 'is-bottom',
-                    type: 'is-danger'
-                })
-            });
-        });
-      }
+          });
+      });
     }
   },
   methods: {
-    ...mapActions([
-      "selectLastSpotAdded",
-      "getForecast",
-      "getWeather",
-      "getNearestSpot"
-    ]),
+    ...mapActions("marine", ["getForecast"]),
+    ...mapActions("weather", ["getWeather"]),
+    ...mapActions("geo", ["getNearestSpot"]),
     collectData() {
       const lat = this.currentSpot.lat;
       const lng = this.currentSpot.lng;
@@ -309,7 +289,8 @@ export default {
     }
   },
   computed: {
-    ...mapState(["currentSpot"]),
+    ...mapState("geo", ["currentSpot"]),
+    ...mapState("marine", ["days"]),
     waveHeightData() {
       return [
         { name: "Altura das ondas (metros)", data: this.waveHeightSeries }
@@ -370,7 +351,10 @@ export default {
     },
     tideHourSeries() {
       return this.tides.map(tide => {
-        return [moment(tide.tideDateTime, "yyyy-MM-dd HH:mm").valueOf(), tide.tideHeight_mt];
+        return [
+          moment(tide.tideDateTime, "yyyy-MM-dd HH:mm").valueOf(),
+          tide.tideHeight_mt
+        ];
       });
     },
     waveHeightSeries() {

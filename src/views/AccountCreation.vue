@@ -154,7 +154,12 @@
             </div>
           </div>
           <div class="column is-7" style="padding-top:0px">
-            <b-field label="Termos" horizontal>
+            <b-field
+              label="Termos"
+              horizontal
+              :type="{'is-danger': profile.terms.length > 0}"
+              :message="profile.terms"
+            >
               <b-checkbox name="Basico" v-model="terms">
                 Concordo com as
                 <span @click.stop class="has-text-primary">regras de uso do Dica SURF</span>
@@ -208,7 +213,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["registerUser", "login"]),
+    ...mapActions("auth", ["registerUser", "login"]),
     createForm() {
       this.messages = Object.assign({}, this.messages, {
         email: [],
@@ -246,10 +251,11 @@ export default {
       })
         .then(() => {
           this.login({ email: this.email, password: this.password });
-          this.$router.push("/");
+          this.$router.replace("/");
         })
         .catch(err => {
           if (err.response) {
+            console.log(err.response);
             this.messages = Object.assign({}, this.messages, err.response.data);
             this.profile = Object.assign(
               {},

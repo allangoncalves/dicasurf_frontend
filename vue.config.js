@@ -3,6 +3,6 @@ module.exports = {
     config.resolve.alias.set("vue$", "vue/dist/vue.js");
   },
   devServer: {
-    https: true
+    https: false
   }
 };

@@ -71,7 +71,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(["states", "cities", "spots", "currentState", "currentCity", "currentSpot"]),
+    ...mapState("geo", ["states", "cities", "spots", "currentState", "currentCity", "currentSpot"]),
     selectedState: {
       get() {
         return this.currentState;
@@ -98,8 +98,8 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["getCities", "getSpots"]),
-    ...mapMutations(["setCurrentState", "setCurrentCity", "setCurrentSpot"]),
+    ...mapActions("geo", ["getCities", "getSpots"]),
+    ...mapMutations("geo", ["setCurrentState", "setCurrentCity", "setCurrentSpot"]),
     stateSelected(){
       this.getCities(this.selectedState.id)
     },

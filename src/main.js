@@ -1,9 +1,8 @@
 import Vue from "vue";
 import Buefy from "buefy";
-import App from "./App.vue";
-import router from "./router";
+import App from "@/App.vue";
+import router from "@/router";
 import store from "./store";
-
 import VueApexCharts from "vue-apexcharts";
 import VueCarousel from "@chenfengyuan/vue-carousel";
 import { mapMutations } from "vuex";
@@ -36,7 +35,7 @@ new Vue({
     }
   },
   methods: {
-    ...mapMutations(["setUser", "setToken", "setLogged"])
+    ...mapMutations("auth", ["setUser", "setToken", "setLogged"])
   },
   render: h => h(App)
 }).$mount("#app");

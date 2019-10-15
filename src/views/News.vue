@@ -30,36 +30,18 @@
         </div>
       </div>
     </section>
-    <section class="section section-top section-bottom">
+    <section
+      class="section section-top section-bottom"
+      v-infinite-scroll="getNextPosts"
+      :infinite-scroll-disabled="next === null"
+      :infinite-scroll-distance="100"
+    >
       <div class="container">
-        <div class="tile is-ancestor">
-          <div class="tile is-vertical is-parent">
-            <div class="tile is-child">
-              <p class="title has-text-centered-touch">{{selectedPost.title}}</p>
-              <p>{{selectedPost.text}}</p>
-            </div>
-            <!-- <div class="tile is-child">
-              <p class="has-text-primary">Ver mais</p>
-            </div>-->
-          </div>
-          <div class="tile is-parent">
-            <div class="tile is-child">
-              <figure class="image is-square">
-                <img :src="selectedPost.image" alt />
-              </figure>
-            </div>
-          </div>
-        </div>
-        <div
-          class="tile is-ancestor"
-          @click="changeSelected(post.id)"
-          v-for="post in otherPosts"
-          :key="post.id"
-        >
+        <div class="tile is-ancestor" @click="goToPost(post)" v-for="post in posts" :key="post.id">
           <div class="tile is-parent">
             <div class="tile is-child is-2 is-horizontal-center is-flex">
               <figure class="image is-128x128">
-                <img :src="post.image" />
+                <img :src="post.preview_image.image" />
               </figure>
             </div>
             <div class="tile is-child">
@@ -90,6 +72,7 @@
 
 <script>
 var moment = require("moment");
+import infiniteScroll from "vue-infinite-scroll";
 const MONTHS = [
   "Janeiro",
   "Fevereiro",
@@ -106,27 +89,15 @@ const MONTHS = [
 ];
 import { mapActions, mapState } from "vuex";
 export default {
+  directives: { infiniteScroll },
   created() {
     const loading = this.$buefy.loading.open();
-    this.getPosts()
-      .then(() => {
-        this.changeSelected(this.posts[0].id);
-        loading.close();
-      })
-      .catch(() => {
-        loading.close();
-        this.$buefy.toast.open({
-          duration: 4000,
-          message: `Ops! Não foi possível carregar os dados, tente novamente.`,
-          position: "is-bottom",
-          type: "is-danger"
-        });
-      });
+    loading.close();
   },
   methods: {
-    ...mapActions(["getPosts"]),
-    changeSelected(id) {
-      this.selectedId = id;
+    ...mapActions("news", ["getPosts", "getNextPosts"]),
+    goToPost(post) {
+      this.$router.push({ name: `single_new`, params: { id: post.id } });
     },
     formatedDate(date) {
       let moment_date = moment(date);
@@ -136,34 +107,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(["posts"]),
-    selectedPost() {
-      let post = this.posts.find(post => post.id === this.selectedId);
-      return post !== undefined
-        ? post
-        : {
-            title: "",
-            image: "",
-            preview_text: "",
-            text: "",
-            created_at: ""
-          };
-    },
-    otherPosts() {
-      let unselectedPosts = this.posts.filter(
-        post => post.id !== this.selectedId
-      );
-      if (unselectedPosts.length < 3) {
-        return unselectedPosts;
-      } else {
-        return unselectedPosts.slice(0, 3);
-      }
-    }
-  },
-  data() {
-    return {
-      selectedId: null
-    };
+    ...mapState("news", ["posts", "next"])
   }
 };
 </script>

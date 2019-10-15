@@ -1,5 +1,5 @@
-import { mapState } from "vuex";
 var moment = require("moment");
+import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -22,7 +22,8 @@ export default {
     }
   },
   computed: {
-    ...mapState(["days", "weatherDays"]),
+    ...mapState("marine", ["days"]),
+    ...mapState("weather", ["weatherDays"]),
     tides() {
       return this.days[this.selectedDay].tides[0].tide_data;
     },
@@ -47,7 +48,7 @@ export default {
     wavePeriods() {
       return this.currentMarineData.swellPeriod_secs;
     },
-    swellHeight(){
+    swellHeight() {
       return this.currentMarineData.swellHeight_m;
     },
     ultraViolet() {
@@ -56,20 +57,20 @@ export default {
     WindGustKmph() {
       return this.currentWeatherData.WindGustKmph;
     },
-    windDir(){
+    windDir() {
       return this.currentWeatherData.winddir16Point;
     },
     humidity() {
       return `${this.currentWeatherData.humidity}%`;
     },
-    tempC(){
+    tempC() {
       return this.currentWeatherData.tempC;
     },
-    date(){
+    date() {
       return this.days[this.selectedDay].date;
     },
-    fullDate(){
-      return moment(`${this.date} ${this.currentTime.format('HH:mm')}`);
+    fullDate() {
+      return moment(`${this.date} ${this.currentTime.format("HH:mm")}`);
     },
     currentMarineData() {
       const index = this.findCurrentElementIndex(
@@ -82,7 +83,6 @@ export default {
         this.weatherDays[this.selectedDay].hourly
       );
       return this.weatherDays[this.selectedDay].hourly[index];
-    },
-    
+    }
   }
 };
