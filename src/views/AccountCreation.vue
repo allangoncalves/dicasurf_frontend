@@ -124,7 +124,7 @@
 
               <div class="column is-full">
                 <b-field
-                  label="Localidade"
+                  label="Complemento"
                   :type="{'is-danger': profile.address.length > 0}"
                   :message="profile.address"
                   horizontal
