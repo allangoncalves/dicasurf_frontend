@@ -12,14 +12,14 @@
         </div>
 
         <div class="column is-full">
-          <p>Metros</p>
+          <p>Altura</p>
         </div>
         <div class="column is-full">
-          <p class="subtitle has-text-weight-bold">{{waveHeight}}</p>
+          <p class="subtitle is-4 has-text-weight-bold">{{waveHeight + "m"}}</p>
         </div>
 
         <div class="column is-full">
-          <b-tag class="has-text-weight-bold has-text-white" type="is-primary">{{swellHeight}}</b-tag>
+          <b-tag class="has-text-weight-bold has-text-white" type="is-primary">{{swellHeight + "m"}}</b-tag>
         </div>
       </div>
     </div>
@@ -31,10 +31,10 @@
           </figure>
         </div>
         <div class="column is-full">
-          <p>Segundos</p>
+          <p>Períodos</p>
         </div>
         <div class="column is-full">
-          <p class="subtitle has-text-weight-bold">{{wavePeriods}}</p>
+          <p class="subtitle is-4 has-text-weight-bold">{{wavePeriods + "s"}}</p>
         </div>
       </div>
     </div>
@@ -46,10 +46,10 @@
           </figure>
         </div>
         <div class="column is-full">
-          <p>Km/h</p>
+          <p>Vento</p>
         </div>
         <div class="column is-full">
-          <p class="subtitle has-text-weight-bold">{{WindGustKmph}}</p>
+          <p class="subtitle is-4 has-text-weight-bold">{{WindGustKmph + "km/h"}}</p>
         </div>
         <div class="column is-full">
           <b-tag class="has-text-weight-bold has-text-white" type="is-primary">{{windDir}}</b-tag>
@@ -64,10 +64,10 @@
           </figure>
         </div>
         <div class="column is-full">
-          <p>Cº</p>
+          <p>Temperatura</p>
         </div>
         <div class="column is-full">
-          <p class="subtitle has-text-weight-bold">{{waterTemp}}</p>
+          <p class="subtitle is-4 has-text-weight-bold">{{waterTemp + "C°"}}</p>
         </div>
         <!-- <div class="column is-full">DFF</div> -->
       </div>
@@ -80,10 +80,10 @@
           </figure>
         </div>
         <div class="column is-full">
-          <p class>UV</p>
+          <p class>Índice UV</p>
         </div>
         <div class="column is-full">
-          <p class="subtitle has-text-weight-bold">{{ultraViolet}}</p>
+          <p class="subtitle is-4 has-text-weight-bold">{{ultraViolet}}</p>
         </div>
         <!-- <div class="column is-full">DFF</div> -->
       </div>
