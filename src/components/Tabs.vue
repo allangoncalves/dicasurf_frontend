@@ -2,7 +2,7 @@
   <div >
     <div class="columns is-mobile is-gapless">
       <div
-        class="column is-flex is-paddingless tab"
+        class="column is-flex is-paddingless tab is-clickable"
         style="align-items:center"
         v-for="(tab, index) in tabs"
         :key="tab"

@@ -19,7 +19,7 @@
           <div class="column" style="padding-top:2rem">
             <div class="columns is-vcentered is-centered">
               <div class="column">
-                <router-link to="/previsao" tag="div">
+                <router-link to="/previsao" tag="div" class="is-clickable">
                   <div class="columns is-multiline">
                     <div class="column is-full is-flex is-horizontal-center">
                       <div class="home-icon">
@@ -34,7 +34,7 @@
               </div>
 
               <div class="column">
-                <router-link to="/picos" tag="div">
+                <router-link to="/picos" tag="div" class="is-clickable">
                   <div class="columns is-multiline">
                     <div class="column is-full is-flex is-horizontal-center">
                       <div class="home-icon">
@@ -48,7 +48,7 @@
                 </router-link>
               </div>
               <div class="column">
-                <router-link to="/news" tag="div">
+                <router-link to="/news" tag="div" class="is-clickable">
                   <div class="columns is-multiline">
                     <div class="column is-full is-flex is-horizontal-center">
                       <div class="home-icon">

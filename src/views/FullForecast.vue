@@ -34,7 +34,7 @@
                 <!-- Day selector -->
                 <div class="columns is-mobile">
                   <div
-                    class="column"
+                    class="column is-clickable"
                     v-for="(day, index) in week"
                     :key="index"
                     @click="changeDay(index)"
@@ -207,7 +207,7 @@
                         </div>
                       </div>
                       <div class="tile is-child is-horizontal-center is-flex">
-                        <div class="comment has-text-centered">
+                        <div class="comment has-text-centered is-clickable">
                           <p style="padding:0.22rem"></p>
                         </div>
                       </div>
@@ -433,7 +433,7 @@ export default {
           }
         },
         xaxis: {
-          type: "datetime"
+          type: "datetime",
         },
         yaxis: {
           show: true,
@@ -464,7 +464,10 @@ export default {
         },
 
         dataLabels: {
-          enabled: true
+          enabled: true,
+          formatter: (value) => {
+            return `${value}m`; 
+          }
         },
 
         markers: {
@@ -472,7 +475,13 @@ export default {
           style: "hollow"
         },
         xaxis: {
-          type: "datetime"
+          type: "datetime",
+          tickAmount: 14,
+          labels: {
+            formatter: (value, timestamp) => {
+              return moment(timestamp).format("HH[h]")
+            },
+          }
         },
         tooltip: {
           x: {

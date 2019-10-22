@@ -76,6 +76,9 @@ export default {
 </style>
 
 <style lang="scss">
+.is-clickable {
+  cursor: pointer;
+}
 .slide-left-enter-active,
 .slide-left-leave-active,
 .slide-right-enter-active,

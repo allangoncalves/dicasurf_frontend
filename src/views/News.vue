@@ -34,10 +34,10 @@
       class="section section-top section-bottom"
       v-infinite-scroll="getNextPosts"
       :infinite-scroll-disabled="next === null"
-      :infinite-scroll-distance="100"
+      :infinite-scroll-distance="40"
     >
       <div class="container">
-        <div class="tile is-ancestor" @click="goToPost(post)" v-for="post in posts" :key="post.id">
+        <div class="tile is-ancestor is-clickable" @click="goToPost(post)" v-for="post in posts" :key="post.id">
           <div class="tile is-parent">
             <div class="tile is-child is-2 is-horizontal-center is-flex">
               <figure class="image is-128x128">
