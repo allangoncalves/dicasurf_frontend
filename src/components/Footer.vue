@@ -86,7 +86,7 @@ export default {
   },
   methods: {
     openFacebook(){
-      window.open("https://www.facebook.com/dicasurf.com.br");
+      window.open("https://www.facebook.com/dicasurfe");
       window.focus();
     },
     openInstagram(){
