@@ -135,8 +135,8 @@
                     <div class="columns is-mobile">
                       <div
                         class="column is-flex is-horizontal-center"
-                        v-for="time in topThree"
-                        :key="time.time"
+                        v-for="(time, index) in topThree"
+                        :key="index"
                       >
                         <div
                           class="has-text-centered is-flex is-horizontal-center"
@@ -318,28 +318,40 @@ export default {
       return [{ name: "Altura da maré (metros)", data: this.tideHourSeries }];
     },
     topThree() {
-      const waveSeries = this.waveHeightData[0].data.map(element => {
+      let forecast = this.days[this.selectedDay].hourly.map(element => {
         return {
-          time: element[0],
-          waveHeight: element[1]
+          time: element.time,
+          waveHeight: element.sigHeight_m,
+          wavePeriods: element.swellPeriod_secs,
+          windGust: element.WindGustKmph
         };
       });
-
-      let topThree = waveSeries
-        .sort((first, second) => first.waveHeight < second.waveHeight)
+      forecast = forecast
+        .sort(function(a, b) {
+          if (a.waveHeight == b.waveHeight) {
+            if (a.wavePeriods == b.wavePeriods) {
+              return a.windGust - b.windGust;
+            }
+            return a.wavePeriods - b.wavePeriods;
+          }
+          return a.waveHeight > b.waveHeight ? -1 : 1;
+        })
         .slice(0, 3);
 
-      topThree = topThree.map((point, index) =>
+      forecast = forecast.map((point, index) =>
         Object.assign(point, { highest: index === 0 })
       );
+      forecast.sort((first, second) => {
+        return Number(first.time) > Number(second.time) ? 1 : -1;
+      });
 
-      topThree.sort((first, second) => first.time > second.time);
-
-      topThree = topThree.map(point =>
-        Object.assign(point, { time: moment(point.time).format("HH[h]mm") })
+      return forecast.map(point =>
+        Object.assign(point, {
+          time: moment(
+            new Date(this.date).setHours(this.parseHour(point.time), 0, 0, 0)
+          ).format("HH[h]mm")
+        })
       );
-
-      return topThree;
     },
     week() {
       return this.days.map(day => {
@@ -433,7 +445,7 @@ export default {
           }
         },
         xaxis: {
-          type: "datetime",
+          type: "datetime"
         },
         yaxis: {
           show: true,
@@ -465,8 +477,8 @@ export default {
 
         dataLabels: {
           enabled: true,
-          formatter: (value) => {
-            return `${value}m`; 
+          formatter: value => {
+            return `${value}m`;
           }
         },
 
@@ -479,8 +491,8 @@ export default {
           tickAmount: 14,
           labels: {
             formatter: (value, timestamp) => {
-              return moment(timestamp).format("HH[h]")
-            },
+              return moment(timestamp).format("HH[h]");
+            }
           }
         },
         tooltip: {
