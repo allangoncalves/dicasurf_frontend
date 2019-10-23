@@ -32,9 +32,9 @@
     </section>
     <section
       class="section section-top section-bottom"
-      v-infinite-scroll="getNextPosts"
-      :infinite-scroll-disabled="next === null"
-      :infinite-scroll-distance="40"
+      v-infinite-scroll="fetch"
+      :infinite-scroll-disabled="fetching || next === null"
+      :infinite-scroll-distance="80"
     >
       <div class="container">
         <div class="tile is-ancestor is-clickable" @click="goToPost(post)" v-for="post in posts" :key="post.id">
@@ -104,10 +104,19 @@ export default {
       return `${moment_date.date()} de ${
         MONTHS[moment_date.month()]
       } de ${moment_date.year()}`;
+    },
+    fetch(){
+      this.fetching = true;
+      this.getNextPosts().finally(() => this.fetching = false);
     }
   },
   computed: {
     ...mapState("news", ["posts", "next"])
+  },
+  data(){
+    return {
+      fetching: false,
+    }
   }
 };
 </script>

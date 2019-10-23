@@ -28,13 +28,15 @@ export default {
       });
     },
     async getNextPosts({ state, commit }) {
-      console.log(state.next);
       if (state.next !== null) {
         return await DICA_API.get(state.next, {params: {limit: 3}}).then(res => {
           commit("setPosts", state.posts.concat(res.data.results));
           commit("setNext", res.data.next);
           
         });
+      }
+      else {
+        Promise.reject("Fim da lista!");
       }
     },
     async getSinglePost({}, id) {
