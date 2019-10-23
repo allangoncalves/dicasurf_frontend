@@ -42,7 +42,7 @@
             </div>
             <div class="tile is-child">
               <div class="columns" v-if="currentSpot !== null">
-                <div class="column is-half">
+                <div class="column is-half is-clickable">
                   <div class="columns is-vcentered">
                     <div class="column has-text-centered-mobile is-narrow">
                       <b-icon type="is-danger" icon="map-marker-alt" size="is-large"></b-icon>
@@ -54,7 +54,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="column is-half">
+                <div class="column is-half is-clickable">
                   <div class="columns is-vcentered">
                     <div class="column has-text-centered-mobile is-narrow">
                       <b-icon type="is-success" icon="globe" size="is-large"></b-icon>
