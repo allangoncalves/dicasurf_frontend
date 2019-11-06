@@ -14,11 +14,19 @@
           :to="route.name"
         >{{ route.text }}</b-navbar-item>
         <b-navbar-item tag="div">
-          <div
+          <div class="columns is-vcentered is-clickable" @click="openModal" v-if="!isLogged">
+            <div class="column is-narrow">
+              <b-icon icon="user-circle" type="is-white" size="is-small" pack="fas"></b-icon>
+            </div>
+            <div class="column is-paddingless">
+              <p>Login</p>
+            </div>
+          </div>
+          <!-- <div
             class="columns is-multiline has-text-centered has-background-black box is-paddingless"
           >
             <div class="column is-full">
-              <b-icon icon="user-circle" type="is-primary" size="is-medium" pack="fas"></b-icon>
+              
             </div>
             <div class="column is-full" style="padding-top:0rem">
               <b-button
@@ -39,7 +47,7 @@
                 <p class="has-text-primary">Sair</p>
               </div>
             </div>
-          </div>
+          </div>-->
         </b-navbar-item>
       </template>
     </b-navbar>
@@ -60,7 +68,10 @@ export default {
       routes: [
         { text: "Previsão", name: "/previsao" },
         { text: "Picos", name: "/picos" },
-        { text: "News", name: "/news" }
+        { text: "Boa Onda", name: "/boaonda"},
+        { text: "Parceiros", name: "/parceiros"},
+        { text: "News", name: "/news" },
+        
       ],
       modalOpen: false
     };

@@ -6,6 +6,10 @@ import store from "./store";
 import VueApexCharts from "vue-apexcharts";
 import VueCarousel from "@chenfengyuan/vue-carousel";
 import { mapMutations } from "vuex";
+import vSelect from "vue-select";
+import 'vue-select/dist/vue-select.css';
+
+Vue.component("v-select", vSelect);
 
 Vue.component(VueCarousel.name, VueCarousel);
 

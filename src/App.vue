@@ -76,8 +76,20 @@ export default {
 </style>
 
 <style lang="scss">
+.section-top {
+  margin-top: 3rem;
+}
+
+.section-bottom {
+  margin-bottom: 3rem;
+}
+
 .is-clickable {
   cursor: pointer;
+}
+.is-horizontal-center {
+  display: flex;
+  justify-content: center
 }
 .slide-left-enter-active,
 .slide-left-leave-active,
@@ -111,7 +123,7 @@ export default {
 // $fullhd-enabled: false;
 
 $primary: #0075bb;
-$primary-invert: #222221;
+$primary-invert: #ffffff;
 $secondary: #222221;
 $secondary-invert: findColorInvert($secondary);
 $tertiary: #343434;
@@ -184,7 +196,7 @@ $colors: (
 $footer-padding: 1.5rem;
 
 //
-$family-primary: "Montserrat";
+// $family-primary: "Montserrat";
 
 @import "~bulma";
 @import "~buefy/src/scss/buefy";

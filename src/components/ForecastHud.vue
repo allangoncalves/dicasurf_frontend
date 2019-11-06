@@ -15,7 +15,7 @@
           <p>Altura</p>
         </div>
         <div class="column is-full">
-          <p class="subtitle is-4 has-text-weight-bold">{{waveHeight + "m"}}</p>
+          <p class="subtitle is-6 has-text-weight-bold">{{waveHeight + "m"}}</p>
         </div>
 
         <div class="column is-full">
@@ -34,7 +34,7 @@
           <p>Períodos</p>
         </div>
         <div class="column is-full">
-          <p class="subtitle is-4 has-text-weight-bold">{{wavePeriods + "s"}}</p>
+          <p class="subtitle is-6 has-text-weight-bold">{{wavePeriods + "s"}}</p>
         </div>
       </div>
     </div>
@@ -49,7 +49,7 @@
           <p>Vento</p>
         </div>
         <div class="column is-full">
-          <p class="subtitle is-4 has-text-weight-bold">{{WindGustKmph + "km/h"}}</p>
+          <p class="subtitle is-6 has-text-weight-bold">{{WindGustKmph + "km/h"}}</p>
         </div>
         <div class="column is-full">
           <b-tag class="has-text-weight-bold has-text-white" type="is-primary">{{windDir}}</b-tag>
@@ -64,10 +64,10 @@
           </figure>
         </div>
         <div class="column is-full">
-          <p>Temperatura</p>
+          <p>Temp. da Água</p>
         </div>
         <div class="column is-full">
-          <p class="subtitle is-4 has-text-weight-bold">{{waterTemp + "C°"}}</p>
+          <p class="subtitle is-6 has-text-weight-bold">{{waterTemp + "C°"}}</p>
         </div>
         <!-- <div class="column is-full">DFF</div> -->
       </div>
@@ -83,7 +83,7 @@
           <p class>Índice UV</p>
         </div>
         <div class="column is-full">
-          <p class="subtitle is-4 has-text-weight-bold">{{ultraViolet}}</p>
+          <p class="subtitle is-6 has-text-weight-bold">{{ultraViolet}}</p>
         </div>
         <!-- <div class="column is-full">DFF</div> -->
       </div>

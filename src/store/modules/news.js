@@ -27,15 +27,15 @@ export default {
         return res.data.results;
       });
     },
-    async getNextPosts({ state, commit }) {
+    async getNextChunk({ state, commit }) {
       if (state.next !== null) {
-        return await DICA_API.get(state.next, {params: {limit: 3}}).then(res => {
-          commit("setPosts", state.posts.concat(res.data.results));
-          commit("setNext", res.data.next);
-          
-        });
-      }
-      else {
+        return await DICA_API.get(state.next, { params: { limit: 3 } }).then(
+          res => {
+            commit("setPosts", state.posts.concat(res.data.results));
+            commit("setNext", res.data.next);
+          }
+        );
+      } else {
         Promise.reject("Fim da lista!");
       }
     },

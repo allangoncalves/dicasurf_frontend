@@ -25,7 +25,7 @@ export default {
     ...mapState("marine", ["days"]),
     ...mapState("weather", ["weatherDays"]),
     tides() {
-      return this.days[this.selectedDay].tides[0].tide_data;
+        return this.days[this.selectedDay].tides[0].tide_data;
     },
     sunrise() {
       return moment(

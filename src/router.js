@@ -39,11 +39,21 @@ export default new Router({
       // // which is lazy-loaded when the route is visited.
     },
     {
+      path: "/boaonda",
+      name: "goodwave",
+      component: () =>
+        import(/* webpackChunkName: "goodwave" */ "@/views/GoodWave.vue"),
+      meta: { transitionName: "slide", id: 4 }
+      // route level code-splitting
+      // this generates a separate chunk (about.[hash].js) for this route
+      // // which is lazy-loaded when the route is visited.
+    },
+    {
       path: "/news",
       name: "news",
       component: () =>
         import(/* webpackChunkName: "news" */ "@/views/News.vue"),
-      meta: { transitionName: "slide", id: 4 }
+      meta: { transitionName: "slide", id: 5 }
     },
     {
       path: "/news/:id",
@@ -53,7 +63,7 @@ export default new Router({
       props: (post) => ({
         post
       }) ,
-      meta: { transitionName: "fade", id: 5 }
+      meta: { transitionName: "fade", id: 6 }
     },
     {
       path: "/nova",
