@@ -1,265 +1,185 @@
 <template>
   <div>
-    <section
-      class="hero hero-img is-medium"
-      :style="{backgroundImage: `url(${currentSpot ? currentSpot.details ? currentSpot.details.header_image.image : require('@/assets/images/surf-em-Ubatuba.jpg') : require('@/assets/images/surf-em-Ubatuba.jpg')})`}"
-    >
+    <section class="hero is-medium">
+      <figure class="image is-3by1">
+        <img src="@/assets/images/picos.png" alt />
+      </figure>
       <!-- Hero content: will be in the middle -->
-      <div class="hero-body">
-        <div class="container">
-          <div class="columns is-centered is-multiline has-text-centered">
-            <div class="column is-full">
-              <h1 class="title has-text-white">PICOS</h1>
-            </div>
-            <div class="column is-full is-paddingless">
-              <div class="columns is-centered is-vcentered is-marginless">
-                <div
-                  class="column is-5 has-background-primary is-paddingless"
-                  style="max-height:0.2em;height:0.2em"
-                ></div>
-              </div>
-            </div>
-            <div class="column is-full">
-              <div class="columns is-centered">
-                <div class="column is-5">
-                  <h2
-                    class="has-text-white"
-                  >O Surf é mais que um esporte, é saúde, é estilo de vida, é prazer e contato com a natureza.</h2>
-                  <a>#DicaSurfPicos</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
+
     <section class="section">
-      <div class="container">
-        <div class="tile is-ancestor">
-          <div class="tile is-vertical is-parent" style="padding-bottom:0px">
-            <div class="tile is-child">
-              <search-bar :hideMessage="true" @spot-selected="spotSelected" title="Nossos Picos" />
-            </div>
-            <div class="tile is-child">
-              <div class="columns" v-if="currentSpot !== null">
-                <div class="column is-half is-clickable">
-                  <div class="columns is-vcentered">
-                    <div class="column has-text-centered-mobile is-narrow">
-                      <b-icon type="is-danger" icon="map-marker-alt" size="is-large"></b-icon>
-                    </div>
-                    <div
-                      class="column is-paddingless has-text-centered-mobile is-1 has-text-primary has-text-weight-bold"
-                    >
-                      <p>Como Chegar</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="column is-half is-clickable">
-                  <div class="columns is-vcentered">
-                    <div class="column has-text-centered-mobile is-narrow">
-                      <b-icon type="is-success" icon="globe" size="is-large"></b-icon>
-                    </div>
-                    <div
-                      class="column is-paddingless is-1 has-text-primary has-text-centered-mobile has-text-weight-bold"
-                    >
-                      <p>Passeio 360º</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="tile is-child is-11" v-if="currentSpot !== null">
-              <p class="title">{{ currentSpot.name }}</p>
-              <p class="subtitle">{{ cityAndState }}</p>
-              <div class="has-background-secondary" style="max-height:0.7em;height:0.2em"></div>
-            </div>
-          </div>
-          <div class="tile is-parent is-4 is-horizontal-center is-flex" v-if="days.length > 0">
-            <div class="tile is-child">
-              <div class="is-paddingless">
-                <forecast-hud
-                  :waveHeight="waveHeight"
-                  :WindGustKmph="WindGustKmph"
-                  :waterTemp="waterTemp"
-                  :ultraViolet="ultraViolet"
-                  :wavePeriods="wavePeriods"
-                  :swellHeight="swellHeight"
-                  :windDir="windDir"
-                  :tempC="tempC"
-                  :fullDate="fullDate"
-                />
-              </div>
-            </div>
+      <div class="container" style="padding-top:2rem;padding-bottom:2rem">
+        <search-bar :hideMessage="true" @spot-selected="spotSelected" title="Nossos Picos" />
+        <hr />
+        <div class="columns is-centered">
+          <div class="column is-full">
+            <carousel
+              :perPage="1"
+              v-if="currentSpot != null"
+              paginationActiveColor="#0075bb"
+              paginationColor="#343434"
+            >
+              <slide>
+                <figure class="image is-3by1">
+                  <img src="@/assets/images/sky.jpg" alt="a" />
+                </figure>
+                <p class="centered has-text-white title">
+                  <span class="is-size-1-tablet is-size-5-mobile">_</span>
+                  <br />
+                  <span class="is-uppercase is-size-2-tablet is-size-5-mobile">{{currentSpot.name}}</span>
+                </p>
+              </slide>
+              <slide v-for="(video, index) in videos" :key="index">
+                <figure class="image is-3by1">
+                  <iframe
+                    class="has-ratio"
+                    :src="video.url"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                  ></iframe>
+                </figure>
+              </slide>
+            </carousel>
           </div>
         </div>
-      </div>
-    </section>
-
-    <section class="section" style="margin-top:1rem">
-      <div v-if="currentSpot != null">
-        <div class="container" v-if="currentSpot.details != null">
-          <div class="tile is-parent is-vertical section-bottom">
-            <div class="tile is-child">
-              <div class="tile is-ancestor">
-                <div class="tile is-vertical is-parent">
-                  <div class="tile is-child">
-                    <div>
-                      <h5 class="title is-4 is-marginless has-text-primary">Acesso</h5>
-                      <p>
-                        Acesso de carro:
-                        <span
-                          class="has-text-weight-bold"
-                          :class="{'has-text-success': currentSpot.car, 'has-text-danger':!currentSpot.car}"
-                        >{{ carAccess }}</span>
-                      </p>
-                      <p>
-                        Acesso especial:
-                        <span
-                          class="has-text-weight-bold"
-                          :class="{'has-text-success': currentSpot.special_access, 'has-text-danger':!currentSpot.special_access}"
-                        >{{ specialAccess }}</span>
-                      </p>
-                      <p>
-                        Tipo de praia:
-                        <span
-                          class="has-text-weight-bold"
-                          :class="{'has-text-success': currentSpot.beach_type === 'Pública', 'has-text-danger':currentSpot.beach_type === 'Privada'}"
-                        >{{ beachType }}</span>
-                      </p>
-                      <p>
-                        Tipo de acesso:
-                        <span class="has-text-weight-bold">{{ accessTypes }}</span>
-                      </p>
-                    </div>
-                    <div class="data-category">
-                      <h5 class="title is-4 is-marginless has-text-primary">Características</h5>
-                      <p>
-                        Fundo:
-                        <span class="has-text-weight-bold">{{ grounds }}</span>
-                      </p>
-                      <p>
-                        Melhor época do ano:
-                        <span class="has-text-weight-bold">{{ timeOfYear }}</span>
-                      </p>
-                      <p>
-                        Melhor Movimento da Maré:
-                        <span
-                          class="has-text-weight-bold"
-                        >{{ bestTideMoves }}</span>
-                      </p>
-                      <p>
-                        Crowd da semana:
-                        <span class="has-text-weight-bold">{{ weekCrowd }}</span>
-                      </p>
-                      <p>
-                        Crowd do final de semana:
-                        <span
-                          class="has-text-weight-bold"
-                        >{{ weekendCrowd }}</span>
-                      </p>
-                    </div>
-                    <div class="data-category">
-                      <h5 class="title is-4 is-marginless has-text-primary">Ondas</h5>
-                      <p>
-                        Qualidade das ondas:
-                        <span>
-                          <b-icon
-                            type="is-secondary"
-                            :pack="fullStar(1)"
-                            icon="star"
-                            size="is-small"
-                          />
-                          <b-icon
-                            type="is-secondary"
-                            :pack="fullStar(2)"
-                            icon="star"
-                            size="is-small"
-                          />
-                          <b-icon
-                            type="is-secondary"
-                            :pack="fullStar(3)"
-                            icon="star"
-                            size="is-small"
-                          />
-                          <b-icon
-                            type="is-secondary"
-                            :pack="fullStar(4)"
-                            icon="star"
-                            size="is-small"
-                          />
-                          <b-icon
-                            type="is-secondary"
-                            :pack="fullStar(5)"
-                            icon="star"
-                            size="is-small"
-                          />
-                        </span>
-                      </p>
-                      <p>
-                        Direção:
-                        <span class="has-text-weight-bold">{{ waveDirections }}</span>
-                      </p>
-                      <p>
-                        Nivel do surf:
-                        <span class="has-text-weight-bold">{{ surfLevels }}</span>
-                      </p>
-                      <p>
-                        Comprimento das ondas:
-                        <span class="has-text-weight-bold">{{ waveLength }}</span>
-                      </p>
-                      <p>
-                        Força:
-                        <span class="has-text-weight-bold">{{ waveStrength }}</span>
-                      </p>
-                      <p>
-                        Frequência das ondas:
-                        <span
-                          class="has-text-weight-bold"
-                        >{{ waveFrequencies }}</span>
-                      </p>
-                    </div>
-                    <div class="data-category">
-                      <h5 class="title is-4 is-marginless has-text-danger">Perigos</h5>
-                      <b-tooltip
-                        style="margin-right:1rem;margin-top:1rem"
-                        :label="danger"
-                        type="is-danger"
-                        multilined
-                        :delay="300"
-                        v-for="danger in dangers"
-                        :key="danger"
-                      >
-                        <b-tag type="is-danger" :ellipsis="true">{{ danger }}</b-tag>
-                      </b-tooltip>
-
-                      <!-- <p class="has-text-weight-bold" v-for="danger in dangers" :key="danger">{{ danger }}</p> -->
-                    </div>
-                  </div>
+        <div v-if="currentSpot != null">
+          <div class="tile is-ancestor" v-if="currentSpot.details != null">
+            <div class="tile is-vertical is-parent">
+              <div class="tile is-child">
+                <div>
+                  <h5 class="title is-3 has-text-primary">Acesso</h5>
+                  <p>
+                    Acesso de carro:
+                    <span
+                      class="has-text-weight-bold"
+                      :class="{'has-text-success': currentSpot.details.car, 'has-text-danger':!currentSpot.details.car}"
+                    >{{ carAccess }}</span>
+                  </p>
+                  <p>
+                    Acesso especial:
+                    <span
+                      class="has-text-weight-bold"
+                      :class="{'has-text-success': currentSpot.details.special_access, 'has-text-danger':!currentSpot.details.special_access}"
+                    >{{ specialAccess }}</span>
+                  </p>
+                  <p>
+                    Tipo de praia:
+                    <span
+                      class="has-text-weight-bold"
+                      :class="{'has-text-success': currentSpot.details.beach_type === 'Pública', 'has-text-danger':currentSpot.details.beach_type === 'Privada'}"
+                    >{{ beachType }}</span>
+                  </p>
+                  <p>
+                    Tipo de acesso:
+                    <span class="has-text-weight-bold">{{ accessTypes }}</span>
+                  </p>
                 </div>
-                <div class="tile is-parent">
-                  <div class="tile is-child">
-                    <figure class="image is-square">
-                      <img :src="currentSpot.details.info_image.image" />
-                    </figure>
-                  </div>
+                <div class="data-category">
+                  <h5 class="title is-3 has-text-primary">Ondas</h5>
+                  <p>
+                    Qualidade das ondas:
+                    <span>
+                      <b-icon type="is-warning" :pack="fullStar(1)" icon="star" size="is-small" />
+                      <b-icon type="is-warning" :pack="fullStar(2)" icon="star" size="is-small" />
+                      <b-icon type="is-warning" :pack="fullStar(3)" icon="star" size="is-small" />
+                      <b-icon type="is-warning" :pack="fullStar(4)" icon="star" size="is-small" />
+                      <b-icon type="is-warning" :pack="fullStar(5)" icon="star" size="is-small" />
+                    </span>
+                  </p>
+                  <p>
+                    Direção:
+                    <span class="has-text-weight-bold">{{ waveDirections }}</span>
+                  </p>
+                  <p>
+                    Nivel do surf:
+                    <span class="has-text-weight-bold">{{ surfLevels }}</span>
+                  </p>
+                  <p>
+                    Comprimento das ondas:
+                    <span class="has-text-weight-bold">{{ waveLength }}</span>
+                  </p>
+                  <p>
+                    Força:
+                    <span class="has-text-weight-bold">{{ waveStrength }}</span>
+                  </p>
+                  <p>
+                    Frequência das ondas:
+                    <span class="has-text-weight-bold">{{ waveFrequencies }}</span>
+                  </p>
                 </div>
               </div>
             </div>
-            <div class="tile is-child" v-if="currentSpot != null">
-              <div class="tile is-parent">
-                <div class="tile is-child">
-                  <carousel :per-page="3" :navigationEnabled="true" :paginationEnabled="false">
-                    <slide
-                      @slide-click="openVideo(video.youtube_url)"
-                      v-for="video in currentSpot.videos"
-                      :key="video.id"
-                    >
-                      <div class="has-text-centered">
-                        <img :src="video.thumb" />
-                        <p class="title is-5">{{video.title}}</p>
+            <div class="tile is-parent is-vertical">
+              <div class="tile is-child">
+                <div class="columns is-mobile">
+                  <div class="column">
+                    <div class="columns is-vcentered">
+                      <div class="column has-text-centered-mobile is-narrow">
+                        <b-button type="is-primary" icon-right="map-marker-alt" rounded outlined />
                       </div>
-                    </slide>
-                  </carousel>
+                      <div
+                        class="column has-text-centered-mobile has-text-tertiary has-text-weight-bold"
+                      >
+                        <p>COMO</p>
+                        <p>CHEGAR</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="column">
+                    <div class="columns is-vcentered">
+                      <div class="column has-text-centered-mobile is-narrow">
+                        <b-button type="is-primary" icon-right="globe" rounded outlined />
+                      </div>
+                      <div
+                        class="column has-text-tertiary has-text-centered-mobile has-text-weight-bold"
+                      >
+                        <p>PASSEIO</p>
+                        <p class="has-text-primary">360º</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tile is-child">
+                <div class="data-category">
+                  <h5 class="title is-3 has-text-primary">Características</h5>
+                  <p>
+                    Fundo:
+                    <span class="has-text-weight-bold">{{ grounds }}</span>
+                  </p>
+                  <p>
+                    Melhor época do ano:
+                    <span class="has-text-weight-bold">{{ timeOfYear }}</span>
+                  </p>
+                  <p>
+                    Melhor Movimento da Maré:
+                    <span class="has-text-weight-bold">{{ bestTideMoves }}</span>
+                  </p>
+                  <p>
+                    Crowd da semana:
+                    <span class="has-text-weight-bold">{{ weekCrowd }}</span>
+                  </p>
+                  <p>
+                    Crowd do final de semana:
+                    <span class="has-text-weight-bold">{{ weekendCrowd }}</span>
+                  </p>
+                </div>
+                <div class="data-category">
+                  <h5 class="title is-3 has-text-danger">Perigos</h5>
+                  <b-tooltip
+                    style="margin-right:1rem;"
+                    :label="danger"
+                    type="is-danger"
+                    multilined
+                    :delay="300"
+                    v-for="danger in dangers"
+                    :key="danger"
+                  >
+                    <b-tag type="is-danger" :ellipsis="true">{{ danger }}</b-tag>
+                  </b-tooltip>
+
+                  <!-- <p class="has-text-weight-bold" v-for="danger in dangers" :key="danger">{{ danger }}</p> -->
                 </div>
               </div>
             </div>
@@ -314,7 +234,13 @@ export default {
       },
       name: "",
       selected: null,
-      teste: " Não"
+      teste: " Não",
+      videos: [
+        { url: "https://www.youtube-nocookie.com/embed/_msRXflOfWw" },
+        { url: "https://www.youtube-nocookie.com/embed/_msRXflOfWw" },
+        { url: "https://www.youtube-nocookie.com/embed/_msRXflOfWw" },
+        { url: "https://www.youtube-nocookie.com/embed/_msRXflOfWw" }
+      ]
     };
   },
   methods: {
@@ -548,5 +474,12 @@ export default {
   background-repeat: no-repeat;
   background-attachment: inherit;
   background-size: cover;
+}
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-shadow: 1px 1px grey;
 }
 </style>
