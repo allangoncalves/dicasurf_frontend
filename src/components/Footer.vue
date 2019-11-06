@@ -12,21 +12,21 @@
               class="subtitle is-5 has-background-primary is-paddingless"
               style="max-height:0.2em;height:0.2em"
             />
-            <p class="has-text-white">A Dica SURF</p>
-            <p class="has-text-white">Dicas</p>
-            <p class="has-text-white">Picos</p>
-            <p class="has-text-white">Life Style</p>
+            <div>
+              <router-link style="display:block" class="has-text-white" to="quemsomos">Quem somos</router-link>
+              <router-link style="display:block" class="has-text-white" to="equipe">Nossa equipe</router-link>
+              <router-link style="display:block" class="has-text-white" to="boaonda">Boa Onda</router-link>
+              <router-link style="display:block" class="has-text-white" to="parceiros">Parceiros</router-link>
+            </div>
           </div>
           <div class="column">
-            <p class="title is-5 has-text-primary">Mídia</p>
+            <p class="title is-5 has-text-primary">Conteúdo</p>
             <div
               class="subtitle is-5 has-background-primary is-paddingless"
               style="max-height:0.2em;height:0.2em"
             />
-            <p class="has-text-white">Eventos</p>
-            <p class="has-text-white">Vídeos</p>
-            <p class="has-text-white">Download</p>
-            <p class="has-text-white">Life Style</p>
+            <router-link style="display:block" class="has-text-white" to="picos">Picos</router-link>
+            <router-link style="display:block" class="has-text-white" to="news">News</router-link>
           </div>
           <div class="column">
             <p class="title is-5 has-text-primary">Contato</p>
@@ -34,8 +34,12 @@
               class="subtitle is-5 has-background-primary is-paddingless"
               style="max-height:0.2em;height:0.2em"
             />
-            <p class="has-text-white">Fale conosco</p>
-            <p class="has-text-white">Trabalhe conosco</p>
+            <router-link style="display:block" class="has-text-white" to="faleconosco">Fale conosco</router-link>
+            <router-link
+              style="display:block"
+              class="has-text-white"
+              to="trabalheconosco"
+            >Trabalhe conosco</router-link>
           </div>
           <div class="column">
             <p class="title is-5 has-text-primary">Redes Sociais</p>
@@ -43,33 +47,40 @@
               class="subtitle is-5 has-background-primary is-paddingless"
               style="max-height:0.2em;height:0.2em"
             />
-            <div>
-              <b-button
-                style="margin-right:0.6rem;"
-                type="is-white has-text-secondary"
-                icon-right="fa-instagram"
-                icon-pack="fab"
-                @click="openInstagram"
+            <div class="is-inline-block">
+              <b-icon
+                icon="fa-instagram"
+                style="margin-right:0.6rem"
+                pack="fab"
+                type="is-white"
+                size="is-medium"
+                custom-class=" is-size-3 is-clickable"
+                @click.native="openInstagram"
               />
-              <b-button
-                style="margin-right:0.6rem;"
-                type="is-white has-text-secondary"
-                icon-right="fa-facebook-f"
-                icon-pack="fab"
-                @click="openFacebook"
+              <b-icon
+                icon="fa-youtube"
+                style="margin-right:0.6rem"
+                pack="fab"
+                type="is-white"
+                size="is-medium"
+                custom-class=" is-size-3 is-clickable"
+                @click.native="openYoutube"
               />
-              <b-button
-                type="is-white has-text-secondary"
-                icon-right="fa-youtube"
-                icon-pack="fab"
-                @click="openYoutube"
+              <b-icon
+                icon="fa-facebook-square"
+                style="margin-right:0.6rem"
+                pack="fab"
+                type="is-white"
+                size="is-medium"
+                custom-class=" is-size-3 is-clickable"
+                @click.native="openFacebook"
               />
             </div>
           </div>
         </div>
       </div>
     </section>
-    <footer class="footer">
+    <footer class="footer has-background-primary">
       <div class="has-text-centered has-text-white">
         <p>&copy;2019 Todos os direitos reservados.</p>
       </div>
@@ -85,15 +96,15 @@ export default {
     };
   },
   methods: {
-    openFacebook(){
+    openFacebook() {
       window.open("https://www.facebook.com/dicasurfe");
       window.focus();
     },
-    openInstagram(){
+    openInstagram() {
       window.open("https://www.instagram.com/dica.surf");
       window.focus();
     },
-    openYoutube(){
+    openYoutube() {
       window.open("https://www.youtube.com/channel/UCKFEDjVbeEya64C823H0Q6g");
       window.focus();
     }
@@ -104,7 +115,7 @@ export default {
 <style lang="scss" scoped>
 .is-horizontal-center {
   display: flex;
-  justify-content: center
+  justify-content: center;
 }
 .vertical-logo {
   width: 130px;
