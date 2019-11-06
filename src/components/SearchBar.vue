@@ -1,58 +1,43 @@
 <template>
-  <div
-    class="columns is-multiline is-centered is-vcentered has-background-primary box is-paddingless"
-  >
-    <div class="column is-narrow is-full-touch has-text-secondary has-text-weight-bold">
-      <p class="title is-4 has-text-centered-touch has-text-weight-bold">{{title}}</p>
+  <div class="columns is-vcentered">
+    <div class="column is-narrow">
+      <p class="title is-5 has-text-primary has-text-centered-touch has-text-weight-bold">Nossos Picos</p>
     </div>
     <div class="column">
-      <div class="columns is-centered is-multiline">
-        <div class="column is-narrow has-text-centered-mobile">
-          <b-field>
-            <b-select
-              v-model="selectedState"
-              class="select"
-              icon="search"
-              placeholder="Selecione um estado"
-              @input="stateSelected"
-            >
-              <option v-for="state in states" :value="state" :key="state.id">{{ state.name }}</option>
-            </b-select>
-          </b-field>
-        </div>
-        <div class="column is-narrow  has-text-centered-touch">
-          <b-field>
-            <b-select
-              v-model="selectedCity"
-              class="select"
-              :disabled="selectedState === null"
-              placeholder="Selecione uma cidade"
-              @input="citySelected"
-            >
-              <option v-for="city in cities" :value="city" :key="city.id">{{ city.name }}</option>
-            </b-select>
-          </b-field>
-        </div>
-        <div class="column is-narrow has-text-centered-mobile">
-          <b-field>
-            <b-select
-              v-model="selectedSpot"
-              class="select"
-              :disabled="selectedCity === null"
-              placeholder="Selecione um pico"
-              @input="spotSelected"
-            >
-              <option v-for="spot in spots" :value="spot" :key="spot.id">{{ spot.name }}</option>
-            </b-select>
-          </b-field>
-        </div>
-        
-      </div>
+      <v-select
+        class="style-chooser has-text-white"
+        v-model="selectedState"
+        icon="search"
+        placeholder="Selecione um estado"
+        :options="states"
+        label="name"
+        :clearable="false"
+        @input="stateSelected"
+      />
     </div>
-    <div class="column is-narrow is-full-touch" v-if="!hideMessage">
-      <p
-        class="has-text-white has-text-centered-touch has-text-right-desktop"
-      >Nossa vibe é surf, o resto é onda.</p>
+    <div class="column">
+      <v-select
+        class="style-chooser"
+        v-model="selectedCity"
+        :disabled="selectedState === null"
+        placeholder="Selecione uma cidade"
+        :options="cities"
+        label="name"
+        :clearable="false"
+        @input="citySelected"
+      />
+    </div>
+    <div class="column">
+      <v-select
+        class="style-chooser"
+        v-model="selectedSpot"
+        :disabled="selectedCity === null"
+        placeholder="Selecione um pico"
+        :options="spots"
+        label="name"
+        :clearable="false"
+        @input="spotSelected"
+      />
     </div>
   </div>
 </template>
@@ -71,7 +56,14 @@ export default {
     }
   },
   computed: {
-    ...mapState("geo", ["states", "cities", "spots", "currentState", "currentCity", "currentSpot"]),
+    ...mapState("geo", [
+      "states",
+      "cities",
+      "spots",
+      "currentState",
+      "currentCity",
+      "currentSpot"
+    ]),
     selectedState: {
       get() {
         return this.currentState;
@@ -99,12 +91,16 @@ export default {
   },
   methods: {
     ...mapActions("geo", ["getCities", "getSpots"]),
-    ...mapMutations("geo", ["setCurrentState", "setCurrentCity", "setCurrentSpot"]),
-    stateSelected(){
-      this.getCities(this.selectedState.id)
+    ...mapMutations("geo", [
+      "setCurrentState",
+      "setCurrentCity",
+      "setCurrentSpot"
+    ]),
+    stateSelected() {
+      this.getCities(this.selectedState.id);
     },
     citySelected() {
-      this.getSpots({state_id: 1, city_id: this.selectedCity.id });
+      this.getSpots({ state_id: 1, city_id: this.selectedCity.id });
     },
     spotSelected() {
       this.$emit("spot-selected");
@@ -112,3 +108,25 @@ export default {
   }
 };
 </script>
+<style lang="scss">
+.style-chooser .vs__search::placeholder,
+.style-chooser .vs__dropdown-toggle,
+.style-chooser .vs__dropdown-menu,
+.style-chooser .vs__selected {
+  background: #0075bb;
+  border: none;
+  color: white;
+  text-transform: lowercase;
+  font-variant: small-caps;
+}
+.vs--disabled .vs__search {
+  background-color: #0075bb;
+}
+
+
+.style-chooser .vs__clear,
+.style-chooser .vs__open-indicator {
+  fill: white;
+  background-color: #0075bb;
+}
+</style>
