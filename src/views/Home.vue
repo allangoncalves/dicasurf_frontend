@@ -1,65 +1,160 @@
 <template>
   <div>
-    <carousel
-      v-if="this.homeCarousel.length !== 0"
-      tag="div"
-      :data="slides"
-      direction="up"
-      :controls="false"
-      :interval="6000"
-      indicator-type="disc"
-    ></carousel>
+    <section class="hero is-medium">
+      <figure class="image is-3by1">
+        <img src="@/assets/images/home.jpg" alt="">
+      </figure>
+    </section>
 
-    <section class="section hero is-medium" style="padding-top:1rem;padding-bottom:4rem;">
+    <section class="section section-top section-bottom">
       <div class="container">
         <div class="columns is-multiline">
           <div class="column is-12">
             <search-bar title="PREVISÃO" @spot-selected="spotSelected" />
+            <hr />
+            <p class="title is-size-3-tablet has-text-centered">
+              Nossa vibe é
+              <span class="has-text-primary is-uppercase">surf</span>, o resto é
+              <span class="has-text-primary is-uppercase">onda</span>.
+            </p>
           </div>
-          <div class="column" style="padding-top:2rem">
-            <div class="columns is-vcentered is-centered">
-              <div class="column">
-                <router-link to="/previsao" tag="div" class="is-clickable">
-                  <div class="columns is-multiline">
-                    <div class="column is-full is-flex is-horizontal-center">
-                      <div class="home-icon">
-                        <img width="110px" src="@/assets/icons/previsao.svg" alt />
+          <div class="column is-full" style="padding-top:2rem">
+            <div class="tile is-ancestor">
+              <div class="tile is-vertical">
+                <div class="tile">
+                  <div class="tile is-parent is-vertical">
+                    <article
+                      class="tile is-child box has-background-primary has-text-white is-paddingless"
+                    >
+                      <div class="columns is-gapless is-mobile">
+                        <div @click="$router.push('/picos')" class="column is-narrow is-flex is-clickable" >
+                          <div style="align-self:flex-end;padding:0.6rem;width:100%;padding-right:0rem;">
+                            <p>
+                              <span class="has-text-white is-uppercase title is-size-7-mobile">_</span>
+                              <br />
+                              <span class="has-text-white is-uppercase title is-size-7-mobile is-size-6-tablet">picos</span>
+                            </p>
+                          </div>
+                          <div style="padding-top:0.7rem;padding-right:0.5rem">
+                            <b-icon icon="arrow-right" type="is-white" size="is-small" pack="fas"></b-icon>
+                          </div>
+                        </div>
+                        <div class="column">
+                          <figure class="image is-3by2">
+                            <img src="@/assets/images/beach.jpg" />
+                          </figure>
+                        </div>
+                      </div>
+                      <!-- Put any content you want -->
+                    </article>
+                    <article
+                      class="tile is-child box has-background-primary has-text-white is-paddingless"
+                    >
+                      <!-- Put any content you want -->
+                      <div class="columns is-gapless is-mobile">
+                        <div @click="$router.push('/boaonda')" class="column is-narrow is-flex is-clickable">
+                          <div style="align-self:flex-end;padding:0.6rem;width:100%;padding-right:0rem;">
+                            <p>
+                              <span class="has-text-white is-uppercase title is-size-7-mobile">_</span>
+                              <br />
+                              <span class="has-text-white is-uppercase title is-size-7-mobile is-size-6-tablet">
+                                boa onda
+                              </span>
+                            </p>
+                          </div>
+                          <div style="padding-top:0.7rem;padding-right:0.5rem">
+                            <b-icon icon="arrow-right" type="is-white" size="is-small" pack="fas"></b-icon>
+                          </div>
+                        </div>
+                        <div class="column">
+                          <figure class="image is-2by1">
+                            <img src="@/assets/images/surf.jpg" />
+                          </figure>
+                        </div>
+                      </div>
+                    </article>
+                  </div>
+                  <div class="tile is-parent is-vertical">
+                    <article
+                      class="tile is-child box has-background-primary has-text-white is-paddingless"
+                    >
+                      <!-- Put any content you want -->
+                      <div class="columns is-gapless is-mobile">
+                        <div @click="$router.push('/news')" class="column is-narrow is-flex is-clickable">
+                          <div style="align-self:flex-end;padding:0.6rem;width:100%;padding-right:0rem;">
+                            <p>
+                              <span class="has-text-white is-uppercase title is-size-7-mobile">_</span>
+                              <br />
+                              <span class="has-text-white is-uppercase title is-size-7-mobile is-size-6-tablet">news</span>
+                            </p>
+                          </div>
+                          <div style="padding-top:0.7rem;padding-right:0.5rem">
+                            <b-icon icon="arrow-right" type="is-white" size="is-small" pack="fas"></b-icon>
+                          </div>
+                        </div>
+                        <div class="column">
+                          <figure class="image is-3by2">
+                            <img src="@/assets/images/oop.jpg"/>
+                          </figure>
+                        </div>
+                      </div>
+                    </article>
+                    <article
+                      class="tile is-child box has-background-primary has-text-white is-paddingless"
+                    >
+                      <!-- Put any content you want -->
+                      <div class="columns is-gapless is-mobile">
+                        <div @click="$router.push('/parceiros')" class="column is-narrow is-flex is-clickable">
+                          <div style="align-self:flex-end;padding:0.6rem;padding-right:0rem;width:100%;padding-right:0rem;">
+                            <p>
+                              <span class="has-text-white is-uppercase title is-size-7-mobile">_</span>
+                              <br />
+                              <span
+                                class="has-text-white is-uppercase title is-size-7-mobile is-size-6-tablet"
+                              >parceiros</span>
+                            </p>
+                          </div>
+                          <div style="padding-top:0.7rem;padding-right:0.5rem">
+                            <b-icon icon="arrow-right" type="is-white" size="is-small" pack="fas"></b-icon>
+                          </div>
+                        </div>
+                        <div class="column">
+                          <figure class="image is-2by1">
+                            <img src="@/assets/images/barrel.jpg" />
+                          </figure>
+                        </div>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+                <div class="tile is-parent">
+                  <article class="tile is-child box has-text-primary is-paddingless">
+                    <!-- Put any content you want -->
+                    <div class="columns is-gapless is-mobile">
+                      <div @click="$router.push('/loja')" class="column is-narrow is-flex is-clickable">
+                        <div style="align-self:flex-end;padding-left:1rem;width:100%;padding-right:0rem;">
+                          <p>
+                            <span
+                              class="has-text-primary is-uppercase title is-size-6-mobile is-size-2-tablet"
+                            >_</span>
+                            <br />
+                            <span
+                              class="has-text-primary is-uppercase title is-size-6-mobile is-size-2-tablet"
+                            >loja</span>
+                          </p>
+                        </div>
+                        <div style="padding-top:0.7rem;padding-right:0.5rem">
+                          <b-icon icon="arrow-right" type="is-primary" size="is-small" pack="fas"></b-icon>
+                        </div>
+                      </div>
+                      <div class="column">
+                        <figure class="image is-3by1">
+                          <img src="@/assets/images/sky.jpg" />
+                        </figure>
                       </div>
                     </div>
-                    <div class="column is-full">
-                      <p class="title is-4 has-text-centered">Previsão</p>
-                    </div>
-                  </div>
-                </router-link>
-              </div>
-
-              <div class="column">
-                <router-link to="/picos" tag="div" class="is-clickable">
-                  <div class="columns is-multiline">
-                    <div class="column is-full is-flex is-horizontal-center">
-                      <div class="home-icon">
-                        <img width="110px" src="@/assets/icons/picos.svg" alt />
-                      </div>
-                    </div>
-                    <div class="column is-full">
-                      <p class="title is-4 has-text-centered">Picos</p>
-                    </div>
-                  </div>
-                </router-link>
-              </div>
-              <div class="column">
-                <router-link to="/news" tag="div" class="is-clickable">
-                  <div class="columns is-multiline">
-                    <div class="column is-full is-flex is-horizontal-center">
-                      <div class="home-icon">
-                        <img width="110px" src="@/assets/icons/news.svg" alt />
-                      </div>
-                    </div>
-                    <div class="column is-full">
-                      <p class="title is-4 has-text-centered">News</p>
-                    </div>
-                  </div>
-                </router-link>
+                  </article>
+                </div>
               </div>
             </div>
           </div>
@@ -176,5 +271,11 @@ export default {
   background-image: radial-gradient(#0075bb 100%, blue 30%);
   width: 130px;
   height: 130px;
+}
+.section-top {
+  margin-top: 3rem;
+}
+.section-bottom {
+  margin-bottom: 3rem;
 }
 </style>
