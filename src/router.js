@@ -22,7 +22,7 @@ export default new Router({
       meta: { transitionName: "slide", id: 1 }
     },
     {
-      path: "/previsao",
+      path: "/tabua",
       name: "full_forecast",
       component: () =>
         import(/* webpackChunkName: "forecast" */ "@/views/FullForecast.vue"),
@@ -49,11 +49,21 @@ export default new Router({
       // // which is lazy-loaded when the route is visited.
     },
     {
+      path: "/parceiros",
+      name: "partners",
+      component: () =>
+        import(/* webpackChunkName: "goodwave" */ "@/views/Partners.vue"),
+      meta: { transitionName: "slide", id: 5 }
+      // route level code-splitting
+      // this generates a separate chunk (about.[hash].js) for this route
+      // // which is lazy-loaded when the route is visited.
+    },
+    {
       path: "/news",
       name: "news",
       component: () =>
         import(/* webpackChunkName: "news" */ "@/views/News.vue"),
-      meta: { transitionName: "slide", id: 5 }
+      meta: { transitionName: "slide", id: 6 }
     },
     {
       path: "/news/:id",
@@ -63,7 +73,28 @@ export default new Router({
       props: (post) => ({
         post
       }) ,
-      meta: { transitionName: "fade", id: 6 }
+      meta: { transitionName: "fade", id: 7 }
+    },
+    {
+      path: "/faleconosco",
+      name: "talk_to_us",
+      component: () =>
+        import(/* webpackChunkName: "talktous" */ "@/views/TalkToUs.vue"),
+      meta: { transitionName: "slide", id: 900 }
+    },
+    {
+      path: "/quemsomos",
+      name: "who_we_are",
+      component: () =>
+        import(/* webpackChunkName: "whoweare" */ "@/views/WhoWeAre.vue"),
+      meta: { transitionName: "slide", id: 950 }
+    },
+    {
+      path: "/equipe",
+      name: "our_team",
+      component: () =>
+        import(/* webpackChunkName: "ourteam" */ "@/views/OurTeam.vue"),
+      meta: { transitionName: "slide", id: 960 }
     },
     {
       path: "/nova",
