@@ -11,36 +11,51 @@
         <div>
           <div class="columns is-vcentered">
             <div class="column has-text-left">
-              <b-icon custom-class="is-clickable" icon="chevron-left" size="is-small" pack="fas"></b-icon>
-              <span class="has-text-primary is-clickable is-uppercase has-text-weight-bold">Anterior</span>
+              <b-icon
+                custom-class="is-clickable"
+                icon="chevron-left"
+                size="is-small"
+                pack="fas"
+                @click="goBack"
+              ></b-icon>
+              <span
+                class="has-text-primary is-clickable is-uppercase has-text-weight-bold"
+                @click="goBack"
+                >Voltar</span
+              >
             </div>
             <div class="column is-narrow">
               <p
                 class="title is-2 has-text-centered has-text-primary is-uppercase has-text-weight-bold"
-              >News</p>
+              >
+                News
+              </p>
             </div>
-            <div class="column has-text-right"><span @click="test" class="has-text-primary is-clickable is-uppercase has-text-weight-bold">Próxima</span> <b-icon custom-class="is-clickable" icon="chevron-right" size="is-small" pack="fas"></b-icon></div>
+            <div class="column has-text-right">
+              <!-- <span
+                @click="test"
+                class="has-text-primary is-clickable is-uppercase has-text-weight-bold"
+                >Próxima</span
+              >
+              <b-icon
+                custom-class="is-clickable"
+                icon="chevron-right"
+                size="is-small"
+                pack="fas"
+              /> -->
+            </div>
           </div>
 
-          <hr />
+          <hr style="border: 1px solid #0075bb"/>
         </div>
-        <div class="tile is-ancestor">
-          <div class="tile is-vertical is-parent">
-            <div class="tile is-child">
-              <p class="title has-text-centered-touch">{{post.title}}</p>
-              <p style="white-space:pre-wrap">{{post.text}}</p>
-            </div>
-            <!-- <div class="tile is-child">
+        <div class="tile is-vertical is-parent">
+          <div class="tile is-child">
+            <p class="title has-text-centered-touch has-text-primary">{{ post.title }}</p>
+            <p style="white-space:pre-wrap" v-html="post.text"></p>
+          </div>
+          <!-- <div class="tile is-child">
               <p class="has-text-primary">Ver mais</p>
             </div>-->
-          </div>
-          <div class="tile is-parent">
-            <div class="tile is-child">
-              <figure class="image is-square">
-                <img :src="post.image.image" alt />
-              </figure>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -58,8 +73,8 @@ export default {
   },
   methods: {
     ...mapActions("news", ["getSinglePost"]),
-    test(){
-      this.$router.push({ name: `single_new`, params: { id: this.$route.params.id++ } });
+    goBack() {
+      this.$router.back();
     }
   },
   data() {

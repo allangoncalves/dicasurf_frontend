@@ -1,26 +1,25 @@
 <template>
   <div class="container" style="padding-top:2rem;padding-bottom:2rem">
-    <div class="columns is-multiline">
-      <div class="column is-full">
-        <search-bar title="PREVISÃO" @spot-selected="spotSelected" />
-      </div>
-      <div class="column is-full">
-        <div class="columns is-gapless is-mobile">
-          <div class="column">
-            <!-- <img src="@/assets/icons/new_wave.svg" alt /> -->
-          </div>
-          <div class="column is-6">
-            <p class="title is-5 has-text-centered">TÁBUA DE MARÉ</p>
-          </div>
-          <div class="column">
-            <!-- <img src="@/assets/icons/new_wave.svg" alt /> -->
-          </div>
-        </div>
-      </div>
-      <div class="column is-full">
-        <apexchart width="100%" height="420" type="area" :options="areaOptions" :series="tideData"></apexchart>
-      </div>
+    <div>
+      <p
+        class="title is-2 has-text-centered has-text-primary is-uppercase has-text-weight-bold"
+      >
+        Tábua de Maré
+      </p>
+      <hr style="border: 1px solid #0075bb"/>
     </div>
+    <search-bar
+      @city-selected="citySelected"
+      :hasSpot="false"
+      :hasLabel="false"
+    />
+    <apexchart
+      width="100%"
+      height="420"
+      type="area"
+      :options="areaOptions"
+      :series="tideData"
+    ></apexchart>
   </div>
 </template>
 
@@ -30,7 +29,7 @@ import SearchBar from "../components/SearchBar";
 import Tabs from "../components/Tabs";
 
 import core from "../mixins/core";
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapMutations } from "vuex";
 
 var moment = require("moment");
 const WEEK_DAYS = ["dom", "seg", "ter", "qua", "qui", "sex", "sab"];
@@ -66,9 +65,10 @@ export default {
     ...mapActions("marine", ["getForecast"]),
     ...mapActions("weather", ["getWeather"]),
     ...mapActions("geo", ["getNearestSpot"]),
+    ...mapMutations("marine", ["setDays"]),
     collectData() {
-      const lat = this.currentSpot.lat;
-      const lng = this.currentSpot.lng;
+      const lat = this.currentCity.lat;
+      const lng = this.currentCity.lng;
       return Promise.all([
         this.getWeather({ lat, lng }),
         this.getForecast({ lat, lng, hourTick: 1 })
@@ -77,20 +77,25 @@ export default {
     selectedChartChange(index) {
       this.selectedChart = index;
     },
-    spotSelected() {
+    citySelected() {
       const loading = this.$buefy.loading.open();
-      const lat = this.currentSpot.lat;
-      const lng = this.currentSpot.lng;
+      const lat = this.currentCity.lat;
+      const lng = this.currentCity.lng;
+      console.log(lat);
+      console.log(lng);
       Promise.all([
         this.getWeather({ lat, lng }),
         this.getForecast({ lat, lng, hourTick: 1 })
       ])
         .then(() => loading.close())
-        .catch(() => loading.close());
+        .catch(err => {
+          this.setDays([]);
+          loading.close();
+        });
     }
   },
   computed: {
-    ...mapState("geo", ["currentSpot"]),
+    ...mapState("geo", ["currentCity"]),
     ...mapState("marine", ["days"]),
     waveHeightData() {
       return [
@@ -116,7 +121,11 @@ export default {
       ];
     },
     tideData() {
-      return [this.days.length > 0 && this.currentSpot ? { name: "Altura da maré (metros)", data: this.tideHourSeries } : { name: "Altura da maré (metros)", data: [] }];
+      return [
+        this.days.length > 0
+          ? { name: "Altura da maré (metros)", data: this.tideHourSeries }
+          : { name: "Altura da maré (metros)", data: [] }
+      ];
     },
     topThree() {
       let forecast = this.days[this.selectedDay].hourly.map(element => {
@@ -321,7 +330,6 @@ export default {
   }
 };
 </script>
-
 
 <style lang="scss" scoped>
 .is-horizontal-center {

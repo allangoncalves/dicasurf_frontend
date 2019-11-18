@@ -2,7 +2,7 @@
   <div>
     <section class="hero is-medium">
       <figure class="image is-3by1">
-        <img src="@/assets/images/home.jpg" alt="">
+        <img src="@/assets/images/home.jpg" alt="" />
       </figure>
     </section>
 
@@ -10,8 +10,12 @@
       <div class="container">
         <div class="columns is-multiline">
           <div class="column is-12">
-            <search-bar title="PREVISÃO" @spot-selected="spotSelected" />
-            <hr />
+            <search-bar
+              title="PREVISÃO"
+              @spot-selected="spotSelected"
+              :onlyVisible="true"
+            />
+            <hr style="border: 1px solid #0075bb"/>
             <p class="title is-size-3-tablet has-text-centered">
               Nossa vibe é
               <span class="has-text-primary is-uppercase">surf</span>, o resto é
@@ -24,51 +28,78 @@
                 <div class="tile">
                   <div class="tile is-parent is-vertical">
                     <article
-                      class="tile is-child box has-background-primary has-text-white is-paddingless"
+                      @click="$router.push('/picos')"
+                      class="tile is-child box has-background-primary has-text-white is-paddingless is-clickable"
                     >
                       <div class="columns is-gapless is-mobile">
-                        <div @click="$router.push('/picos')" class="column is-narrow is-flex is-clickable" >
-                          <div style="align-self:flex-end;padding:0.6rem;width:100%;padding-right:0rem;">
+                        <div class="column is-narrow is-flex">
+                          <div
+                            style="align-self:flex-end;padding:0.6rem;width:100%;padding-right:0rem;"
+                          >
                             <p>
-                              <span class="has-text-white is-uppercase title is-size-7-mobile">_</span>
+                              <span
+                                class="has-text-white is-uppercase title is-size-7-mobile"
+                                >_</span
+                              >
                               <br />
-                              <span class="has-text-white is-uppercase title is-size-7-mobile is-size-6-tablet">picos</span>
+                              <span
+                                class="has-text-white is-uppercase title is-size-7-mobile is-size-6-tablet"
+                                >picos</span
+                              >
                             </p>
                           </div>
                           <div style="padding-top:0.7rem;padding-right:0.5rem">
-                            <b-icon icon="arrow-right" type="is-white" size="is-small" pack="fas"></b-icon>
+                            <b-icon
+                              icon="arrow-right"
+                              type="is-white"
+                              size="is-small"
+                              pack="fas"
+                            ></b-icon>
                           </div>
                         </div>
                         <div class="column">
                           <figure class="image is-3by2">
-                            <img src="@/assets/images/beach.jpg" />
+                            <img src="@/assets/images/beach.jpg" style="border-radius: 0px 6px 6px 0px"/>
                           </figure>
                         </div>
                       </div>
                       <!-- Put any content you want -->
                     </article>
                     <article
-                      class="tile is-child box has-background-primary has-text-white is-paddingless"
+                      @click="$router.push('/boaonda')"
+                      class="tile is-child box has-background-primary has-text-white is-paddingless is-clickable"
                     >
                       <!-- Put any content you want -->
                       <div class="columns is-gapless is-mobile">
-                        <div @click="$router.push('/boaonda')" class="column is-narrow is-flex is-clickable">
-                          <div style="align-self:flex-end;padding:0.6rem;width:100%;padding-right:0rem;">
+                        <div class="column is-narrow is-flex">
+                          <div
+                            style="align-self:flex-end;padding:0.6rem;width:100%;padding-right:0rem;"
+                          >
                             <p>
-                              <span class="has-text-white is-uppercase title is-size-7-mobile">_</span>
+                              <span
+                                class="has-text-white is-uppercase title is-size-7-mobile"
+                                >_</span
+                              >
                               <br />
-                              <span class="has-text-white is-uppercase title is-size-7-mobile is-size-6-tablet">
+                              <span
+                                class="has-text-white is-uppercase title is-size-7-mobile is-size-6-tablet"
+                              >
                                 boa onda
                               </span>
                             </p>
                           </div>
                           <div style="padding-top:0.7rem;padding-right:0.5rem">
-                            <b-icon icon="arrow-right" type="is-white" size="is-small" pack="fas"></b-icon>
+                            <b-icon
+                              icon="arrow-right"
+                              type="is-white"
+                              size="is-small"
+                              pack="fas"
+                            ></b-icon>
                           </div>
                         </div>
                         <div class="column">
                           <figure class="image is-2by1">
-                            <img src="@/assets/images/surf.jpg" />
+                            <img src="@/assets/images/surf.jpg" style="border-radius: 0px 6px 6px 0px"/>
                           </figure>
                         </div>
                       </div>
@@ -76,51 +107,77 @@
                   </div>
                   <div class="tile is-parent is-vertical">
                     <article
-                      class="tile is-child box has-background-primary has-text-white is-paddingless"
+                      @click="$router.push('/news')"
+                      class="tile is-child box has-background-primary has-text-white is-paddingless is-clickable"
                     >
                       <!-- Put any content you want -->
                       <div class="columns is-gapless is-mobile">
-                        <div @click="$router.push('/news')" class="column is-narrow is-flex is-clickable">
-                          <div style="align-self:flex-end;padding:0.6rem;width:100%;padding-right:0rem;">
+                        <div class="column is-narrow is-flex">
+                          <div
+                            style="align-self:flex-end;padding:0.6rem;width:100%;padding-right:0rem;"
+                          >
                             <p>
-                              <span class="has-text-white is-uppercase title is-size-7-mobile">_</span>
+                              <span
+                                class="has-text-white is-uppercase title is-size-7-mobile"
+                                >_</span
+                              >
                               <br />
-                              <span class="has-text-white is-uppercase title is-size-7-mobile is-size-6-tablet">news</span>
+                              <span
+                                class="has-text-white is-uppercase title is-size-7-mobile is-size-6-tablet"
+                                >news</span
+                              >
                             </p>
                           </div>
                           <div style="padding-top:0.7rem;padding-right:0.5rem">
-                            <b-icon icon="arrow-right" type="is-white" size="is-small" pack="fas"></b-icon>
+                            <b-icon
+                              icon="arrow-right"
+                              type="is-white"
+                              size="is-small"
+                              pack="fas"
+                            ></b-icon>
                           </div>
                         </div>
                         <div class="column">
                           <figure class="image is-3by2">
-                            <img src="@/assets/images/oop.jpg"/>
+                            <img src="@/assets/images/oop.jpg" style="border-radius: 0px 6px 6px 0px"/>
                           </figure>
                         </div>
                       </div>
                     </article>
                     <article
-                      class="tile is-child box has-background-primary has-text-white is-paddingless"
+                      @click="$router.push('/parceiros')"
+                      class="tile is-child box has-background-primary has-text-white is-paddingless is-clickable"
                     >
                       <!-- Put any content you want -->
                       <div class="columns is-gapless is-mobile">
-                        <div @click="$router.push('/parceiros')" class="column is-narrow is-flex is-clickable">
-                          <div style="align-self:flex-end;padding:0.6rem;padding-right:0rem;width:100%;padding-right:0rem;">
+                        <div class="column is-narrow is-flex">
+                          <div
+                            style="align-self:flex-end;padding:0.6rem;padding-right:0rem;width:100%;padding-right:0rem;"
+                          >
                             <p>
-                              <span class="has-text-white is-uppercase title is-size-7-mobile">_</span>
+                              <span
+                                class="has-text-white is-uppercase title is-size-7-mobile"
+                                >_</span
+                              >
                               <br />
                               <span
                                 class="has-text-white is-uppercase title is-size-7-mobile is-size-6-tablet"
-                              >parceiros</span>
+                                >parceiros</span
+                              >
                             </p>
                           </div>
                           <div style="padding-top:0.7rem;padding-right:0.5rem">
-                            <b-icon icon="arrow-right" type="is-white" size="is-small" pack="fas"></b-icon>
+                            <b-icon
+                              icon="arrow-right"
+                              type="is-white"
+                              size="is-small"
+                              pack="fas"
+                            ></b-icon>
                           </div>
                         </div>
                         <div class="column">
                           <figure class="image is-2by1">
-                            <img src="@/assets/images/barrel.jpg" />
+                            <img src="@/assets/images/barrel.jpg" style="border-radius: 0px 6px 6px 0px"/>
                           </figure>
                         </div>
                       </div>
@@ -128,28 +185,40 @@
                   </div>
                 </div>
                 <div class="tile is-parent">
-                  <article class="tile is-child box has-text-primary is-paddingless">
+                  <article
+                    class="tile is-child box has-text-primary is-paddingless is-clickable"
+                    @click="$router.push('/loja')"
+                  >
                     <!-- Put any content you want -->
                     <div class="columns is-gapless is-mobile">
-                      <div @click="$router.push('/loja')" class="column is-narrow is-flex is-clickable">
-                        <div style="align-self:flex-end;padding-left:1rem;width:100%;padding-right:0rem;">
+                      <div class="column is-narrow is-flex">
+                        <div
+                          style="align-self:flex-end;padding-left:1rem;width:100%;padding-right:0rem;"
+                        >
                           <p>
                             <span
                               class="has-text-primary is-uppercase title is-size-6-mobile is-size-2-tablet"
-                            >_</span>
+                              >_</span
+                            >
                             <br />
                             <span
                               class="has-text-primary is-uppercase title is-size-6-mobile is-size-2-tablet"
-                            >loja</span>
+                              >loja</span
+                            >
                           </p>
                         </div>
                         <div style="padding-top:0.7rem;padding-right:0.5rem">
-                          <b-icon icon="arrow-right" type="is-primary" size="is-small" pack="fas"></b-icon>
+                          <b-icon
+                            icon="arrow-right"
+                            type="is-primary"
+                            size="is-small"
+                            pack="fas"
+                          ></b-icon>
                         </div>
                       </div>
                       <div class="column">
                         <figure class="image is-3by1">
-                          <img src="@/assets/images/sky.jpg" />
+                          <img src="@/assets/images/sky.jpg" style="border-radius: 0px 6px 6px 0px" />
                         </figure>
                       </div>
                     </div>
@@ -172,46 +241,47 @@ export default {
   name: "home",
   components: { SearchBar },
   created() {
-    const loading = this.$buefy.loading.open();
-    this.getHomeData()
-      .then(() => {
-        loading.close();
-      })
-      .catch(res => {
-        loading.close();
-        this.$buefy.toast.open({
-          duration: 4000,
-          message: `Ops! Não foi possível carregar os dados, tente novamente.`,
-          position: "is-bottom",
-          type: "is-danger"
-        });
-      });
+    // const loading = this.$buefy.loading.open();
+    // this.getHomeData()
+    //   .then(() => {
+    //     loading.close();
+    //   })
+    //   .catch(res => {
+    //     loading.close();
+    //     this.$buefy.toast.open({
+    //       duration: 4000,
+    //       message: `Ops! Não foi possível carregar os dados, tente novamente.`,
+    //       position: "is-bottom",
+    //       type: "is-danger"
+    //     });
+    //   });
   },
   methods: {
     ...mapActions("website", ["getHomeData"]),
     ...mapActions("marine", ["getForecast"]),
     ...mapActions("weather", ["getWeather"]),
     spotSelected() {
-      const loading = this.$buefy.loading.open();
-      const lat = this.currentSpot.lat;
-      const lng = this.currentSpot.lng;
-      Promise.all([
-        this.getWeather({ lat, lng }),
-        this.getForecast({ lat, lng, hourTick: 1 })
-      ])
-        .then(() => {
-          loading.close();
-          this.$router.push("/previsao");
-        })
-        .catch(() => {
-          loading.close();
-          this.$buefy.toast.open({
-            duration: 4000,
-            message: `Ops! Não foi possível carregar os dados, tente novamente.`,
-            position: "is-bottom",
-            type: "is-danger"
-          });
-        });
+      this.$router.push("/picos");
+      // const loading = this.$buefy.loading.open();
+      // const lat = this.currentSpot.lat;
+      // const lng = this.currentSpot.lng;
+      // Promise.all([
+      //   this.getWeather({ lat, lng }),
+      //   this.getForecast({ lat, lng, hourTick: 1 })
+      // ])
+      //   .then(() => {
+      //     loading.close();
+      //     this.$router.push("/picos");
+      //   })
+      //   .catch(() => {
+      //     loading.close();
+      //     this.$buefy.toast.open({
+      //       duration: 4000,
+      //       message: `Ops! Não foi possível carregar os dados, tente novamente.`,
+      //       position: "is-bottom",
+      //       type: "is-danger"
+      //     });
+      //   });
     },
     createSlide(slide) {
       return `<section class="section is-medium home-carousel-item" :style="{backgroundImage: 'url(${slide.image.image})'}">

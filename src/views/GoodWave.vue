@@ -10,7 +10,7 @@
       <div class="container">
         <div>
           <p class="title is-2 has-text-centered has-text-primary is-uppercase has-text-weight-bold">Boa Onda</p>
-          <hr />
+          <hr style="border: 1px solid #0075bb"/>
         </div>
         <div class="tile is-ancestor is-vertical">
           <div class="tile">
@@ -19,18 +19,18 @@
             </div>
             <div class="tile is-parent is-vertical">
               <div class="tile is-child">
-                <figure class="image is-3by1">
-                  <img src="@/assets/images/exotic.jpg" alt />
+                <figure class="image is-3by1" style="border-radius:10px">
+                  <img src="@/assets/images/exotic.jpg"  style="border-radius:15px;" />
                 </figure>
               </div>
               <div class="tile is-child">
                 <figure class="image is-3by1">
-                  <img src="@/assets/images/sky.jpg" alt />
+                  <img src="@/assets/images/sky.jpg"  style="border-radius:15px;" />
                 </figure>
               </div>
               <div class="tile is-child">
                 <figure class="image is-3by1">
-                  <img src="@/assets/images/action.jpg" alt />
+                  <img src="@/assets/images/action.jpg"  style="border-radius:15px;" />
                 </figure>
               </div>
             </div>
@@ -39,7 +39,7 @@
             <div class="tile is-parent">
               <div class="tile is-child">
                 <figure class="image is-2by1">
-                  <img src="@/assets/images/action.jpg" alt />
+                  <img src="@/assets/images/action.jpg"  style="border-radius:10px;" />
                 </figure>
               </div>
               <div class="tile is-child" style="padding-left:1.2rem">

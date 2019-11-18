@@ -14,9 +14,9 @@
           :to="route.name"
         >{{ route.text }}</b-navbar-item>
         <b-navbar-item tag="div">
-          <div class="columns is-vcentered is-clickable" @click="openModal" v-if="!isLogged">
-            <div class="column is-narrow">
-              <b-icon icon="user-circle" type="is-white" size="is-small" pack="fas"></b-icon>
+          <div class="columns is-vcentered is-clickable is-mobile has-text-primary-mobile" @click="openModal" v-if="!isLogged">
+            <div class="column is-narrow has-text-primary-mobile">
+              <b-icon icon="user-circle"  size="is-small" pack="fas"></b-icon>
             </div>
             <div class="column is-paddingless">
               <p>Login</p>
@@ -66,7 +66,7 @@ export default {
     return {
       mainLogo: require("@/assets/icons/logo_top.svg"),
       routes: [
-        { text: "Previsão", name: "/previsao" },
+        { text: "Tábua de Maré", name: "/tabua" },
         { text: "Picos", name: "/picos" },
         { text: "Boa Onda", name: "/boaonda"},
         { text: "Parceiros", name: "/parceiros"},

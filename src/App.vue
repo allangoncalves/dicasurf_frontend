@@ -120,7 +120,7 @@ export default {
 // $widescreen-enabled: false;
 
 // Disable the fullhd breakpoint
-// $fullhd-enabled: false;
+$fullhd-enabled: false;
 
 $primary: #0075bb;
 $primary-invert: #ffffff;
