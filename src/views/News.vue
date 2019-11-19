@@ -77,7 +77,6 @@
         </div>
       </div>
     </section>
-    <!-- <Map/> -->
   </div>
 </template>
 
@@ -135,7 +134,7 @@ export default {
   text-shadow: 1px 1px grey;
 }
 .hero-img {
-  background-image: url("../assets/images/surf.jpg");
+  background-image: url("../assets/images/news.png");
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: inherit;

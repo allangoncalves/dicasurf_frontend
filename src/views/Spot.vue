@@ -26,7 +26,7 @@
             >
               <slide>
                 <figure class="image is-3by1">
-                  <img src="@/assets/images/sky.jpg" alt="a" />
+                  <img src="@/assets/images/boaonda1.png" alt="a" />
                 </figure>
                 <p class="centered has-text-white title">
                   <span class="is-size-1-tablet is-size-5-mobile">_</span>
@@ -245,7 +245,7 @@
                   </p>
                   <p style="margin-top:0.6rem">
                     <span class="has-text-weight-bold">
-                      Comentário sobre o acesso:
+                      Sobre o acesso:
                     </span>
                     {{ accessComment }}
                   </p>
@@ -272,14 +272,38 @@
         </div>
       </div>
     </section>
+    <b-modal v-if="currentSpot != null" :active.sync="openModal" has-modal-card>
+      <GmapMap
+        ref="gmap"
+        :center="center"
+        :zoom="15"
+        map-type-id="terrain"
+        style="width: 500px; height: 500px"
+        
+        :options="{
+          zoomControl: true,
+          mapTypeControl: true,
+          scaleControl: false,
+          streetViewControl: true,
+          rotateControl: true,
+          fullscreenControl: true,
+          disableDefaultUi: false
+        }"
+      >
+        <directions-renderer
+          :from="from"
+          :to="destination"
+          :options="directOpt"
+        />
+      </GmapMap>
+    </b-modal>
   </div>
 </template>
 
 <script>
-import GmapMap from "vue2-google-maps/dist/components/map.vue";
 import { Carousel, Slide } from "vue-carousel";
 import ForecastHud from "@/components/ForecastHud";
-import Map from "@/components/Map";
+import DirectionsRenderer from "@/components/DirectionsRenderer.js";
 import SearchBar from "@/components/SearchBar";
 import core from "../mixins/core";
 import { mapState, mapActions } from "vuex";
@@ -289,7 +313,8 @@ export default {
     ForecastHud,
     Carousel,
     Slide,
-    SearchBar
+    SearchBar,
+    DirectionsRenderer
   },
   created() {
     // console.log("selecionando");
@@ -329,7 +354,17 @@ export default {
       name: "",
       selected: null,
       teste: " Não",
-      selectedSpot: null
+      selectedSpot: null,
+      openModal: false,
+      mapInstance: null,
+      destination: {
+        lat: -6.228080112986862,
+        lng: -35.055503409432056
+      },
+      from: {
+        lat: -6.232121410500793,
+        lng: -35.04891850248146
+      },
     };
   },
   methods: {
@@ -337,11 +372,10 @@ export default {
     ...mapActions("weather", ["getWeather"]),
     ...mapActions("geo", ["getNearestSpot"]),
     spotSelected() {
-      console.log(this.currentSpot)
       this.selectedSpot = this.currentSpot;
     },
     goToMap() {
-      this.$buefy.modal.open(Map);
+      this.openModal = true;
     },
     collectData() {
       const lat = this.selectedSpot.lat;
@@ -362,6 +396,19 @@ export default {
   },
   computed: {
     ...mapState("geo", ["currentSpot", "currentCity", "currentState"]),
+    center(){
+      return {lat: this.currentSpot.spot.lat, lng: this.currentSpot.spot.lng}
+    },
+    directOpt() {
+      return {
+        //directions: DirectionsResult,
+        draggable: true,
+        //infoWindow: InfoWindow,
+        map: this.$refs.gmap
+        //panel: Node (<div> to display directions steps),
+        //routeIndex: int (index of route within DirectionsResult),
+      };
+    },
     cityAndState() {
       return `${this.currentCity.name} - ${this.currentState.abbreviation}`;
     },

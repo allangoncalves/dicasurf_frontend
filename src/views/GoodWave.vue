@@ -3,7 +3,7 @@
     <section class="hero is-medium">
       <!-- Hero content: will be in the middle -->
       <figure class="image is-3by1">
-        <img src="@/assets/images/boaonda.png" alt />
+        <img src="@/assets/images/boaonda-header.png" alt />
       </figure>
     </section>
     <section class="section section-top section-bottom">
@@ -20,17 +20,17 @@
             <div class="tile is-parent is-vertical">
               <div class="tile is-child">
                 <figure class="image is-3by1" style="border-radius:10px">
-                  <img src="@/assets/images/exotic.jpg"  style="border-radius:15px;" />
+                  <img src="@/assets/images/boaonda1.png"  style="border-radius:15px;" />
                 </figure>
               </div>
               <div class="tile is-child">
                 <figure class="image is-3by1">
-                  <img src="@/assets/images/sky.jpg"  style="border-radius:15px;" />
+                  <img src="@/assets/images/boaonda2.png"  style="border-radius:15px;" />
                 </figure>
               </div>
               <div class="tile is-child">
                 <figure class="image is-3by1">
-                  <img src="@/assets/images/action.jpg"  style="border-radius:15px;" />
+                  <img src="@/assets/images/boaonda3.png"  style="border-radius:15px;" />
                 </figure>
               </div>
             </div>
@@ -39,7 +39,7 @@
             <div class="tile is-parent">
               <div class="tile is-child">
                 <figure class="image is-2by1">
-                  <img src="@/assets/images/action.jpg"  style="border-radius:10px;" />
+                  <img src="@/assets/images/boaonda1.png"  style="border-radius:10px;" />
                 </figure>
               </div>
               <div class="tile is-child" style="padding-left:1.2rem">

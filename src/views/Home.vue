@@ -2,7 +2,7 @@
   <div>
     <section class="hero is-medium">
       <figure class="image is-3by1">
-        <img src="@/assets/images/home.jpg" alt="" />
+        <img src="@/assets/images/home.png" alt="" />
       </figure>
     </section>
 
@@ -59,7 +59,7 @@
                         </div>
                         <div class="column">
                           <figure class="image is-3by2">
-                            <img src="@/assets/images/beach.jpg" style="border-radius: 0px 6px 6px 0px"/>
+                            <img src="@/assets/images/boaonda1.png" style="border-radius: 0px 6px 6px 0px"/>
                           </figure>
                         </div>
                       </div>
@@ -99,7 +99,7 @@
                         </div>
                         <div class="column">
                           <figure class="image is-2by1">
-                            <img src="@/assets/images/surf.jpg" style="border-radius: 0px 6px 6px 0px"/>
+                            <img src="@/assets/images/boaonda1.png" style="border-radius: 0px 6px 6px 0px"/>
                           </figure>
                         </div>
                       </div>
@@ -139,7 +139,7 @@
                         </div>
                         <div class="column">
                           <figure class="image is-3by2">
-                            <img src="@/assets/images/oop.jpg" style="border-radius: 0px 6px 6px 0px"/>
+                            <img src="@/assets/images/boaonda1.png" style="border-radius: 0px 6px 6px 0px"/>
                           </figure>
                         </div>
                       </div>
@@ -177,7 +177,7 @@
                         </div>
                         <div class="column">
                           <figure class="image is-2by1">
-                            <img src="@/assets/images/barrel.jpg" style="border-radius: 0px 6px 6px 0px"/>
+                            <img src="@/assets/images/boaonda1.png" style="border-radius: 0px 6px 6px 0px"/>
                           </figure>
                         </div>
                       </div>
@@ -218,7 +218,7 @@
                       </div>
                       <div class="column">
                         <figure class="image is-3by1">
-                          <img src="@/assets/images/sky.jpg" style="border-radius: 0px 6px 6px 0px" />
+                          <img src="@/assets/images/boaonda1.png" style="border-radius: 0px 6px 6px 0px" />
                         </figure>
                       </div>
                     </div>

@@ -60,19 +60,19 @@ export default {
       videos: [
         {
           url: "https://www.youtube-nocookie.com/embed/_msRXflOfWw",
-          img: require("@/assets/images/beach.jpg")
+          img: require("@/assets/images/boaonda1.png")
         },
         {
           url: "https://www.youtube.com/embed/vy-k0FopsmY",
-          img: require("@/assets/images/beach.jpg")
+          img: require("@/assets/images/boaonda1.png")
         },
         {
           url: "https://www.youtube-nocookie.com/embed/_msRXflOfWw",
-          img: require("@/assets/images/beach.jpg")
+          img: require("@/assets/images/boaonda1.png")
         },
         {
           url: "https://www.youtube.com/embed/vy-k0FopsmY",
-          img: require("@/assets/images/beach.jpg")
+          img: require("@/assets/images/boaonda1.png")
         }
       ]
     };

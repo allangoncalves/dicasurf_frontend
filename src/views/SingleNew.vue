@@ -87,7 +87,6 @@ export default {
 
 <style lang="scss" scoped>
 .hero-img {
-  background-image: url("../assets/images/surf-em-Ubatuba.jpg");
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: inherit;

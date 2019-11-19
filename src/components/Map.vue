@@ -1,13 +1,5 @@
 <template>
-  <GmapMap
-    ref="mapRef"
-    :center="center"
-    :zoom="7"
-    map-type-id="terrain"
-    style="width: 500px; height: 300px"
-  >
-    <directions-renderer :from="from" :to="destination" :options="directOpt" />
-  </GmapMap>
+
 </template>
 
 <script>
@@ -16,6 +8,12 @@ import DirectionsRenderer from "./DirectionsRenderer.js";
 
 export default {
   components: { DirectionsRenderer },
+  props: {
+    isOpen: {
+      type: Boolean,
+      default: false,
+    }
+  },
   mounted(){
     this.$refs.mapRef.$mapPromise.then(map => this.mapInstance = map);
   },

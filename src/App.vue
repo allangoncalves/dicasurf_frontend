@@ -196,7 +196,7 @@ $colors: (
 $footer-padding: 1.5rem;
 
 //
-// $family-primary: "Montserrat";
+$family-primary: Montserrat;
 
 @import "~bulma";
 @import "~buefy/src/scss/buefy";
