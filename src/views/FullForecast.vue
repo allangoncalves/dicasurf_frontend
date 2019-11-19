@@ -41,26 +41,26 @@ export default {
     Tabs
   },
   mixins: [core],
-  created() {
-    const local_lat = localStorage.getItem("lat");
-    const local_lng = localStorage.getItem("lng");
-    if (local_lat !== null && local_lng !== null) {
-      const loading = this.$buefy.loading.open();
-      this.getNearestSpot({ lat: local_lat, lng: local_lng }).then(() => {
-        this.collectData()
-          .then(() => loading.close())
-          .catch(() => {
-            loading.close();
-            this.$buefy.toast.open({
-              duration: 4000,
-              message: `Ops! Não foi possível carregar os dados, tente novamente.`,
-              position: "is-bottom",
-              type: "is-danger"
-            });
-          });
-      });
-    }
-  },
+  // created() {
+  //   const local_lat = localStorage.getItem("lat");
+  //   const local_lng = localStorage.getItem("lng");
+  //   if (local_lat !== null && local_lng !== null) {
+  //     const loading = this.$buefy.loading.open();
+  //     this.getNearestSpot({ lat: local_lat, lng: local_lng }).then(() => {
+  //       this.collectData()
+  //         .then(() => loading.close())
+  //         .catch(() => {
+  //           loading.close();
+  //           this.$buefy.toast.open({
+  //             duration: 4000,
+  //             message: `Ops! Não foi possível carregar os dados, tente novamente.`,
+  //             position: "is-bottom",
+  //             type: "is-danger"
+  //           });
+  //         });
+  //     });
+  //   }
+  // },
   methods: {
     ...mapActions("marine", ["getForecast"]),
     ...mapActions("weather", ["getWeather"]),
@@ -81,8 +81,6 @@ export default {
       const loading = this.$buefy.loading.open();
       const lat = this.currentCity.lat;
       const lng = this.currentCity.lng;
-      console.log(lat);
-      console.log(lng);
       Promise.all([
         this.getWeather({ lat, lng }),
         this.getForecast({ lat, lng, hourTick: 1 })

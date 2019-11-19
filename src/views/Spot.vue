@@ -15,7 +15,7 @@
           title="Nossos Picos"
           :onlyVisible="true"
         />
-        <hr style="border: 1px solid #0075bb"/>
+        <hr style="border: 1px solid #0075bb" />
         <div class="columns is-centered">
           <div class="column is-full">
             <carousel
@@ -240,14 +240,14 @@
                 <div>
                   <h5 class="title is-3 has-text-primary">Comentários</h5>
                   <p>
-                    Dia bom:
-                    <span class="has-text-weight-bold">{{ goodDay }}</span>
+                    <span class="has-text-weight-bold">Dia bom:</span>
+                    {{ goodDay }}
                   </p>
-                  <p>
-                    Comentário sobre o acesso:
-                    <span class="has-text-weight-bold">{{
-                      accessComment
-                    }}</span>
+                  <p style="margin-top:0.6rem">
+                    <span class="has-text-weight-bold">
+                      Comentário sobre o acesso:
+                    </span>
+                    {{ accessComment }}
                   </p>
                 </div>
                 <div class="data-category">
@@ -292,24 +292,28 @@ export default {
     SearchBar
   },
   created() {
-    const local_lat = localStorage.getItem("lat");
-    const local_lng = localStorage.getItem("lng");
-    if (local_lat !== null && local_lng !== null) {
-      const loading = this.$buefy.loading.open();
-      this.getNearestSpot({ lat: local_lat, lng: local_lng }).then(() => {
-        this.collectData()
-          .then(() => loading.close())
-          .catch(() => {
-            loading.close();
-            this.$buefy.toast.open({
-              duration: 4000,
-              message: `Ops! Não foi possível carregar os dados, tente novamente.`,
-              position: "is-bottom",
-              type: "is-danger"
-            });
-          });
-      });
-    }
+    // console.log("selecionando");
+    // if (this.currentSpot == null) {
+    //   const local_lat = localStorage.getItem("lat");
+    //   const local_lng = localStorage.getItem("lng");
+    //   if (local_lat !== null && local_lng !== null) {
+    //     console.log("aqui");
+    //     const loading = this.$buefy.loading.open();
+    //     this.getNearestSpot({ lat: local_lat, lng: local_lng }).then(() => {
+    //       this.collectData()
+    //         .then(() => loading.close())
+    //         .catch(() => {
+    //           loading.close();
+    //           this.$buefy.toast.open({
+    //             duration: 4000,
+    //             message: `Ops! Não foi possível carregar os dados, tente novamente.`,
+    //             position: "is-bottom",
+    //             type: "is-danger"
+    //           });
+    //         });
+    //     });
+    //   }
+    // }
   },
   mounted() {
     this.selectedSpot = this.currentSpot;
@@ -333,6 +337,7 @@ export default {
     ...mapActions("weather", ["getWeather"]),
     ...mapActions("geo", ["getNearestSpot"]),
     spotSelected() {
+      console.log(this.currentSpot)
       this.selectedSpot = this.currentSpot;
     },
     goToMap() {

@@ -37,6 +37,7 @@
       <v-select
         class="style-chooser"
         v-model="selectedSpot"
+        :get-option-label="getOptionLabel"
         :resetOnOptionsChange="true"
         :disabled="selectedCity === null"
         placeholder="Selecione um pico"
@@ -44,12 +45,6 @@
         :clearable="false"
         @input="spotSelected"
       >
-        <template v-slot:selected-option="option">
-          {{ option.spot.name }}
-        </template>
-        <template v-slot:option="option">
-          {{ option.spot.name }}
-        </template>
       </v-select>
     </div>
   </div>
@@ -74,14 +69,13 @@ export default {
   },
   created() {
     if (this.onlyVisible) {
-      if(this.selectedState.is_visible == false){
-        this.selectedState = null;
-        this.selectedSpot = null;
-        this.selectedCity = null;
-      }
-      else if(this.selectedCity.is_visible == false){
-        this.selectedSpot = null;
-        this.selectedCity = null;
+      if (this.selectedState.is_visible == false) {
+        this.setCurrentState(null);
+        this.setCurrentCity(null);
+        this.setCurrentSpot(null);
+      } else if (this.selectedCity.is_visible == false) {
+        this.setCurrentCity(null);
+        this.setCurrentSpot(null);
       }
     }
   },
@@ -136,6 +130,9 @@ export default {
       "setCurrentCity",
       "setCurrentSpot"
     ]),
+    getOptionLabel(option) {
+      return `${option.spot.name}`;
+    },
     stateSelected() {
       this.selectedSpot = null;
       this.selectedCity = null;
@@ -149,6 +146,7 @@ export default {
       }
     },
     spotSelected() {
+      console.log("eaeee");
       if (this.selectedSpot != null) {
         this.$emit("spot-selected", this.selectedSpot);
       }

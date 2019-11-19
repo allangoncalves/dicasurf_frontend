@@ -162,7 +162,7 @@
             >
               <b-checkbox name="Basico" v-model="terms">
                 Concordo com as
-                <span @click.stop class="has-text-primary">regras de uso do Dica SURF</span>
+                <span @click.stop="test" class="has-text-primary">regras de uso do Dica SURF</span>
               </b-checkbox>
             </b-field>
           </div>
@@ -214,6 +214,9 @@ export default {
   },
   methods: {
     ...mapActions("auth", ["registerUser", "login"]),
+    test(){
+      console.log("eae")
+    },
     createForm() {
       this.messages = Object.assign({}, this.messages, {
         email: [],
