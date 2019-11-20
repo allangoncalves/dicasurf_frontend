@@ -36,7 +36,7 @@
             [769, 2],
             [1024, 3]
           ]"
-          :navigationClickTargetSize="10"
+          :navigationClickTargetSize="0"
           :navigationEnabled="true"
           :paginationEnabled="false"
         >

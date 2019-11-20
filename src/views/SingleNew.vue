@@ -51,7 +51,7 @@
         <div class="tile is-vertical is-parent">
           <div class="tile is-child">
             <p class="title has-text-centered-touch has-text-primary">{{ post.title }}</p>
-            <p style="white-space:pre-wrap" v-html="post.text"></p>
+            <p v-html="post.text"></p>
           </div>
           <!-- <div class="tile is-child">
               <p class="has-text-primary">Ver mais</p>

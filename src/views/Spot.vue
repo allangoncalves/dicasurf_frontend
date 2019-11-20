@@ -12,7 +12,6 @@
         <search-bar
           :hideMessage="true"
           @spot-selected="spotSelected"
-          title="Nossos Picos"
           :onlyVisible="true"
         />
         <hr style="border: 1px solid #0075bb" />
@@ -239,15 +238,15 @@
               <div class="tile is-child">
                 <div>
                   <h5 class="title is-3 has-text-primary">Comentários</h5>
-                  <p>
+                  <p >
                     <span class="has-text-weight-bold">Dia bom:</span>
-                    {{ goodDay }}
+                    <span class="has-text-justified" style="text-align:justify">{{ goodDay }}</span>
                   </p>
                   <p style="margin-top:0.6rem">
                     <span class="has-text-weight-bold">
                       Sobre o acesso:
                     </span>
-                    {{ accessComment }}
+                    <span class="has-text-justified" style="text-align:justify">{{ accessComment }}</span>
                   </p>
                 </div>
                 <div class="data-category">

@@ -4,7 +4,7 @@
       <p
         class="title is-5 has-text-primary has-text-centered-touch has-text-weight-bold"
       >
-        Nossos Picos
+        Nossas Trips
       </p>
     </div>
     <div class="column">
@@ -13,6 +13,7 @@
         v-model="selectedState"
         :resetOnOptionsChange="true"
         icon="search"
+        :searchable="false"
         placeholder="Selecione um estado"
         :options="filteredStates"
         label="name"
@@ -26,6 +27,7 @@
         v-model="selectedCity"
         :resetOnOptionsChange="true"
         :disabled="selectedState === null"
+        :searchable="false"
         placeholder="Selecione uma cidade"
         :options="filteredCities"
         label="name"
@@ -40,6 +42,7 @@
         :get-option-label="getOptionLabel"
         :resetOnOptionsChange="true"
         :disabled="selectedCity === null"
+        :searchable="false"
         placeholder="Selecione um pico"
         :options="spots"
         :clearable="false"
