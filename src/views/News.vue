@@ -134,7 +134,7 @@ export default {
   text-shadow: 1px 1px grey;
 }
 .hero-img {
-  background-image: url("../assets/images/news.png");
+  background-image: url("../assets/images/home.png");
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: inherit;

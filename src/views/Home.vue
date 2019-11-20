@@ -58,8 +58,8 @@
                           </div>
                         </div>
                         <div class="column">
-                          <figure class="image is-3by2">
-                            <img src="@/assets/images/boaonda1.png" style="border-radius: 0px 6px 6px 0px"/>
+                          <figure class="image">
+                            <img src="@/assets/images/pico-home.png" style="border-radius: 0px 6px 6px 0px"/>
                           </figure>
                         </div>
                       </div>
@@ -98,8 +98,8 @@
                           </div>
                         </div>
                         <div class="column">
-                          <figure class="image is-2by1">
-                            <img src="@/assets/images/boaonda1.png" style="border-radius: 0px 6px 6px 0px"/>
+                          <figure class="image">
+                            <img src="@/assets/images/boaonda-home.png" style="border-radius: 0px 6px 6px 0px;"/>
                           </figure>
                         </div>
                       </div>
@@ -138,8 +138,8 @@
                           </div>
                         </div>
                         <div class="column">
-                          <figure class="image is-3by2">
-                            <img src="@/assets/images/boaonda1.png" style="border-radius: 0px 6px 6px 0px"/>
+                          <figure class="image">
+                            <img src="@/assets/images/news-home.png" style="border-radius: 0px 6px 6px 0px"/>
                           </figure>
                         </div>
                       </div>
@@ -176,8 +176,8 @@
                           </div>
                         </div>
                         <div class="column">
-                          <figure class="image is-2by1">
-                            <img src="@/assets/images/boaonda1.png" style="border-radius: 0px 6px 6px 0px"/>
+                          <figure class="image">
+                            <img src="@/assets/images/parceiros-home.png" style="border-radius: 0px 6px 6px 0px"/>
                           </figure>
                         </div>
                       </div>
@@ -217,8 +217,8 @@
                         </div>
                       </div>
                       <div class="column">
-                        <figure class="image is-3by1">
-                          <img src="@/assets/images/boaonda1.png" style="border-radius: 0px 6px 6px 0px" />
+                        <figure class="image">
+                          <img src="@/assets/images/loja-home.png" style="border-radius: 0px 6px 6px 0px" />
                         </figure>
                       </div>
                     </div>

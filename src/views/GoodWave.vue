@@ -9,8 +9,12 @@
     <section class="section section-top section-bottom">
       <div class="container">
         <div>
-          <p class="title is-2 has-text-centered has-text-primary is-uppercase has-text-weight-bold">Boa Onda</p>
-          <hr style="border: 1px solid #0075bb"/>
+          <p
+            class="title is-2 has-text-centered has-text-primary is-uppercase has-text-weight-bold"
+          >
+            Boa Onda
+          </p>
+          <hr style="border: 1px solid #0075bb" />
         </div>
         <div class="tile is-ancestor is-vertical">
           <div class="tile">
@@ -20,30 +24,51 @@
             <div class="tile is-parent is-vertical">
               <div class="tile is-child">
                 <figure class="image is-3by1" style="border-radius:10px">
-                  <img src="@/assets/images/boaonda1.png"  style="border-radius:15px;" />
+                  <img
+                    src="@/assets/images/boaonda1.png"
+                    style="border-radius:15px;"
+                  />
                 </figure>
               </div>
               <div class="tile is-child">
                 <figure class="image is-3by1">
-                  <img src="@/assets/images/boaonda2.png"  style="border-radius:15px;" />
+                  <img
+                    src="@/assets/images/boaonda2.png"
+                    style="border-radius:15px;"
+                  />
                 </figure>
               </div>
               <div class="tile is-child">
                 <figure class="image is-3by1">
-                  <img src="@/assets/images/boaonda3.png"  style="border-radius:15px;" />
+                  <img
+                    src="@/assets/images/boaonda3.png"
+                    style="border-radius:15px;"
+                  />
                 </figure>
               </div>
             </div>
           </div>
           <div class="tile">
             <div class="tile is-parent">
-              <div class="tile is-child">
-                <figure class="image is-2by1">
-                  <img src="@/assets/images/boaonda1.png"  style="border-radius:10px;" />
-                </figure>
+              <div
+                class="tile is-child has-background-primary box"
+              >
+                <div class="is-flex" style="justify-content:center;align-items:center;height:100%">
+                  <b-icon
+                    icon="chart-pie"
+                    pack="fas"
+                    type="is-white"
+                    size="is-large"
+                    
+                  />
+                </div>
               </div>
               <div class="tile is-child" style="padding-left:1.2rem">
-                <p class="is-size-3 has-text-weight-bold has-text-primary is-uppercase">regras</p>
+                <p
+                  class="is-size-3 has-text-weight-bold has-text-primary is-uppercase"
+                >
+                  regras
+                </p>
                 <div class="is-flex" style="justify-content:flex-end">
                   <b-pagination
                     :total="rules.length"
@@ -57,7 +82,9 @@
                   ></b-pagination>
                 </div>
                 <hr style="margin-top:0.4rem;margin-bottom:0.4rem" />
-                <p class="is-size-3 has-text-weight-bold has-text-primary">{{currentRule}}</p>
+                <p class="is-size-3 has-text-weight-bold has-text-primary">
+                  {{ currentRule }}
+                </p>
                 <p>{{ rules[current - 1].text }}</p>
               </div>
             </div>
@@ -127,8 +154,7 @@ Alguém que gostaria de comprar uma prancha, mas não tem condiçōes;
         },
         {
           text:
-          "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae"
-            
+            "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae"
         },
         {
           text:

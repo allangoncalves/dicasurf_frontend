@@ -117,7 +117,7 @@ export default {
 @import "~bulma/sass/utilities/_all";
 
 // Disable the widescreen breakpoint
-// $widescreen-enabled: false;
+$widescreen-enabled: false;
 
 // Disable the fullhd breakpoint
 $fullhd-enabled: false;
