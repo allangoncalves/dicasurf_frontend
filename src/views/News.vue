@@ -130,7 +130,7 @@ export default {
                         size="is-medium"
                         
                       >
-                        <span @click="seeMore(${post.id})" style="opacity:1.0">+ Ler mais</span>
+                        <span @click="$router.push({ name: 'single_new', params: { id: ${post.id} } })" style="opacity:1.0">+ Ler mais</span>
                       </b-tag>
                     </div>
                   </div>
