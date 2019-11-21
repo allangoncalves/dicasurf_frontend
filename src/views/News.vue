@@ -2,36 +2,13 @@
   <div>
     <section class="hero hero-img is-medium">
       <!-- Hero content: will be in the middle -->
-      <div class="hero-body">
-        <div class="container">
-          <div class="columns is-multiline">
-            <div class="column is-6">
-              <p
-                class="title is-1 has-text-centered-touch has-text-white headline"
-              >
-                Surfista brasileiro encara as pergigosas ondas de Teahupo
-              </p>
-              <hr style="margin-bottom:0rem;border: 2px solid #0075bb" />
-            </div>
-            <div class="column is-full">
-              <b-tag
-                style="opacity: 0.7"
-                class="is-clickable"
-                type="is-primary"
-                size="is-medium"
-              >
-                <span style="opacity:1.0">+ Ler mais</span>
-              </b-tag>
-            </div>
-          </div>
-        </div>
-      </div>
+       <carousel :data="slides" :indicators="false"></carousel>
     </section>
     <section
       class="section section-top section-bottom"
       v-infinite-scroll="fetch"
       :infinite-scroll-disabled="busy || next === null"
-      :infinite-scroll-distance="40"
+      :infinite-scroll-distance="100"
     >
       <div class="container">
         <div>
@@ -40,7 +17,7 @@
           >
             News
           </p>
-          <hr style="border: 1px solid #0075bb"/>
+          <hr style="border: 1px solid #0075bb" />
         </div>
         <div
           class="tile is-ancestor is-clickable"
@@ -61,7 +38,10 @@
               <p class="title has-text-centered-mobile has-text-primary is-4">
                 {{ post.title }}
               </p>
-              <p class="subtitle is-6 preview-text" v-html="post.preview_text"></p>
+              <p
+                class="subtitle is-6 preview-text"
+                v-html="post.preview_text"
+              ></p>
             </div>
           </div>
           <div class="tile is-parent is-3">
@@ -108,10 +88,18 @@ export default {
     const loading = this.$buefy.loading.open();
     loading.close();
   },
+  mounted() {
+    this.getPosts().then(posts => {
+      this.slides = posts.map(post => this.createSlide(post));
+    });
+  },
   methods: {
     ...mapActions("news", ["getPosts", "getNextChunk"]),
     goToPost(post) {
       this.$router.push({ name: `single_new`, params: { id: post.id } });
+    },
+    seeMore(id) {
+      this.$router.push({ name: `single_new`, params: { id: Number(id) } });
     },
     formatedDate(date) {
       let moment_date = moment(date);
@@ -121,10 +109,42 @@ export default {
     },
     fetch() {
       this.getNextChunk();
+    },
+    createSlide(post) {
+      return `<div class="hero-body">
+                <div class="container">
+                  <div class="columns is-multiline">
+                    <div class="column is-6">
+                      <p
+                        class="title is-size-2-desktop is-size-5-touch has-text-centered-touch has-text-white headline"
+                      >
+                        ${post.title}
+                      </p>
+                      <hr style="margin-bottom:0rem;border: 2px solid #0075bb" />
+                    </div>
+                    <div class="column is-full has-text-centered-mobile">
+                      <b-tag
+                        style="opacity: 0.7"
+                        class="is-clickable"
+                        type="is-primary"
+                        size="is-medium"
+                        
+                      >
+                        <span @click="seeMore(${post.id})" style="opacity:1.0">+ Ler mais</span>
+                      </b-tag>
+                    </div>
+                  </div>
+                </div>
+              </div>`;
     }
   },
   computed: {
     ...mapState("news", ["posts", "next", "busy"])
+  },
+  data() {
+    return {
+      slides: []
+    };
   }
 };
 </script>

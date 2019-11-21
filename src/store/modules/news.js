@@ -31,12 +31,10 @@ export default {
     async getPosts({ commit }) {
       return await DICA_API.get("/posts", {
         params: {
-          limit: 3,
+          limit: 5,
           offset: 0
         }
       }).then(res => {
-        commit("setPosts", res.data.results);
-        commit("setNext", res.data.next);
         return res.data.results;
       });
     },
