@@ -3,13 +3,14 @@ export default {
   namespaced: true,
   state: {
     user: {
-      email: "",
-      first_name: "",
-      last_name: "",
-      pk: null,
-      username: ""
+      email: localStorage.getItem("email") || "",
+      first_name: localStorage.getItem("first_name") || "",
+      last_name: localStorage.getItem("last_name") || "",
+      pk: localStorage.getItem("pk") || "",
+      username: localStorage.getItem("username") || ""
     },
-    isLogged: false
+    token: localStorage.getItem("token") || null,
+    isLogged: localStorage.getItem("isLogged") || false
   },
   mutations: {
     setUser(state, user) {
@@ -25,6 +26,7 @@ export default {
       state.token = token;
     },
     setLogged(state, isLogged) {
+      localStorage.setItem("isLogged", true);
       state.isLogged = isLogged;
     }
   },
@@ -34,25 +36,50 @@ export default {
         .then(res => {
           commit("setToken", res.data.token);
           commit("setUser", res.data.user);
-          localStorage.setItem("isLogged", true);
           commit("setLogged", true);
         })
         .catch(err => Promise.reject(err.response.data));
     },
-    logout({ commit }) {
-      localStorage.setItem("isLogged", false);
-      commit("setUser", {
-        email: "",
-        first_name: "",
-        last_name: "",
-        pk: null,
-        username: ""
+    logout({ commit, state }) {
+      return DICA_API.post("auth/logout/", {
+        headers: {
+          Authorization: `Token ${state.token}`
+        }
+      }).then(() => {
+        localStorage.setItem("isLogged", false);
+        commit("setUser", {
+          email: "",
+          first_name: "",
+          last_name: "",
+          pk: null,
+          username: ""
+        });
+        commit("setToken", null);
+        commit("setLogged", false);
       });
-      commit("setToken", "");
-      commit("setLogged", false);
     },
     registerUser({}, payload) {
       return DICA_API.post("users/", payload);
+    },
+    updateUserData({ state }, payload) {
+      return DICA_API.patch(`users/${state.user.pk}/`, payload, {
+        headers: {
+          Authorization: `Token ${state.token}`
+        }
+      });
+    },
+    changePassword({}, payload) {
+      return DICA_API.post("auth/password/change/", {
+        new_password1: payload.password,
+        new_password2: payload.password_confirmation
+      });
+    },
+    getUserData({ state }) {
+      return DICA_API.get(`users/${state.user.pk}/`, {
+        headers: {
+          Authorization: `Token ${state.token}`
+        }
+      });
     }
   }
 };

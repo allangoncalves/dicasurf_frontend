@@ -76,6 +76,34 @@ export default new Router({
       meta: { transitionName: "fade", id: 7 }
     },
     {
+      path: "/login",
+      name: "login",
+      component: () =>
+        import(/* webpackChunkName: "login" */ "@/views/Login.vue"),
+      meta: { transitionName: "fade", id: 8 }
+    },
+    {
+      path: "/perfil",
+      name: "profile",
+      component: () =>
+        import(/* webpackChunkName: "profile" */ "@/views/Profile.vue"),
+      meta: { transitionName: "fade", id: 8, requiresAuth: true }
+    },
+    {
+      path: "/alterarsenha",
+      name: "passwordchange",
+      component: () =>
+        import(/* webpackChunkName: "pwchange" */ "@/views/PasswordChange.vue"),
+      meta: { transitionName: "slide", id: 9, requiresAuth: true }
+    },
+    {
+      path: "/esquecisenha",
+      name: "password_reset",
+      component: () =>
+        import(/* webpackChunkName: "passwordreset" */ "@/views/PasswordForget.vue"),
+      meta: { transitionName: "slide", id: 10, requiresAuth: true }
+    },
+    {
       path: "/faleconosco",
       name: "talk_to_us",
       component: () =>

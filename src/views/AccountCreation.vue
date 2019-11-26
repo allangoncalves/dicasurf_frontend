@@ -240,6 +240,7 @@ export default {
         first_name: this.first_name,
         last_name: this.last_name,
         password: this.password,
+        // password2: this.password_confirmation,
         profile: {
           name: `${this.first_name} ${this.last_name}`,
           nickname: this.nickname,

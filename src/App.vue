@@ -8,12 +8,11 @@
   </div>
 </template>
 
-
 <script>
 const DEFAULT_TRANSITION = "fade";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
   data() {
@@ -31,12 +30,19 @@ export default {
   },
   created() {
     const loading = this.$buefy.loading.open();
+
     this.$router.beforeEach((to, from, next) => {
+      if (to.matched.some(record => record.meta.requiresAuth)) {
+        if (!this.isLogged) {
+          next("/login");
+          return;
+        }
+      }
       let transitionName = to.meta.transitionName || from.meta.transitionName;
 
       if (transitionName === "slide") {
-        const toDepth = to.meta.id
-        const fromDepth = from? from.meta.id : 0
+        const toDepth = to.meta.id;
+        const fromDepth = from ? from.meta.id : 0;
         transitionName = toDepth < fromDepth ? "slide-right" : "slide-left";
       }
 
@@ -48,7 +54,7 @@ export default {
       .then(() => {
         loading.close();
       })
-      .catch((res) => {
+      .catch(res => {
         console.log(res);
         loading.close();
         this.$buefy.toast.open({
@@ -58,6 +64,9 @@ export default {
           type: "is-danger"
         });
       });
+  },
+  computed:{
+    ...mapState("auth", ["isLogged"])
   },
   components: {
     Footer,
@@ -89,7 +98,7 @@ export default {
 }
 .is-horizontal-center {
   display: flex;
-  justify-content: center
+  justify-content: center;
 }
 .slide-left-enter-active,
 .slide-left-leave-active,

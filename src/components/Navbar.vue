@@ -13,41 +13,25 @@
           tag="router-link"
           :to="route.name"
         >{{ route.text }}</b-navbar-item>
-        <b-navbar-item tag="div">
-          <div class="columns is-vcentered is-clickable is-mobile has-text-primary-mobile" @click="openModal" v-if="!isLogged">
+        <b-navbar-item tag="router-link" to="/login"  v-if="!isLogged">
+          <div class="columns is-vcentered is-clickable is-mobile has-text-primary-mobile">
             <div class="column is-narrow has-text-primary-mobile">
               <b-icon icon="user-circle"  size="is-small" pack="fas"></b-icon>
             </div>
-            <div class="column is-paddingless">
+            <div class="column" style="padding-left:0rem">
               <p>Login</p>
             </div>
           </div>
-          <!-- <div
-            class="columns is-multiline has-text-centered has-background-black box is-paddingless"
-          >
-            <div class="column is-full">
-              
+        </b-navbar-item>
+        <b-navbar-item tag="router-link" to="/perfil"  v-if="isLogged">
+          <div class="columns is-vcentered is-clickable is-mobile has-text-primary-mobile">
+            <div class="column is-narrow has-text-primary-mobile">
+              <b-icon icon="user-circle" size="is-small" pack="fas"></b-icon>
             </div>
-            <div class="column is-full" style="padding-top:0rem">
-              <b-button
-                size="is-small"
-                icon-right="lock"
-                type="is-primary"
-                outlined
-                @click="openModal"
-                v-if="!isLogged"
-              >Login</b-button>
-              <div v-if="isLogged">
-                <p class="has-text-primary">
-                  Olá,
-                  <span>{{user.first_name}}</span>
-                </p>
-              </div>
-              <div @click="logout" v-if="isLogged">
-                <p class="has-text-primary">Sair</p>
-              </div>
+            <div class="column" style="padding-left:0rem">
+              <p>Acessar Perfil</p>
             </div>
-          </div>-->
+          </div>
         </b-navbar-item>
       </template>
     </b-navbar>

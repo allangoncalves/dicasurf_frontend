@@ -35,11 +35,11 @@
               style="max-height:0.2em;height:0.2em"
             />
             <router-link style="display:block" class="has-text-white" to="faleconosco">Fale conosco</router-link>
-            <router-link
+            <!-- <router-link
               style="display:block"
               class="has-text-white"
               to="trabalheconosco"
-            >Trabalhe conosco</router-link>
+            >Trabalhe conosco</router-link> -->
           </div>
           <div class="column">
             <p class="title is-5 has-text-primary">Redes Sociais</p>
