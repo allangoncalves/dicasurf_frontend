@@ -43,7 +43,7 @@ export default {
     logout({ commit, state }) {
       return DICA_API.post("auth/logout/", {
         headers: {
-          Authorization: `Token ${state.token}`
+          Authorization: `JWT ${state.token}`
         }
       }).then(() => {
         localStorage.removeItem("email");
@@ -70,7 +70,7 @@ export default {
     updateUserData({ state }, payload) {
       return DICA_API.patch(`users/${state.user.pk}/`, payload, {
         headers: {
-          Authorization: `Token ${state.token}`
+          Authorization: `JWT ${state.token}`
         }
       });
     },
@@ -83,7 +83,7 @@ export default {
     getUserData({ state }) {
       return DICA_API.get(`users/${state.user.pk}/`, {
         headers: {
-          Authorization: `Token ${state.token}`
+          Authorization: `JWT ${state.token}`
         }
       });
     }
