@@ -71,7 +71,7 @@ export default {
     }
   },
   created() {
-    if (this.onlyVisible) {
+    if (this.onlyVisible && this.selectedState != null) {
       if (this.selectedState.is_visible == false) {
         this.setCurrentState(null);
         this.setCurrentCity(null);
