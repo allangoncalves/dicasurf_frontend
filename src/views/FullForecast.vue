@@ -1,26 +1,28 @@
 <template>
-  <div class="container" style="padding-top:2rem;padding-bottom:2rem">
-    <div>
-      <p
-        class="title is-2 has-text-centered has-text-primary is-uppercase has-text-weight-bold"
-      >
-        Tábua de Maré
-      </p>
-      <hr style="border: 1px solid #0075bb"/>
+  <section class="section">
+    <div class="container" style="padding-top:2rem;padding-bottom:2rem">
+      <div>
+        <p
+          class="title is-2 has-text-centered has-text-primary is-uppercase has-text-weight-bold"
+        >
+          Tábua de Maré
+        </p>
+        <hr style="border: 1px solid #0075bb" />
+      </div>
+      <search-bar
+        @city-selected="citySelected"
+        :hasSpot="false"
+        :hasLabel="false"
+      />
+      <apexchart
+        width="100%"
+        height="420"
+        type="area"
+        :options="areaOptions"
+        :series="tideData"
+      ></apexchart>
     </div>
-    <search-bar
-      @city-selected="citySelected"
-      :hasSpot="false"
-      :hasLabel="false"
-    />
-    <apexchart
-      width="100%"
-      height="420"
-      type="area"
-      :options="areaOptions"
-      :series="tideData"
-    ></apexchart>
-  </div>
+  </section>
 </template>
 
 <script>
