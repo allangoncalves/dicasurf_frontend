@@ -14,19 +14,12 @@ export default {
   },
   mutations: {
     setUser(state, user) {
-      localStorage.setItem("first_name", user.first_name);
-      localStorage.setItem("last_name", user.last_name);
-      localStorage.setItem("email", user.email);
-      localStorage.setItem("pk", user.pk);
-      localStorage.setItem("username", user.username);
       state.user = user;
     },
     setToken(state, token) {
-      localStorage.setItem("token", token);
       state.token = token;
     },
     setLogged(state, isLogged) {
-      localStorage.setItem("isLogged", true);
       state.isLogged = isLogged;
     }
   },
@@ -34,6 +27,13 @@ export default {
     login({ commit }, payload) {
       return DICA_API.post("auth/login/", payload)
         .then(res => {
+          localStorage.setItem("isLogged", true);
+          localStorage.setItem("token", res.data.token);
+          localStorage.setItem("first_name", res.data.user.first_name);
+          localStorage.setItem("last_name", res.data.user.last_name);
+          localStorage.setItem("email", res.data.user.email);
+          localStorage.setItem("pk", res.data.user.pk);
+          localStorage.setItem("username", res.data.user.username);
           commit("setToken", res.data.token);
           commit("setUser", res.data.user);
           commit("setLogged", true);
@@ -46,7 +46,13 @@ export default {
           Authorization: `Token ${state.token}`
         }
       }).then(() => {
-        localStorage.setItem("isLogged", false);
+        localStorage.removeItem("email");
+        localStorage.removeItem("first_name");
+        localStorage.removeItem("last_name");
+        localStorage.removeItem("pk");
+        localStorage.removeItem("username");
+        localStorage.removeItem("token");
+        localStorage.removeItem("isLogged");
         commit("setUser", {
           email: "",
           first_name: "",
