@@ -238,15 +238,23 @@
               <div class="tile is-child">
                 <div>
                   <h5 class="title is-3 has-text-primary">Comentários</h5>
-                  <p >
+                  <p>
                     <span class="has-text-weight-bold">Dia bom:</span>
-                    <span class="has-text-justified" style="text-align:justify">{{ goodDay }}</span>
+                    <span
+                      class="has-text-justified"
+                      style="text-align:justify"
+                      >{{ goodDay }}</span
+                    >
                   </p>
                   <p style="margin-top:0.6rem">
                     <span class="has-text-weight-bold">
                       Sobre o acesso:
                     </span>
-                    <span class="has-text-justified" style="text-align:justify">{{ accessComment }}</span>
+                    <span
+                      class="has-text-justified"
+                      style="text-align:justify"
+                      >{{ accessComment }}</span
+                    >
                   </p>
                 </div>
                 <div class="data-category">
@@ -271,38 +279,13 @@
         </div>
       </div>
     </section>
-    <b-modal v-if="currentSpot != null" :active.sync="openModal" has-modal-card>
-      <GmapMap
-        ref="gmap"
-        :center="center"
-        :zoom="15"
-        map-type-id="terrain"
-        style="width: 500px; height: 500px"
-        
-        :options="{
-          zoomControl: true,
-          mapTypeControl: true,
-          scaleControl: false,
-          streetViewControl: true,
-          rotateControl: true,
-          fullscreenControl: true,
-          disableDefaultUi: false
-        }"
-      >
-        <directions-renderer
-          :from="from"
-          :to="destination"
-          :options="directOpt"
-        />
-      </GmapMap>
-    </b-modal>
   </div>
 </template>
 
 <script>
+import Map from "@/components/Map";
 import { Carousel, Slide } from "vue-carousel";
 import ForecastHud from "@/components/ForecastHud";
-import DirectionsRenderer from "@/components/DirectionsRenderer.js";
 import SearchBar from "@/components/SearchBar";
 import core from "../mixins/core";
 import { mapState, mapActions } from "vuex";
@@ -313,7 +296,7 @@ export default {
     Carousel,
     Slide,
     SearchBar,
-    DirectionsRenderer
+    Map
   },
   created() {
     // console.log("selecionando");
@@ -355,14 +338,9 @@ export default {
       teste: " Não",
       selectedSpot: null,
       openModal: false,
-      mapInstance: null,
-      destination: {
-        lat: -6.228080112986862,
-        lng: -35.055503409432056
-      },
-      from: {
-        lat: -6.232121410500793,
-        lng: -35.04891850248146
+      center: {
+        lat: localStorage.getItem("lat") || -6.228080112986862,
+        lng: localStorage.getItem("lng") || -35.055503409432056
       },
     };
   },
@@ -374,7 +352,14 @@ export default {
       this.selectedSpot = this.currentSpot;
     },
     goToMap() {
-      this.openModal = true;
+      this.$buefy.modal.open({
+        hasModalCard: true,
+        component: Map,
+        props: {
+          origin: this.center,
+          destination: this.destination
+        }
+      });
     },
     collectData() {
       const lat = this.selectedSpot.lat;
@@ -395,8 +380,14 @@ export default {
   },
   computed: {
     ...mapState("geo", ["currentSpot", "currentCity", "currentState"]),
-    center(){
-      return {lat: this.currentSpot.spot.lat, lng: this.currentSpot.spot.lng}
+    destination() {
+      if (this.currentSpot) {
+        return {
+          lat: this.currentSpot.spot.lat,
+          lng: this.currentSpot.spot.lng
+        };
+      }
+      return { lat: 0, lng: 0 };
     },
     directOpt() {
       return {

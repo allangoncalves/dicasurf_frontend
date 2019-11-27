@@ -42,6 +42,5 @@
   </div>
 </template>
 <script>
-import GmapMap from "vue2-google-maps/dist/components/map.vue";
 export default {};
 </script>

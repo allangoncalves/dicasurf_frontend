@@ -1,5 +1,21 @@
 <template>
-
+  <GmapMap
+    ref="gmap"
+    :center="center"
+    :zoom="15"
+    style="width: 600px; height: 600px"
+    :options="{
+      zoomControl: true,
+      mapTypeControl: false,
+      scaleControl: false,
+      streetViewControl: true,
+      rotateControl: true,
+      fullscreenControl: true,
+      disableDefaultUi: false
+    }"
+  >
+    <DirectionsRenderer />
+  </GmapMap>
 </template>
 
 <script>
@@ -9,38 +25,35 @@ import DirectionsRenderer from "./DirectionsRenderer.js";
 export default {
   components: { DirectionsRenderer },
   props: {
-    isOpen: {
-      type: Boolean,
-      default: false,
+    destination: {
+      type: Object
+    },
+    origin: {
+      type: Object,
+      required: true
     }
   },
-  mounted(){
-    this.$refs.mapRef.$mapPromise.then(map => this.mapInstance = map);
-  },
-  data() {
-    return {
-      mapInstance: null,
-      destination: {
-        lat: -6.228080112986862,
-        lng: -35.055503409432056
-      },
-      from: {
-        lat: -6.232121410500793,
-        lng: -35.04891850248146
-      },
-      center: {
-        lat: -6.4,
-        lng: -35.1
-      },
-      directOpt: {
-        //directions: DirectionsResult,
-        draggable: true,
-        //infoWindow: InfoWindow,
-        map: () => this.mapInstance
-        //panel: Node (<div> to display directions steps),
-        //routeIndex: int (index of route within DirectionsResult),
-      }
-    };
+  mounted() {
+    this.$gmapApiPromiseLazy().then(() => {
+      this.directionsService = new google.maps.DirectionsService();
+      this.directionsDisplay = new google.maps.DirectionsRenderer();
+      this.directionsDisplay.setMap(this.$refs.gmap.$mapObject);
+      var vm = this;
+      vm.directionsService.route(
+        {
+          origin: this.origin, // Can be coord or also a search query
+          destination: this.destination,
+          travelMode: "DRIVING"
+        },
+        function(response, status) {
+          if (status === "OK") {
+            vm.directionsDisplay.setDirections(response); // draws the polygon to the map
+          } else {
+            console.log("Directions request failed due to " + status);
+          }
+        }
+      );
+    });
   }
 };
 </script>

@@ -30,7 +30,6 @@ export default {
   },
   created() {
     const loading = this.$buefy.loading.open();
-
     this.$router.beforeEach((to, from, next) => {
       if (to.matched.some(record => record.meta.requiresAuth)) {
         if (!this.isLogged) {
