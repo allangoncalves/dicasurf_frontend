@@ -1,7 +1,7 @@
 <template>
   <GmapMap
     ref="gmap"
-    :center="center"
+    :center="origin"
     :zoom="15"
     style="width: 600px; height: 600px"
     :options="{
@@ -26,7 +26,7 @@ export default {
   components: { DirectionsRenderer },
   props: {
     destination: {
-      type: Object
+      type: Object,
     },
     origin: {
       type: Object,
