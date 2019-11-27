@@ -339,8 +339,8 @@ export default {
       selectedSpot: null,
       openModal: false,
       center: {
-        lat: localStorage.getItem("lat") || -6.228080112986862,
-        lng: localStorage.getItem("lng") || -35.055503409432056
+        lat: Number(localStorage.getItem("lat")) || -6.228080112986862,
+        lng: Number(localStorage.getItem("lng")) || -35.055503409432056
       },
     };
   },
