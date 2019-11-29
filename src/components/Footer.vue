@@ -14,7 +14,7 @@
             />
             <div>
               <router-link style="display:block" class="has-text-white" to="quemsomos">Quem somos</router-link>
-              <router-link style="display:block" class="has-text-white" to="equipe">Nossa equipe</router-link>
+              <!-- <router-link style="display:block" class="has-text-white" to="equipe">Nossa equipe</router-link> -->
               <router-link style="display:block" class="has-text-white" to="boaonda">Boa Onda</router-link>
               <router-link style="display:block" class="has-text-white" to="parceiros">Parceiros</router-link>
             </div>

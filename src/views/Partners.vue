@@ -124,25 +124,20 @@
                   </div>
                   <div class="tile is-child">
                     <div style="padding-right:1rem;padding-left:1rem">
-                      <p
-                        class="has-text-weight-bold has-text-primary title is-2"
-                      >
-                        <span
-                          class="has-text-weight-bold has-text-primary title is-6"
-                          >R$</span
-                        >800
-                      </p>
-                      <p style="margin-top:3rem" class="has-text-centered">
+                      <p style="margin-top:1rem" class="has-text-centered">
                         1 vídeo de
                         <span class="has-text-weight-bold">60 segundos</span> ou
                         2 videos de
                         <span class="has-text-weight-bold">30 segundos</span>
                       </p>
-                      <p style="margin-top:1.2rem">
+                      <br/>
+                      <p>
                         Roteiro + Captação + Pós Produção + Alteraçōes
                       </p>
-                      <p style="margin-top:1.2rem">2 teaser de 15 segundos</p>
-                      <p style="margin-top:1.2rem">
+                      <br/>
+                      <p>2 teaser de 15 segundos</p>
+                      <br/>
+                      <p>
                         10 fotos tratadas (ambiente, produtos, serviços, etc...)
                       </p>
                       <b-button
@@ -171,25 +166,20 @@
                   </div>
                   <div class="tile is-child">
                     <div style="padding-right:1rem;padding-left:1rem">
-                      <p
-                        class="has-text-weight-bold has-text-primary title is-2"
-                      >
-                        <span
-                          class="has-text-weight-bold has-text-primary title is-6"
-                          >R$</span
-                        >1.200
-                      </p>
-                      <p style="margin-top:3rem" class="has-text-centered">
+                      <p style="margin-top:1rem" class="has-text-centered">
                         1 vídeo de
                         <span class="has-text-weight-bold">60 segundos</span> ou
                         2 videos de
                         <span class="has-text-weight-bold">30 segundos</span>
                       </p>
-                      <p style="margin-top:1.2rem">
+                      <br/>
+                      <p>
                         Roteiro + Captação + Pós Produção + Alteraçōes
                       </p>
-                      <p style="margin-top:1.2rem">3 teaser de 15 segundos</p>
-                      <p style="margin-top:1.2rem">
+                      <br/>
+                      <p>3 teaser de 15 segundos</p>
+                      <br/>
+                      <p>
                         15 fotos tratadas (ambiente, produtos, serviços, etc...)
                       </p>
                       <b-button
@@ -223,38 +213,39 @@
                 </div>
                 <div class="tile is-child">
                   <div style="padding-right:1rem;padding-left:1rem">
-                    <p class="has-text-weight-bold has-text-primary title is-2">
-                      <span
-                        class="has-text-weight-bold has-text-primary title is-6"
-                        >R$</span
-                      >2.000
-                    </p>
-                    <p style="margin-top:3rem" class="has-text-centered">
+                    <p style="margin-top:1rem" class="has-text-centered">
                       1 vídeo de
                       <span class="has-text-weight-bold">60 segundos</span> ou 2
                       videos de
                       <span class="has-text-weight-bold">30 segundos</span>
                     </p>
-                    <p style="margin-top:1.2rem">
+                    <br/>
+                    <p>
                       Roteiro + Captação + Pós Produção + Alteraçōes
                     </p>
-                    <p style="margin-top:1.2rem">4 teaser de 15 segundos</p>
-                    <p style="margin-top:1.2rem">
+                    <br/>
+                    <p>4 teaser de 15 segundos</p>
+                    <br/>
+                    <p>
                       fotos (ambiente, produtos, etc...)
                     </p>
-                    <p style="margin-top:1.2rem">
+                    <br/>
+                    <p>
                       15 fotos tratadas (ambiente, produtos, serviços, etc...)
                     </p>
-                    <p style="margin-top:1.2rem">
+                    <br/>
+                    <p>
                       <span class="has-text-weight-bold"
                         >publicidade criativa</span
                       >
                       em episódios (ou + 2 teasers)
                     </p>
-                    <p style="margin-top:1.2rem">
+                    <br/>
+                    <p>
                       Fotos <span class="has-text-weight-bold">360</span>
                     </p>
-                    <p style="margin-top:1.2rem">
+                    <br/>
+                    <p>
                       Drone
                     </p>
                     <b-button
@@ -287,13 +278,7 @@
                 </div>
                 <div class="tile is-child">
                   <div style="padding-right:1rem;padding-left:1rem">
-                    <p class="has-text-weight-bold has-text-primary title is-2">
-                      <span
-                        class="has-text-weight-bold has-text-primary title is-6"
-                        >R$</span
-                      >500*
-                    </p>
-                    <p style="margin-top:3rem" class="has-text-centered">
+                    <p style="margin-top:1rem" class="has-text-centered">
                       1 teaser de 15 segundos por mês, durante
                       <span class="has-text-weight-bold">12 meses</span>
                     </p>
