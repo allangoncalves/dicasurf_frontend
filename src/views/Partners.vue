@@ -330,7 +330,7 @@
           </div>
           <p>*Exclusivo para parceiros do Dica Surf</p>
           <figure class="image is3by1" style="padding-top:4rem">
-            <img src="@/assets/images/parceiros.png" alt="" />
+            <img src="@/assets/images/promo.png" alt="" />
           </figure>
           <p>(VÁLIDO POR 6 MESES)*</p>
         </section>
