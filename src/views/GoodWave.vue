@@ -3,7 +3,7 @@
     <section class="hero is-medium">
       <!-- Hero content: will be in the middle -->
       <figure class="image is-3by1">
-        <img src="@/assets/images/boaonda-header.png" alt />
+        <img :src='require("@/assets/images/boaonda-header.png")' alt />
       </figure>
     </section>
     <section class="section section-top section-bottom">
@@ -68,7 +68,7 @@
           <div class="column">
             <figure class="image is-3by1" style="border-radius:10px">
               <img
-                src="@/assets/images/boaonda1.png"
+                :src='require("@/assets/images/boaonda1.png")'
                 style="border-radius:15px;"
               />
             </figure>
@@ -76,7 +76,7 @@
           <div class="column">
             <figure class="image is-3by1">
               <img
-                src="@/assets/images/boaonda2.png"
+                :src='require("@/assets/images/boaonda2.png")'
                 style="border-radius:15px;"
               />
             </figure>
@@ -84,7 +84,7 @@
           <div class="column">
             <figure class="image is-3by1">
               <img
-                src="@/assets/images/boaonda3.png"
+                :src='require("@/assets/images/boaonda3.png")'
                 style="border-radius:15px;"
               />
             </figure>
