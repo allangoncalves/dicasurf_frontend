@@ -86,6 +86,9 @@ export default {
           Authorization: `JWT ${state.token}`
         }
       });
+    },
+    registerEarlyUser({}, payload) {
+      return DICA_API.post("firstusers/", { email: payload.email });
     }
   }
 };

@@ -28,7 +28,9 @@
         <div class="column is-full">
           <div class="columns is-multiline">
             <div class="column is-2 is-offset-5" style="padding:1.5rem">
-              <div class="has-background-primary has-text-white has-text-centered">
+              <div
+                class="has-background-primary has-text-white has-text-centered"
+              >
                 <p
                   class="has-text-weight-bold is-uppercase"
                   style="text-align:center"
@@ -39,16 +41,38 @@
             </div>
             <div class="column is-5" style="padding:1.5rem">
               <b-field>
-                <b-input expanded size="is-medium" placeholder="Email">
+                <b-input
+                  expanded
+                  size="is-medium"
+                  placeholder="Email"
+                  v-model="email"
+                >
                 </b-input>
                 <p class="control">
-                  <button style="height:100%" class="button is-white">
+                  <button
+                    style="height:100%"
+                    class="button is-white"
+                    @click="register"
+                  >
                     OK
                   </button>
                 </p>
               </b-field>
+              <p
+                v-for="(message, index) in messages"
+                :key="index"
+                :class="{
+                  'has-text-primary': success,
+                  'has-text-danger': !success
+                }"
+              >
+                {{ message }}
+              </p>
             </div>
-            <div class="column is-full has-text-centered-mobile has-text-right-tablet" style="padding:1.5rem">
+            <div
+              class="column is-full has-text-centered-mobile has-text-right-tablet"
+              style="padding:1.5rem"
+            >
               <img src="@/assets/images/logo_horizontal_blue.png" alt="" />
             </div>
           </div>
@@ -58,12 +82,37 @@
   </div>
 </template>
 <script>
+import { mapActions } from "vuex";
 export default {
   methods: {
+    ...mapActions("auth", ["registerEarlyUser"]),
     goToHome() {
-      console.log("eae");
       this.$router.replace("/");
+    },
+    register() {
+      this.messages = [];
+      this.success = false;
+      this.registerEarlyUser({ email: this.email })
+        .then(() => {
+          this.success = true;
+          this.messages = ["*Enviado com sucesso."];
+          
+        })
+        .catch(err => {
+          if (err.response) {
+            this.success = false;
+            this.messages = err.response.data.email;
+            
+          }
+        });
     }
+  },
+  data() {
+    return {
+      email: "",
+      messages: [],
+      success: true
+    };
   }
 };
 </script>
