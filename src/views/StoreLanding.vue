@@ -9,56 +9,51 @@
     >
     </b-icon>
     <div class="container is-flex content">
-      
-        <div class="columns is-multiline">
-          <div class="column is-full">
-            <p
-              class="title is-size-3-mobile is-size-1-tablet is-uppercase has-text-right-tablet has-text-centered-mobile"
-              style="margin-bottom:0.3rem"
-            >
-              estamos <br /><span class="has-text-primary has-text-weight-bold">
-                chegando
-              </span>
-            </p>
-            <p class="has-text-right-tablet has-text-centered-mobile">
-              Deixe seu email e
-              <span class="has-text-weight-bold"> ganhe 10% de desconto</span>
-              na primeira compra!
-            </p>
-          </div>
-          <div class="column is-full">
-            
-              <div class="columns">
-                <div class="column is-2 is-offset-5">
-                  <div
-                    class="has-background-primary has-text-white is-flex"
-                  >
-                    <p
-                      class="has-text-weight-bold is-uppercase"
-                      style="text-align:center"
-                    >
-                      fique por dentro
-                    </p>
-                  </div>
-                </div>
-                <div class="column is-5">
-                  <b-field>
-                    <b-input expanded size="is-medium" placeholder="Email">
-                    </b-input>
-                    <p class="control">
-                      <button style="height:100%" class="button is-white">
-                        OK
-                      </button>
-                    </p>
-                  </b-field>
-                </div>
-              </div>
-            
-
-            <div></div>
-          </div>
-          <div class="column is-full">b</div>
+      <div class="columns is-multiline">
+        <div class="column is-full">
+          <p
+            class="title is-size-3-mobile is-size-1-tablet is-uppercase has-text-right-tablet has-text-centered-mobile"
+            style="margin-bottom:0.3rem"
+          >
+            estamos <br /><span class="has-text-primary has-text-weight-bold">
+              chegando
+            </span>
+          </p>
+          <p class="has-text-right-tablet has-text-centered-mobile">
+            Deixe seu email e
+            <span class="has-text-weight-bold"> ganhe 10% de desconto</span>
+            na primeira compra!
+          </p>
         </div>
+        <div class="column is-full">
+          <div class="columns is-multiline">
+            <div class="column is-2 is-offset-5" style="padding:1.5rem">
+              <div class="has-background-primary has-text-white has-text-centered">
+                <p
+                  class="has-text-weight-bold is-uppercase"
+                  style="text-align:center"
+                >
+                  fique por dentro
+                </p>
+              </div>
+            </div>
+            <div class="column is-5" style="padding:1.5rem">
+              <b-field>
+                <b-input expanded size="is-medium" placeholder="Email">
+                </b-input>
+                <p class="control">
+                  <button style="height:100%" class="button is-white">
+                    OK
+                  </button>
+                </p>
+              </b-field>
+            </div>
+            <div class="column is-full has-text-centered-mobile has-text-right-tablet" style="padding:1.5rem">
+              <img src="@/assets/images/logo_horizontal_blue.png" alt="" />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
