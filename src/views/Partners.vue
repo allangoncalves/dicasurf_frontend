@@ -24,7 +24,7 @@
         <figure class="image is-2by1">
           <iframe
             class="has-ratio"
-            :src="selectedVideo"
+            :src="selectedVideo.url"
             frameborder="0"
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
@@ -41,7 +41,7 @@
           :paginationEnabled="false"
         >
           <slide
-            @slideclick="changeVideo(video.url)"
+            @slideclick="changeVideo(video)"
             v-for="(video, index) in videos"
             :key="index"
           >
@@ -65,7 +65,8 @@
             <span class="has-text-weight-bold">investir</span> em um bom vídeo
             para seu negócio.
           </p>
-          <p style="padding-top:1rem">
+          <br />
+          <p>
             Nós percebemos a dificuldade que grande parte das marcas têm para
             produzir vídeos corporativos de qualidade. Decidimos solucionar este
             problema incluindo este serviço aos nossos planos de parceria,
@@ -74,23 +75,17 @@
               >interessante e lucrativo para todos.</span
             >
           </p>
-          <p style="padding-top:1rem">
-            Nossas propostas de parcerias beneficiarão todas as partes
-            envolvidas, por isso nos perguntamos o que poderíamos oferecer a
-            nossos parceiros, além da publicidade nas nossas redes sociais,
-            site, etc… Como nosso produto é 90% vídeo e nosso time está
-            integrado com
-            <span class="has-text-weight-bold">profissionais</span> para a
-            <span class="has-text-weight-bold"
-              >produção audiovisual, elaboração de roteiros, gravação, pós
-              produção, edição</span
-            >, etc, decidimos oferecer esse serviço para agregar mais um
-            conceito de
-            <span class="has-text-weight-bold"
-              >qualidade para sua empresa.</span
-            >
+          <br />
+          <p>
+            O Dica Surf tem uma equipe totalmente integrada para a produção
+            audiovisual, elaboração de roteiros, gravação, pós produção, etc.
+            Decidimos comercializar esse serviço para agregar mais um conceito
+            de qualidade para sua empresa e, ao mesmo tempo, monetizar nosso
+            projeto para nos ajudar a manter o Dica no ar, trazendo os melhores
+            conteúdos que você já conhece.
           </p>
-          <p style="padding-top:1rem">
+          <br />
+          <p>
             Em apenas um minuto, sua marca
             <span class="has-text-weight-bold">conquistará</span> as mentes dos
             consumidores, se
@@ -130,13 +125,13 @@
                         2 videos de
                         <span class="has-text-weight-bold">30 segundos</span>
                       </p>
-                      <br/>
+                      <br />
                       <p>
                         Roteiro + Captação + Pós Produção + Alteraçōes
                       </p>
-                      <br/>
+                      <br />
                       <p>2 teaser de 15 segundos</p>
-                      <br/>
+                      <br />
                       <p>
                         10 fotos tratadas (ambiente, produtos, serviços, etc...)
                       </p>
@@ -172,13 +167,13 @@
                         2 videos de
                         <span class="has-text-weight-bold">30 segundos</span>
                       </p>
-                      <br/>
+                      <br />
                       <p>
                         Roteiro + Captação + Pós Produção + Alteraçōes
                       </p>
-                      <br/>
+                      <br />
                       <p>3 teaser de 15 segundos</p>
-                      <br/>
+                      <br />
                       <p>
                         15 fotos tratadas (ambiente, produtos, serviços, etc...)
                       </p>
@@ -219,32 +214,26 @@
                       videos de
                       <span class="has-text-weight-bold">30 segundos</span>
                     </p>
-                    <br/>
+                    <br />
                     <p>
                       Roteiro + Captação + Pós Produção + Alteraçōes
                     </p>
-                    <br/>
+                    <br />
                     <p>4 teaser de 15 segundos</p>
-                    <br/>
-                    <p>
-                      fotos (ambiente, produtos, etc...)
-                    </p>
-                    <br/>
+                    <br />
                     <p>
                       15 fotos tratadas (ambiente, produtos, serviços, etc...)
                     </p>
-                    <br/>
+                    <br />
                     <p>
                       <span class="has-text-weight-bold"
                         >publicidade criativa</span
                       >
-                      em episódios (ou + 2 teasers)
+                      em episódios (ou + 2 teasers de 15 segundos)
                     </p>
-                    <br/>
-                    <p>
-                      Fotos <span class="has-text-weight-bold">360</span>
-                    </p>
-                    <br/>
+                    <br />
+                    <p>Fotos <span class="has-text-weight-bold">360</span></p>
+                    <br />
                     <p>
                       Drone
                     </p>
@@ -273,7 +262,7 @@
                     class="title is-3 is-uppercase has-background-primary has-text-white"
                     style="padding:1.5rem"
                   >
-                    adesao anual
+                    adesao anual**
                   </p>
                 </div>
                 <div class="tile is-child">
@@ -328,7 +317,7 @@
               </div>
             </div>
           </div>
-          <p>*Exclusivo para parceiros do Dica Surf</p>
+          <p>**Exclusivo para parceiros do Dica Surf</p>
           <figure class="image is3by1" style="padding-top:4rem">
             <img src="@/assets/images/promo.png" alt="" />
           </figure>
@@ -347,29 +336,24 @@ export default {
     Slide
   },
   methods: {
-    changeVideo(url) {
-      this.selectedVideo = url;
+    changeVideo(video) {
+      this.selectedVideo = video;
     }
   },
   data() {
     return {
-      selectedVideo: "https://www.youtube.com/embed/jMwNXQFcBB4",
+      selectedVideo: {
+        url: "https://www.youtube.com/embed/747zETcS764",
+        img: `https://img.youtube.com/vi/747zETcS764/mqdefault.jpg`
+      },
       videos: [
         {
-          url: "https://www.youtube-nocookie.com/embed/_msRXflOfWw",
-          img: require("@/assets/images/boaonda1.png")
+          url: "https://www.youtube.com/embed/747zETcS764",
+          img: `https://img.youtube.com/vi/747zETcS764/mqdefault.jpg`
         },
         {
-          url: "https://www.youtube.com/embed/vy-k0FopsmY",
-          img: require("@/assets/images/boaonda1.png")
-        },
-        {
-          url: "https://www.youtube-nocookie.com/embed/_msRXflOfWw",
-          img: require("@/assets/images/boaonda1.png")
-        },
-        {
-          url: "https://www.youtube.com/embed/vy-k0FopsmY",
-          img: require("@/assets/images/boaonda1.png")
+          url: "https://www.youtube.com/embed/V_FWJGcoDvs",
+          img: `https://img.youtube.com/vi/V_FWJGcoDvs/mqdefault.jpg`
         }
       ]
     };
