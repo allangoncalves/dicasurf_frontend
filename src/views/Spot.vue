@@ -25,7 +25,7 @@
             >
               <slide>
                 <figure class="image is-3by1">
-                  <img src="@/assets/images/boaonda1.png" alt="a" />
+                  <img :src="selectedSpot.header_image.image" alt="a" />
                 </figure>
                 <p class="centered has-text-white title">
                   <span class="is-size-1-tablet is-size-5-mobile">_</span>
@@ -232,6 +232,22 @@
                     <span class="has-text-weight-bold">{{ weekendCrowd }}</span>
                   </p>
                 </div>
+                <div class="data-category">
+                  <h5 class="title is-3 has-text-danger">Perigos</h5>
+                  <b-tooltip
+                    style="margin-right:1rem;"
+                    :label="danger"
+                    type="is-danger"
+                    multilined
+                    :delay="300"
+                    v-for="danger in dangers"
+                    :key="danger"
+                  >
+                    <b-tag type="is-danger" :ellipsis="true">{{
+                      danger
+                    }}</b-tag>
+                  </b-tooltip>
+                </div>
               </div>
             </div>
             <div class="tile is-parent is-vertical">
@@ -256,22 +272,6 @@
                       >{{ accessComment }}</span
                     >
                   </p>
-                </div>
-                <div class="data-category">
-                  <h5 class="title is-3 has-text-danger">Perigos</h5>
-                  <b-tooltip
-                    style="margin-right:1rem;"
-                    :label="danger"
-                    type="is-danger"
-                    multilined
-                    :delay="300"
-                    v-for="danger in dangers"
-                    :key="danger"
-                  >
-                    <b-tag type="is-danger" :ellipsis="true">{{
-                      danger
-                    }}</b-tag>
-                  </b-tooltip>
                 </div>
               </div>
             </div>
