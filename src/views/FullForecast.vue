@@ -14,6 +14,48 @@
         :hasSpot="false"
         :hasLabel="false"
       />
+      <div class="columns is-mobile">
+        <div
+          class="column is-clickable"
+          v-for="(day, index) in week"
+          :key="index"
+          @click="changeDay(index)"
+        >
+          <div class="columns is-gapless has-text-centered is-multiline">
+            <div class="column is-full">
+              <div
+                :class="{
+                  'has-background-secondary': selectedDay == index,
+                  'has-background-primary': selectedDay != index
+                }"
+                style="max-height:0.7em;height:0.5em;border-radius:15%"
+              ></div>
+            </div>
+            <div class="column is-full">
+              <p
+                class="title is-5 is-size-6-touch"
+                :class="{
+                  'has-text-secondary': selectedDay == index,
+                  'has-text-primary': selectedDay != index
+                }"
+              >
+                {{ index === 0 ? "HOJE" : day.date }}
+              </p>
+            </div>
+            <div class="column is-full">
+              <p
+                class="subtitle is-size-7-mobile"
+                :class="{
+                  'has-text-secondary': selectedDay == index,
+                  'has-text-primary': selectedDay != index
+                }"
+              >
+                {{ day.weekDay }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
       <apexchart
         width="100%"
         height="420"
@@ -164,6 +206,7 @@ export default {
       );
     },
     week() {
+      console.log(this.days);
       return this.days.map(day => {
         return {
           date: moment(day.date).date(),
