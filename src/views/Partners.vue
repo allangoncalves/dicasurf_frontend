@@ -360,10 +360,18 @@ export default {
   data() {
     return {
       selectedVideo: {
-        url: "https://www.youtube.com/embed/747zETcS764",
-        img: `https://img.youtube.com/vi/747zETcS764/mqdefault.jpg`
+        url: "https://www.youtube.com/embed/NBiZyTSvBNs",
+        img: `https://img.youtube.com/vi/NBiZyTSvBNs/mqdefault.jpg`
       },
       videos: [
+        {
+          url: "https://www.youtube.com/embed/NBiZyTSvBNs",
+          img: `https://img.youtube.com/vi/NBiZyTSvBNs/mqdefault.jpg`
+        },
+        {
+          url: "https://www.youtube.com/embed/fjSpXiQZhrI",
+          img: `https://img.youtube.com/vi/fjSpXiQZhrI/mqdefault.jpg`
+        },
         {
           url: "https://www.youtube.com/embed/747zETcS764",
           img: `https://img.youtube.com/vi/747zETcS764/mqdefault.jpg`
