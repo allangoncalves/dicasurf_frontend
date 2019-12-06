@@ -140,6 +140,7 @@
                         type="is-primary"
                         size="is-large"
                         outlined
+                        @click="openEmailModal(1)"
                         ><span class="has-text-weight-bold is-uppercase"
                           >saber mais</span
                         ></b-button
@@ -182,6 +183,7 @@
                         type="is-primary"
                         size="is-large"
                         outlined
+                        @click="openEmailModal(2)"
                         ><span class="has-text-weight-bold is-uppercase"
                           >saber mais</span
                         ></b-button
@@ -242,6 +244,7 @@
                       type="is-primary"
                       size="is-large"
                       outlined
+                      @click="openEmailModal(3)"
                       ><span class="has-text-weight-bold is-uppercase"
                         >saber mais</span
                       ></b-button
@@ -276,6 +279,7 @@
                       type="is-primary"
                       size="is-large"
                       outlined
+                      @click="openEmailModal(4)"
                       ><span class="has-text-weight-bold is-uppercase"
                         >saber mais</span
                       ></b-button
@@ -330,6 +334,7 @@
 
 <script>
 import { Carousel, Slide } from "vue-carousel";
+import EmailModal from "@/components/EmailModal";
 export default {
   components: {
     Carousel,
@@ -338,6 +343,18 @@ export default {
   methods: {
     changeVideo(video) {
       this.selectedVideo = video;
+    },
+    openEmailModal(choice) {
+      this.$buefy.modal.open({
+        parent: this,
+        component: EmailModal,
+        trapFocus: true,
+        hasModalCard: true,
+        customClass: "",
+        props: {
+          choice
+        }
+      });
     }
   },
   data() {
