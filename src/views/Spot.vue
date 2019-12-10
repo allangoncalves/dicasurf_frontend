@@ -114,8 +114,8 @@
                       <div
                         class="column has-text-centered-mobile has-text-tertiary has-text-weight-bold"
                       >
-                        <p>COMO</p>
-                        <p>CHEGAR</p>
+                        <p>VER</p>
+                        <p>NO MAPA</p>
                       </div>
                     </div>
                   </div>
@@ -353,7 +353,6 @@ export default {
     },
     goToMap() {
       this.$buefy.modal.open({
-        hasModalCard: true,
         component: Map,
         props: {
           origin: this.center,

@@ -137,9 +137,11 @@ export default {
       return `${option.spot.name}`;
     },
     stateSelected() {
-      this.selectedSpot = null;
-      this.selectedCity = null;
-      this.getCities(this.selectedState.id);
+      if (this.selectedState !== null) {
+        this.selectedSpot = null;
+        this.selectedCity = null;
+        this.getCities(this.selectedState.id);
+      }
     },
     citySelected() {
       if (this.selectedCity != null) {
