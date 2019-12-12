@@ -193,7 +193,7 @@
                     <div class="columns is-gapless is-mobile">
                       <div class="column is-narrow is-flex">
                         <div
-                          style="align-self:flex-end;padding-left:1rem;width:100%;padding-right:0rem;padding-bottom:0rem"
+                          style="align-self:flex-end;padding-left:0.6rem;width:100%;padding-right:0rem;padding-bottom:0rem"
                         >
                           <p>
                             <span
