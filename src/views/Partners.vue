@@ -24,7 +24,7 @@
         <figure class="image is-2by1">
           <iframe
             class="has-ratio"
-            :src="selectedVideo.url"
+            :src="createVideo(selectedVideo)"
             frameborder="0"
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
@@ -42,11 +42,11 @@
         >
           <slide
             @slideclick="changeVideo(video)"
-            v-for="(video, index) in videos"
+            v-for="(video, index) in videoIds"
             :key="index"
           >
             <figure class="image is-clickable" style="margin:2rem">
-              <img :src="video.img" alt="" />
+              <img :src="createThumb(video)" alt="" />
             </figure>
           </slide>
         </carousel>
@@ -333,14 +333,39 @@
 </template>
 
 <script>
+const YOUTUBE_REGEX = /^.*(youtu.be\/|v\/|e\/|u\/\w+\/|embed\/|v=)([^#\&\?]*).*/;
 import { Carousel, Slide } from "vue-carousel";
 import EmailModal from "@/components/EmailModal";
+import { mapActions, mapState } from "vuex";
 export default {
   components: {
     Carousel,
     Slide
   },
+  created() {
+    this.getPartnerData().then(() => {
+      if (this.partnerCarousel.length > 0) {
+        this.selectedVideo = this.videoIds[0];
+      }
+    });
+  },
+  computed: {
+    ...mapState("website", ["partnerCarousel"]),
+    videoIds() {
+      return this.partnerCarousel.map(
+        slide => slide.video_url.match(YOUTUBE_REGEX)[2]
+      );
+    }
+  },
   methods: {
+    ...mapActions("website", ["getPartnerData"]),
+    createThumb(id) {
+      return `https://img.youtube.com/vi/${id}/mqdefault.jpg`;
+    },
+    createVideo(id) {
+      console.log(`https://www.youtube.com/embed/${id}`);
+      return `https://www.youtube.com/embed/${id}`;
+    },
     changeVideo(video) {
       this.selectedVideo = video;
     },
@@ -359,28 +384,7 @@ export default {
   },
   data() {
     return {
-      selectedVideo: {
-        url: "https://www.youtube.com/embed/NBiZyTSvBNs",
-        img: `https://img.youtube.com/vi/NBiZyTSvBNs/mqdefault.jpg`
-      },
-      videos: [
-        {
-          url: "https://www.youtube.com/embed/NBiZyTSvBNs",
-          img: `https://img.youtube.com/vi/NBiZyTSvBNs/mqdefault.jpg`
-        },
-        {
-          url: "https://www.youtube.com/embed/fjSpXiQZhrI",
-          img: `https://img.youtube.com/vi/fjSpXiQZhrI/mqdefault.jpg`
-        },
-        {
-          url: "https://www.youtube.com/embed/747zETcS764",
-          img: `https://img.youtube.com/vi/747zETcS764/mqdefault.jpg`
-        },
-        {
-          url: "https://www.youtube.com/embed/V_FWJGcoDvs",
-          img: `https://img.youtube.com/vi/V_FWJGcoDvs/mqdefault.jpg`
-        }
-      ]
+      selectedVideo: ""
     };
   }
 };

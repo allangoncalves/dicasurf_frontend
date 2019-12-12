@@ -25,7 +25,7 @@
       <figure class="image is-2by1" style="margin-top:1.5rem">
         <iframe
           class="has-ratio"
-          :src="selectedVideo"
+          :src="createVideo(selectedVideo)"
           frameborder="0"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen
@@ -42,12 +42,12 @@
         :paginationEnabled="false"
       >
         <slide
-          @slideclick="changeVideo(video.url)"
-          v-for="(video, index) in videos"
+          @slideclick="changeVideo(video)"
+          v-for="(video, index) in videoIds"
           :key="index"
         >
           <figure class="image is-clickable" style="margin:2rem">
-            <img :src="video.img" alt="" />
+            <img :src="createThumb(video)" alt="" />
           </figure>
         </slide>
       </carousel>
@@ -56,38 +56,45 @@
 </template>
 
 <script>
+const YOUTUBE_REGEX = /^.*(youtu.be\/|v\/|e\/|u\/\w+\/|embed\/|v=)([^#\&\?]*).*/;
 import { Carousel, Slide } from "vue-carousel";
+import { mapActions, mapState } from 'vuex';
 export default {
   components: {
     Carousel,
     Slide
   },
+  created() {
+    this.getWhoWeAreData().then(() => {
+      if (this.whoWeAreCarousel.length > 0) {
+        this.selectedVideo = this.videoIds[0];
+      }
+    });
+  },
   methods: {
-    changeVideo(url) {
-      this.selectedVideo = url;
+    ...mapActions("website", ["getWhoWeAreData"]),
+    createThumb(id) {
+      return `https://img.youtube.com/vi/${id}/mqdefault.jpg`;
+    },
+    createVideo(id) {
+      console.log(`https://www.youtube.com/embed/${id}`);
+      return `https://www.youtube.com/embed/${id}`;
+    },
+    changeVideo(video) {
+      this.selectedVideo = video;
+    },
+  },
+  computed: {
+    ...mapState("website", ["whoWeAreCarousel"]),
+    videoIds() {
+      return this.whoWeAreCarousel.map(
+        slide => slide.video_url.match(YOUTUBE_REGEX)[2]
+      );
     }
   },
   data() {
     return {
-      selectedVideo: "https://www.youtube.com/embed/jMwNXQFcBB4",
-      videos: [
-        {
-          url: "https://www.youtube-nocookie.com/embed/_msRXflOfWw",
-          img: require("@/assets/images/boaonda1.png")
-        },
-        {
-          url: "https://www.youtube.com/embed/vy-k0FopsmY",
-          img: require("@/assets/images/boaonda1.png")
-        },
-        {
-          url: "https://www.youtube-nocookie.com/embed/_msRXflOfWw",
-          img: require("@/assets/images/boaonda1.png")
-        },
-        {
-          url: "https://www.youtube.com/embed/vy-k0FopsmY",
-          img: require("@/assets/images/boaonda1.png")
-        }
-      ]
+      selectedVideo: ""
     };
   }
 };
