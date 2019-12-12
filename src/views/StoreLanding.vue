@@ -1,13 +1,5 @@
 <template>
   <div class="bg-img">
-    <b-icon
-      icon="arrow-left"
-      type="is-primary"
-      size="is-large"
-      class="back-button"
-      @click.native="goToHome"
-    >
-    </b-icon>
     <div class="container is-flex content">
       <div class="columns is-multiline">
         <div class="column is-full">
@@ -79,6 +71,14 @@
         </div>
       </div>
     </div>
+    <b-icon
+      icon="arrow-left"
+      type="is-primary"
+      size="is-large"
+      class="back-button"
+      @click.native="goToHome"
+    >
+    </b-icon>
   </div>
 </template>
 <script>
@@ -96,13 +96,11 @@ export default {
         .then(() => {
           this.success = true;
           this.messages = ["*Enviado com sucesso."];
-          
         })
         .catch(err => {
           if (err.response) {
             this.success = false;
             this.messages = err.response.data.email;
-            
           }
         });
     }
