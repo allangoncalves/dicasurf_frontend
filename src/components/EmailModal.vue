@@ -1,8 +1,8 @@
 <template>
   <div class="modal-card" style="width: auto">
     <header class="modal-card-head">
-      <p class="modal-card-title has-text-primary has-text-weight-bold">
-        Entraremos em contato vom você!
+      <p class="modal-card-title is-size-5 has-text-primary has-text-weight-bold">
+        Entraremos em contato com você!
       </p>
     </header>
     <section class="modal-card-body">
