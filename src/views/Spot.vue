@@ -27,14 +27,14 @@
                 <figure class="image is-3by1">
                   <img :src="selectedSpot.header_image.image" alt="a" />
                 </figure>
-                <p class="centered has-text-white title">
+                <!-- <p class="centered has-text-white title">
                   <span class="is-size-1-tablet is-size-5-mobile">_</span>
                   <br />
                   <span
                     class="is-uppercase is-size-2-tablet is-size-5-mobile"
                     >{{ selectedSpot.spot.name }}</span
                   >
-                </p>
+                </p> -->
               </slide>
               <slide v-for="(video, index) in videos" :key="index">
                 <figure class="image is-3by1">
