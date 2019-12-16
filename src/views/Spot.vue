@@ -127,6 +127,7 @@
                           icon-right="globe"
                           rounded
                           outlined
+                          disabled
                         />
                       </div>
                       <div
