@@ -9,7 +9,7 @@ export default new Router({
   scrollBehavior: function(to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition;
-    } else {
+    } else if (!from.name.includes("spot")) {
       return { x: 0, y: 0 };
     }
   },
@@ -18,7 +18,9 @@ export default new Router({
       path: "/",
       name: "mainEntry",
       component: () =>
-        import(/* webpackChunkName: "mainentry" */ "@/views/EntryHeaderFooter.vue"),
+        import(
+          /* webpackChunkName: "mainentry" */ "@/views/EntryHeaderFooter.vue"
+        ),
       meta: { transitionName: "slide", id: 0 },
       children: [
         {
@@ -41,8 +43,52 @@ export default new Router({
           path: "/picos",
           name: "spot",
           component: () =>
-            import(/* webpackChunkName: "spot" */ "@/views/Spot.vue"),
-          meta: { transitionName: "slide", id: 3 }
+            import(/* webpackChunkName: "spot" */ "@/views/SurfSpot.vue"),
+          meta: { transitionName: "slide", id: 3 },
+          children: [
+            {
+              path: "",
+              name: "spot_info",
+              component: () =>
+                import(/* webpackChunkName: "spot" */ "@/views/SpotInfo.vue"),
+              meta: { transitionName: "slide", id: 4 }
+            },
+            {
+              path: "galeria",
+              name: "spot_gallery",
+              component: () =>
+                import(
+                  /* webpackChunkName: "spot" */ "@/views/SpotGallery.vue"
+                ),
+              meta: { transitionName: "slide", id: 5 },
+              children: [
+                {
+                  path: "",
+                  name: "spot_gallery_choices",
+                  component: () =>
+                    import(
+                      /* webpackChunkName: "spot" */ "@/views/SpotGalleryChoices.vue"
+                    )
+                },
+                {
+                  path: "videos",
+                  name: "spot_videos",
+                  component: () =>
+                    import(
+                      /* webpackChunkName: "spot" */ "@/views/SpotVideos.vue"
+                    )
+                },
+                {
+                  path: "fotos",
+                  name: "spot_pics",
+                  component: () =>
+                    import(
+                      /* webpackChunkName: "spot" */ "@/views/SpotImages.vue"
+                    )
+                }
+              ]
+            }
+          ]
           // route level code-splitting
           // this generates a separate chunk (about.[hash].js) for this route
           // // which is lazy-loaded when the route is visited.
@@ -79,9 +125,6 @@ export default new Router({
           name: "single_new",
           component: () =>
             import(/* webpackChunkName: "news" */ "@/views/SingleNew.vue"),
-          props: post => ({
-            post
-          }),
           meta: { transitionName: "fade", id: 7 }
         },
         {
@@ -153,7 +196,7 @@ export default new Router({
       name: "store",
       component: () =>
         import(/* webpackChunkName: "store" */ "@/views/StoreLanding.vue"),
-      meta: { transitionName: "fade", id: 1 },
+      meta: { transitionName: "fade", id: 1 }
     }
   ]
 });
