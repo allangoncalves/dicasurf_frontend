@@ -77,7 +77,6 @@ export default {
       return `https://img.youtube.com/vi/${id}/mqdefault.jpg`;
     },
     createVideo(id) {
-      console.log(`https://www.youtube.com/embed/${id}`);
       return `https://www.youtube.com/embed/${id}`;
     },
     changeVideo(video) {

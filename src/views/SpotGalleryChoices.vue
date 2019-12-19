@@ -1,5 +1,5 @@
 <template>
-  <div class="columns">
+  <div class="columns" style="margin-top:1rem">
     <div class="column">
       <div
         class="columns has-background-primary is-multiline is-gapless is-clickable box is-paddingless"
@@ -7,11 +7,7 @@
       >
         <div class="column is-full">
           <figure class="image is-square">
-            <img
-              class="tab"
-              src="https://bulma.io/images/placeholders/480x480.png"
-              alt=""
-            />
+            <img class="tab" :src="imageGallery" alt="" />
           </figure>
         </div>
         <div class="column is-full">
@@ -43,11 +39,7 @@
       >
         <div class="column is-full">
           <figure class="image is-square">
-            <img
-              class="tab"
-              src="https://bulma.io/images/placeholders/480x480.png"
-              alt=""
-            />
+            <img class="tab" :src="videoGallery" alt="" />
           </figure>
         </div>
         <div class="column is-full">
@@ -75,7 +67,17 @@
   </div>
 </template>
 <script>
+import { mapState } from "vuex";
 export default {
+  computed: {
+    ...mapState("geo", ["currentSpot"]),
+    videoGallery() {
+      return this.currentSpot !== null ? this.currentSpot.videos_gallery : "";
+    },
+    imageGallery() {
+      return this.currentSpot !== null ? this.currentSpot.pictures_gallery : "";
+    }
+  },
   methods: {
     goToPictures() {
       this.$router.push({ name: "spot_pics" });

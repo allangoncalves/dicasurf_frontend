@@ -13,7 +13,7 @@
           :hideMessage="true"
           :onlyVisible="true"
         />
-        <hr style="border: 1px solid #0075bb" />
+        <hr style="border: 1.6px solid #0075bb" />
         <transition name="fade" mode="out-in">
         <router-view/>
         </transition>

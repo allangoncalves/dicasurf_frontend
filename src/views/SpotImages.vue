@@ -1,7 +1,21 @@
 <template>
   <div>
-    <p class="has-text-right is-uppercase has-text-primary">
-      arraste pro lado >><span class="has-text-weight-bold">></span>
+    <div class="columns is-tablet">
+      <div class="column is-narrow">
+        <p
+          class="is-size-3 is-uppercase has-text-centered-mobile has-text-primary has-text-weight-bold"
+        >
+          fotos
+        </p>
+      </div>
+      <div class="column"><hr style="border: 0.1px solid #0075bb" /></div>
+    </div>
+    <p class="has-text-right is-uppercase has-text-primary" v-if="slides.length > 0">
+      arraste pro lado
+      <span class="has-text-weight-bold"
+        ><span style="opacity:0.40">></span
+        ><span style="opacity:0.60">></span>></span
+      >
     </p>
     <carousel
       :perPage="1"
@@ -12,55 +26,30 @@
         <image-panel :panel="slide" />
       </slide>
     </carousel>
-    <p class="has-text-left is-uppercase has-text-primary">
-      <span class="has-text-weight-bold">&lt</span>&lt&lt arraste pro lado
+    <p class="has-text-left is-uppercase has-text-primary" v-if="slides.length > 0">
+      <span class="has-text-weight-bold"
+        >&lt<span style="opacity:0.60">&lt</span>
+        <span style="opacity:0.40">&lt</span>
+      </span>
+      arraste pro lado
     </p>
   </div>
 </template>
 <script>
 import ImagePanel from "@/components/ImagePanel";
 import { Carousel, Slide } from "vue-carousel";
+import { mapState } from "vuex";
 export default {
   components: {
     ImagePanel,
     Carousel,
     Slide
   },
-  data() {
-    return {
-      slides: [
-        {
-          image_one: {
-            original: "",
-            thumb:
-              "https://upload.wikimedia.org/wikipedia/commons/d/de/Windows_live_square.JPG"
-          },
-          image_two: {
-            original: "",
-            thumb:
-              "https://upload.wikimedia.org/wikipedia/commons/d/de/Windows_live_square.JPG"
-          },
-          image_three: {
-            original: "",
-            thumb: "https://bulma.io/images/placeholders/640x320.png"
-          },
-          image_four: {
-            original: "",
-            thumb: "https://bulma.io/images/placeholders/640x320.png"
-          },
-          image_five: {
-            original: "",
-            thumb:
-              "https://upload.wikimedia.org/wikipedia/commons/d/de/Windows_live_square.JPG"
-          },
-          image_six: {
-            original: "",
-            thumb:
-              "https://upload.wikimedia.org/wikipedia/commons/d/de/Windows_live_square.JPG"
-          }
-        }
-      ]
-    };
+  computed: {
+    ...mapState("geo", ["currentSpot"]),
+    slides(){
+      return this.currentSpot !== null ? this.currentSpot.image_panel : [];
+    }
   }
 };
 </script>

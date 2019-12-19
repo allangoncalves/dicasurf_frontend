@@ -2,6 +2,7 @@
   <div>
     <p
       class="title is-2 has-text-centered has-text-primary is-uppercase has-text-weight-bold"
+      style="margin-bottom:0px"
     >
       passeio 360°
     </p>
