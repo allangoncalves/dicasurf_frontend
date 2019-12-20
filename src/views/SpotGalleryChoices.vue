@@ -72,10 +72,10 @@ export default {
   computed: {
     ...mapState("geo", ["currentSpot"]),
     videoGallery() {
-      return this.currentSpot !== null ? this.currentSpot.videos_gallery : "";
+      return this.currentSpot !== null ? this.currentSpot.videos_gallery.image : "";
     },
     imageGallery() {
-      return this.currentSpot !== null ? this.currentSpot.pictures_gallery : "";
+      return this.currentSpot !== null ? this.currentSpot.pictures_gallery.image : "";
     }
   },
   methods: {
