@@ -15,19 +15,19 @@
           :onlyVisible="true"
         />
         <hr style="border: 1px solid #0075bb" />
-        <div class="columns is-centered">
-          <div class="column is-full">
-            <carousel
-              :perPage="1"
-              v-if="selectedSpot != null"
-              paginationActiveColor="#0075bb"
-              paginationColor="#343434"
-            >
-              <slide>
-                <figure class="image is-3by1">
-                  <img :src="selectedSpot.header_image.image" alt="a" />
-                </figure>
-                <!-- <p class="centered has-text-white title">
+        <carousel
+          width="100%"
+          :perPage="1"
+          v-if="selectedSpot != null"
+          paginationActiveColor="#0075bb"
+          paginationColor="#343434"
+          :navigationEnabled="true"
+        >
+          <slide>
+            <figure class="image is-3by1">
+              <img :src="selectedSpot.header_image.image" alt="a" />
+            </figure>
+            <!-- <p class="centered has-text-white title">
                   <span class="is-size-1-tablet is-size-5-mobile">_</span>
                   <br />
                   <span
@@ -35,22 +35,20 @@
                     >{{ selectedSpot.spot.name }}</span
                   >
                 </p> -->
-              </slide>
-              <slide v-for="(video, index) in videos" :key="index">
-                <figure class="image is-3by1">
-                  <iframe
-                    class="has-ratio"
-                    :src="createVideo(video.youtube_url)"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                  ></iframe>
-                </figure>
-              </slide>
-            </carousel>
-          </div>
-        </div>
-        <div class="tile is-ancestor is-vertical" v-if="selectedSpot != null">
+          </slide>
+          <slide v-for="(video, index) in videos" :key="index">
+            <figure class="image is-3by1">
+              <iframe
+                class="has-ratio"
+                :src="createVideo(video.youtube_url)"
+                frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </figure>
+          </slide>
+        </carousel>
+        <div class="tile is-ancestor is-vertical" style="margin-top:1rem" v-if="selectedSpot != null">
           <div class="tile is-parent">
             <div class="tile is-child">
               <div>
