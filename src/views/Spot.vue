@@ -40,7 +40,7 @@
                 <figure class="image is-3by1">
                   <iframe
                     class="has-ratio"
-                    :src="video.youtube_url"
+                    :src="createVideo(video.youtube_url)"
                     frameborder="0"
                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen
@@ -284,6 +284,7 @@
 </template>
 
 <script>
+const YOUTUBE_REGEX = /^.*(youtu.be\/|v\/|e\/|u\/\w+\/|embed\/|v=)([^#\&\?]*).*/;
 import Map from "@/components/Map";
 import { Carousel, Slide } from "vue-carousel";
 import ForecastHud from "@/components/ForecastHud";
@@ -342,13 +343,22 @@ export default {
       center: {
         lat: Number(localStorage.getItem("lat")) || -6.228080112986862,
         lng: Number(localStorage.getItem("lng")) || -35.055503409432056
-      },
+      }
     };
   },
   methods: {
     ...mapActions("marine", ["getForecast"]),
     ...mapActions("weather", ["getWeather"]),
     ...mapActions("geo", ["getNearestSpot"]),
+    getVideoId(url) {
+      return url.match(YOUTUBE_REGEX)[2];
+    },
+    createThumb(url) {
+      return `https://img.youtube.com/vi/${id}/mqdefault.jpg`;
+    },
+    createVideo(url) {
+      return `https://www.youtube.com/embed/${this.getVideoId(url)}`;
+    },
     spotSelected() {
       this.selectedSpot = this.currentSpot;
     },
