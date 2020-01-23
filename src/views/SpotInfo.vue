@@ -1,18 +1,18 @@
 <template>
   <div>
-    <div class="columns is-centered">
-      <div class="column is-full">
-        <carousel
-          :perPage="1"
-          v-if="selectedSpot != null"
-          paginationActiveColor="#0075bb"
-          paginationColor="#343434"
-        >
-          <slide>
-            <figure class="image is-3by1">
-              <img :src="selectedSpot.header_image.image" alt="a" />
-            </figure>
-            <!-- <p class="centered has-text-white title">
+    <carousel
+      width="100%"
+      :perPage="1"
+      v-if="selectedSpot != null"
+      paginationActiveColor="#0075bb"
+      paginationColor="#343434"
+      :navigationEnabled="true"
+    >
+      <slide v-if="selectedSpot.header_image != null">
+        <figure class="image is-3by1">
+          <img :src="selectedSpot.header_image.image" alt="Imagem do Pico" />
+        </figure>
+        <!-- <p class="centered has-text-white title">
                   <span class="is-size-1-tablet is-size-5-mobile">_</span>
                   <br />
                   <span
@@ -20,22 +20,24 @@
                     >{{ selectedSpot.spot.name }}</span
                   >
                 </p> -->
-          </slide>
-          <slide v-for="(video, index) in videos" :key="index">
-            <figure class="image is-3by1">
-              <iframe
-                class="has-ratio"
-                :src="video.youtube_url"
-                frameborder="0"
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-              ></iframe>
-            </figure>
-          </slide>
-        </carousel>
-      </div>
-    </div>
-    <div class="tile is-ancestor is-vertical" v-if="selectedSpot != null">
+      </slide>
+      <slide v-for="(video, index) in videos" :key="index">
+        <figure class="image is-3by1">
+          <iframe
+            class="has-ratio"
+            :src="createVideo(video.youtube_url)"
+            frameborder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </figure>
+      </slide>
+    </carousel>
+    <div
+      class="tile is-ancestor is-vertical"
+      style="margin-top:1rem"
+      v-if="selectedSpot != null"
+    >
       <div class="tile is-parent">
         <div class="tile is-child">
           <div>
@@ -255,6 +257,7 @@
 </template>
 
 <script>
+const YOUTUBE_REGEX = /^.*(youtu.be\/|v\/|e\/|u\/\w+\/|embed\/|v=)([^#\&\?]*).*/;
 import Map from "@/components/Map";
 import { Carousel, Slide } from "vue-carousel";
 import ForecastHud from "@/components/ForecastHud";
@@ -324,8 +327,17 @@ export default {
     ...mapActions("marine", ["getForecast"]),
     ...mapActions("weather", ["getWeather"]),
     ...mapActions("geo", ["getNearestSpot"]),
+    getVideoId(url) {
+      return url.match(YOUTUBE_REGEX)[2];
+    },
+    createThumb(url) {
+      return `https://img.youtube.com/vi/${id}/mqdefault.jpg`;
+    },
+    createVideo(url) {
+      return `https://www.youtube.com/embed/${this.getVideoId(url)}`;
+    },
     goToGallery() {
-      this.$router.push({ name: 'spot_gallery_choices' });
+      this.$router.push({ name: "spot_gallery_choices" });
     },
     goToMap() {
       this.$buefy.modal.open({
